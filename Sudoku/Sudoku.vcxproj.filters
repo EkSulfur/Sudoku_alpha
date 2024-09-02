@@ -15,8 +15,76 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Cell.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="Sudoku.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="CellContainer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniSudoku.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="IOInterface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleIO.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PuzzleLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PuzzleLoaderDAT.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TestLoadMiniPuzzle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cell.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sudoku.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CellContainer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniSudoku.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IOInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleIO.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PuzzleLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PuzzleLoaderDAT.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MiniPuzzles.dat" />
   </ItemGroup>
 </Project>

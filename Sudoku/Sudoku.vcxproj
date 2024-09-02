@@ -127,7 +127,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="CellContainer.cpp" />
+    <ClCompile Include="ConsoleIO.cpp" />
+    <ClCompile Include="IOInterface.cpp" />
+    <ClCompile Include="MenuManager.cpp" />
+    <ClCompile Include="MiniSudoku.cpp" />
+    <ClCompile Include="PuzzleLoader.cpp" />
+    <ClCompile Include="PuzzleLoaderDAT.cpp" />
     <ClCompile Include="Sudoku.cpp" />
+    <ClCompile Include="TestLoadMiniPuzzle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="Cell.h" />
+    <ClInclude Include="CellContainer.h" />
+    <ClInclude Include="ConsoleIO.h" />
+    <ClInclude Include="IOInterface.h" />
+    <ClInclude Include="MenuManager.h" />
+    <ClInclude Include="MiniSudoku.h" />
+    <ClInclude Include="PuzzleLoader.h" />
+    <ClInclude Include="PuzzleLoaderDAT.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Sudoku.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MiniPuzzles.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
