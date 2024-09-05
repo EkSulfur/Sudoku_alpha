@@ -132,6 +132,7 @@
     <ClCompile Include="CellContainer.cpp" />
     <ClCompile Include="ConsoleIO.cpp" />
     <ClCompile Include="IOInterface.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="MiniSudoku.cpp" />
     <ClCompile Include="PuzzleLoader.cpp" />

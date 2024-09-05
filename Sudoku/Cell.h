@@ -3,20 +3,30 @@
 
 #include <vector>
 
+/*
+9月5日修改：
+Cell中添加fixed数据成员，如果为正则不可修改
+添加带参的构造函数
+将修改函数改为返回bool类型 by lch
+*/
+
 class Cell {
 private:
     int value; // 当前的值，如果未确定则为 0
     std::vector<int> candidates; // 候选值
-
+    bool fixed;
 public:
     // 构造函数
     Cell();
+
+    // 带参构造函数，构造棋盘时调用
+    Cell(int val);
 
     // 获取当前的值
     int getValue() const;
 
     // 设置当前的值
-    void setValue(int val);
+    bool setValue(int val);
 
     // 获取候选值
     const std::vector<int>& getCandidates() const;

@@ -2,12 +2,27 @@
 #include <algorithm>
 #include <iostream>
 
+/*
+9月5日修改：
+Cell中添加fixed数据成员，如果为正则不可修改
+添加带参的构造函数
+将修改函数改为返回bool类型
+*/
+
 // 构造函数
 Cell::Cell() : value(0) {
     // 初始化候选值为1到9
     for (int i = 1; i <= 9; ++i) {
         candidates.push_back(i);
     }
+    fixed = 0;
+}
+
+//带参构造函数
+Cell::Cell(int val):value(val)
+{   
+    fixed = 1; //值不可改变
+    //鉴于candidates为vector类型，这里可以不初始化（应该）
 }
 
 // 获取当前的值
@@ -16,7 +31,8 @@ int Cell::getValue() const {
 }
 
 // 设置当前的值
-void Cell::setValue(int val) {
+bool Cell::setValue(int val) {
+    if (this->fixed == 1) return 0; //值固定，修改失败
     if (val >= 1 && val <= 9) {
         value = val;
         candidates.clear(); // 设置值后，清空候选值
@@ -30,6 +46,7 @@ void Cell::setValue(int val) {
     else {
         std::cerr << "Invalid value. It must be between 1 and 9." << std::endl;
     }
+    return 1; //修改成功
 }
 
 // 获取候选值
