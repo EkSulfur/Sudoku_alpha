@@ -13,7 +13,6 @@ void Sudoku::play()
 	略去id相关内容，后续实现
 	*/
 	int id = 1;
-	std::string difficulty;
 	std::vector<std::vector<int>> board;
-	loadPuzzle("Puzzles.dat", )
+	puzzleLoader->loadPuzzle("Puzzles.dat", id, board, difficulty);  //加载棋盘信息
 }

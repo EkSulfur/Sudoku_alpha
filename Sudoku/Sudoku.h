@@ -45,9 +45,10 @@ public:
     // 保存当前游戏到文件
     bool saveToFile(int gameID);
 
+    //玩游戏
     void play();
 
-    // 开始游戏
+    // 开始游戏 9月6日废弃，暂时不用
     void start();
 
     // 设置某个单元格的值
