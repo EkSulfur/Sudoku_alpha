@@ -45,6 +45,8 @@ public:
     // 保存当前游戏到文件
     bool saveToFile(int gameID);
 
+    void play();
+
     // 开始游戏
     void start();
 

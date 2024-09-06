@@ -1,7 +1,7 @@
 // master.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
-#include "MiniSudoku.h"
+#include "Sudoku.h"
 #include "ConsoleIO.h"
 #include "PuzzleLoaderDAT.h"
 
@@ -12,18 +12,10 @@ int main() {
     // 创建DAT格式的PuzzleLoader
     PuzzleLoaderDAT puzzleLoader;
 
-    // 创建MiniSudoku游戏实例
-    MiniSudoku game(&consoleIO, &puzzleLoader);
+    // 创建Sudoku游戏实例
+    Sudoku game(&consoleIO, &puzzleLoader);
 
-    // 从文件中加载游戏数据
-    int gameID = 1;  // 假设我们要加载ID为1的游戏
-    if (!game.loadFromFile(gameID)) {
-        consoleIO.displayMessage("Failed to load the game. Exiting...");
-        return 1;
-    }
-
-    // 启动游戏
-    game.start();
+    game.play();
 
     return 0;
 }

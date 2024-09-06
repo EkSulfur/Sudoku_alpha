@@ -8,6 +8,8 @@
 Cell中添加fixed数据成员，如果为正则不可修改
 添加带参的构造函数
 将修改函数改为返回bool类型 by lch
+9月6日：
+重写候选值相关的函数
 */
 
 class Cell {
@@ -38,7 +40,7 @@ public:
     bool hasCandidate(int candidate) const;
 
     // 重置候选值
-    void resetCandidates();
+    void resetCandidates(int val);
 
     // 判断当前格子是否已确定值
     bool isSolved() const;
