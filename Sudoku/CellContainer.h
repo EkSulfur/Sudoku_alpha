@@ -26,6 +26,9 @@ public:
 
     // 重置所有Cell的候选值
     void resetCandidates();
+
+    // 查看CellContainer中是否存在某一值
+    bool hasValue(int value) const;
 };
 
 #endif // CELL_CONTAINER_H

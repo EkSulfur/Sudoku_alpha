@@ -45,3 +45,16 @@ void CellContainer::resetCandidates() {
         cell->resetCandidates();
     }
 }
+
+bool CellContainer::hasValue(int value) const
+{
+    if (value < 1 || value > 9) return false;
+    
+    // 遍历所有Cell，检查是否有Cell的值等于给定的值
+    for (const Cell* cell : cells) {
+        if (cell->getValue() == value) {
+            return true;  // 找到值为value的Cell
+        }
+    }
+    return false;  // 没有找到值为value的Cell
+}

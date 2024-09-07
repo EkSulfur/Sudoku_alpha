@@ -10,6 +10,8 @@ Cell中添加fixed数据成员，如果为正则不可修改
 将修改函数改为返回bool类型 by lch
 9月6日：
 重写候选值相关的函数
+9月7日：
+修改候选值相关的函数
 */
 
 class Cell {
@@ -33,14 +35,17 @@ public:
     // 获取候选值
     const std::vector<int>& getCandidates() const;
 
+    // 添加候选值
+    bool addCandidate(int candidate);
+
     // 删除候选值
-    void removeCandidate(int candidate);
+    bool removeCandidate(int candidate);
 
     // 判断某个候选值是否存在
     bool hasCandidate(int candidate) const;
 
     // 重置候选值
-    void resetCandidates(int val);
+    void resetCandidates();
 
     // 判断当前格子是否已确定值
     bool isSolved() const;

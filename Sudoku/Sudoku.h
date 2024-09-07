@@ -14,6 +14,15 @@
 #include <string>
 #include <vector>
 
+/*
+9月7日
+删除Sudoku类中的displayboard函数（委托给io）
+删除start函数，原有功能包含在play中
+修改多个函数的返回值从void类型变为bool类型
+添加自动更新候选值函数
+删除配置菜单项函数
+*/
+
 class Sudoku {
 private:
     std::vector<std::vector<Cell*>> board;  // 9x9的Cell指针矩阵
@@ -27,13 +36,7 @@ private:
     PuzzleLoader* puzzleLoader;   // 题目库加载器的指针
 
     // 初始化Board，设置初始提示
-    void initializeBoard(const std::vector<int>& boardData);
-
-    // 显示当前Board状态
-    void displayBoard() const;
-
-    // 配置菜单项
-    void setupMenu();
+    void initializeBoard(const std::vector<std::vector<int>>& boardData);
 
 public:
     // 构造函数
@@ -48,17 +51,23 @@ public:
     //玩游戏
     void play();
 
-    // 开始游戏 9月6日废弃，暂时不用
-    void start();
-
     // 设置某个单元格的值
-    void setCellValue(int row, int col, int value);
+    bool setCellValue(int row, int col, int value);
+
+    // 添加某个单元格的候选值
+    bool addCellCandidate(int row, int col, int candidate);
+
+    // 删除某个单元格的候选值
+    bool removeCellCandidates(int row, int col, int candidate);
+
+    // 自动更新每个Cell中的候选值
+    bool autoUpdateCandidates();
 
     // 检查游戏是否完成
     bool checkIfSolved() const;
 
     // 重置游戏
-    void reset();
+    bool reset();
 };
 
 #endif // SUDOKU_H
