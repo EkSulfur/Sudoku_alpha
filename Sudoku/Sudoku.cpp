@@ -321,6 +321,7 @@ bool Sudoku::autoUpdateCandidates()
             }
         }
     }
+    return true;  //自动更新好，返回true
 }
 
 bool Sudoku::checkIfSolved() const
@@ -364,3 +365,4 @@ Sudoku::~Sudoku()
             delete board[i][j];
         }
     }
+}

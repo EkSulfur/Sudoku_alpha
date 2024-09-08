@@ -21,6 +21,8 @@
 修改多个函数的返回值从void类型变为bool类型
 添加自动更新候选值函数
 删除配置菜单项函数
+9月8日
+添加析构函数（修正）
 */
 
 class Sudoku {
@@ -68,6 +70,9 @@ public:
 
     // 重置游戏
     bool reset();
+
+    //定义析构函数
+    ~Sudoku();
 };
 
 #endif // SUDOKU_H
