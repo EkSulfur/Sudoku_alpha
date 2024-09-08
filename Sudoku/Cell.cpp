@@ -56,7 +56,10 @@ const std::vector<int>& Cell::getCandidates() const {
 
 // 删除候选值
 void Cell::removeCandidate(int candidate) {
-    candidates[candidate] = 0; //对应索引设为0代表不是候选值
+    auto it = std::find(candidates.begin(), candidates.end(), candidate);
+    if (it != candidates.end()) {
+        candidates.erase(it);
+    }
 }
 
 // 判断某个候选值是否存在
@@ -65,9 +68,10 @@ bool Cell::hasCandidate(int candidate) const {
 }
 
 // 重置候选值
-void Cell::resetCandidates(int val = 1) {
-    for (int i = 1; i <= 10; ++i) {
-        candidates[i] = val; //将候选值重置为都可选
+void Cell::resetCandidates() {
+    candidates.clear();
+    for (int i = 1; i <= 9; ++i) {
+        candidates.push_back(i);
     }
 }
 
