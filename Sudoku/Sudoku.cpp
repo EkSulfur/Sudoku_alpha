@@ -68,7 +68,7 @@ void Sudoku::play() {
     //加载循环
     while (true) {
         // 选择游戏存档ID
-        io->displayMessage("请选择存档编号（1, 2, 3）：");
+        io->displayMessage("请选择存档编号：");
         std::string input = io->getUserInput();
 
         // 尝试将用户输入转换为整数ID
@@ -134,8 +134,8 @@ void Sudoku::play() {
         }
         case 2: {  // 擦去一个数
             io->displayMessage("请输入操作：行 列（擦去对应位置的数）");
-            std::vector<int> operation = io->getOperation();
-            if (operation.size() == 2) {
+            std::vector<int> operation = io->getPosition();
+            if (operation.size() == 2) {    // 这里逻辑判断有问题
                 int row = operation[0];
                 int col = operation[1];
 

@@ -39,8 +39,15 @@ public:
 
     // 获取用户输入
     virtual std::string getUserInput() const = 0;
-    //返回向量
+
+    // 获取操作，返回向量
     virtual std::vector<int> getOperation() const = 0;
+
+    // 获取位置，返回向量
+    virtual std::vector<int> getPosition() const = 0;
+
+    // 获取数，返回一个整数
+    virtual int getNumber() const = 0;
 
     // 显示菜单，返回用户选择
     virtual int displayMenu(const std::vector<std::string>& options) const = 0;

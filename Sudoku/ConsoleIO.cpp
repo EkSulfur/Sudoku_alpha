@@ -5,6 +5,15 @@
 #include <string>
 #include <limits>
 
+/*
+9月8日
+完成ConsoleIO类
+by lwh
+添加getPosition和getNumber函数，拆分getOperation原有的功能
+实际上getNumber好像没啥用，getPosition是为了适应去除该位置之前填入的数的功能
+by lch
+*/
+
 using namespace std;
 
 void ConsoleIO::displayMessage(const string& message) const {
@@ -76,51 +85,67 @@ void ConsoleIO::displayInfo(const int id, const string difficulty) const {
 
 vector<int> ConsoleIO::getOperation() const {
     vector<int> operation;
-    int command;
-
-    cout << "请输入你要进行的操作（1: 填数, 2: 查看状态, 3: 退出游戏）: ";
-    while (!(cin >> command) || (command < 1 || command > 3)) {
-        cout << "无效输入，请输入数字（1, 2 或 3）: ";
+    // 9月8日 修复冗余的代码和输出 by lch
+    int row, col, num;
+    cout << "请输入你要填入的行 (1-9): ";
+    while (!(cin >> row) || row < 1 || row > 9) {
+        cout << "无效输入，请输入正确的行号 (1-9): ";
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');  // 清除错误输入
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');  // 清理换行符
-
-    if (command == 1) {
-        int row, col, num;
-        cout << "请输入你要填入的行 (1-9): ";
-        while (!(cin >> row) || row < 1 || row > 9) {
-            cout << "无效输入，请输入正确的行号 (1-9): ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-
-        cout << "请输入你要填入的列 (1-9): ";
-        while (!(cin >> col) || col < 1 || col > 9) {
-            cout << "无效输入，请输入正确的列号 (1-9): ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-
-        cout << "请输入你要填入的数字 (1-9): ";
-        while (!(cin >> num) || num < 1 || num > 9) {
-            cout << "无效输入，请输入正确的数字 (1-9): ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-
-        //operation.push_back(1); // 1 代表填数操作
-        operation.push_back(row);
-        operation.push_back(col);
-        operation.push_back(num);
+    cout << "请输入你要填入的列 (1-9): ";
+    while (!(cin >> col) || col < 1 || col > 9) {
+        cout << "无效输入，请输入正确的列号 (1-9): ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
-    else if (command == 2) {
-        operation.push_back(2); // 2 代表查看状态操作
+
+    cout << "请输入你要填入的数字 (1-9): ";
+    while (!(cin >> num) || num < 1 || num > 9) {
+        cout << "无效输入，请输入正确的数字 (1-9): ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
-    else if (command == 3) {
-        operation.push_back(3); // 3 代表退出游戏操作
-    }
+
+    //operation.push_back(1); // 1 代表填数操作
+    operation.push_back(row);
+    operation.push_back(col);
+    operation.push_back(num);
 
     return operation;
+}
+
+vector<int> ConsoleIO::getPosition() const {
+    vector<int> operation;
+    int row, col;
+    cout << "请输入你要填入的行 (1-9): ";
+    while (!(cin >> row) || row < 1 || row > 9) {
+        cout << "无效输入，请输入正确的行号 (1-9): ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    cout << "请输入你要填入的列 (1-9): ";
+    while (!(cin >> col) || col < 1 || col > 9) {
+        cout << "无效输入，请输入正确的列号 (1-9): ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    operation.push_back(row);
+    operation.push_back(col);
+    return operation;
+}
+
+int ConsoleIO::getNumber() const
+{
+    int num;
+    cout << "请输入你要填入的数字 (1-9): ";
+    while (!(cin >> num) || num < 1 || num > 9) {
+        cout << "无效输入，请输入正确的数字 (1-9): ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    return num;
 }

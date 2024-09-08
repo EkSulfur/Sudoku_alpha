@@ -22,6 +22,12 @@ public:
     // 获取用户操作并返回操作向量
     std::vector<int> getOperation() const override;
 
+    // 获取位置，返回向量
+    std::vector<int> getPosition() const override;
+
+    // 获取数，返回一个整数
+    int getNumber() const override;
+
     // 显示菜单，返回用户选择
     int displayMenu(const std::vector<std::string>& options) const override;
 };
