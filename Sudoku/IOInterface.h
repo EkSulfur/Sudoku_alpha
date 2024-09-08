@@ -16,6 +16,9 @@ displayMenu中目前应该至少有开始游戏、退出等选项
 其它操作定义时应该用注释说明
 相较于getUserInput我感觉getOperation更符合类之间职责的分离
 by lch
+9月7日
+修改getOperation的作用（代码没变）主要使用场景是填数或者移除候选数时输入坐标和数字，应该是一个三维的向量
+by lch
 */
 
 
