@@ -31,6 +31,7 @@ Cell::Cell(int val):value(val)
     if (val != 0) {
         for (int i = 1; i <= 10; ++i) {
             candidates.push_back(1); //值为0代表对应索引不是候选值
+            fixed = 1; //值不可改变
         }
     }
     else {
@@ -38,7 +39,6 @@ Cell::Cell(int val):value(val)
             candidates.push_back(1); //值为1代表对应索引的数是候选值
         }
     }
-    fixed = 1; //值不可改变
     //鉴于candidates为vector类型，这里可以不初始化（应该）
 }
 
@@ -51,22 +51,18 @@ int Cell::getValue() const {
 bool Cell::setValue(int val) {
     if (this->fixed == 1) {
         //此处目前缺少相关提示，可在此处添加可在Sudoku.cpp中添加
-        return 0; //值固定，修改失败
+        return false; //值固定，修改失败
     }
     //9月7日修改：设置值后不需要清空候选值，考虑没有必要，且返回或者其它操作可能需要显示之前的候选值
     //if (val >= 1 && val <= 9) {
     //    value = val;
     //    resetCandidates(0); // 设置值后，清空候选值
     //}
-    else if (val == 0) { //如果设置为0代表没有填
-        value = val; //value为0，代表没有填
+    else{ //9月8号修改
+        value = val; //赋值给cell的value
         // resetCandidates(); //候选值设置为所有的数，9月7日去除
     }
-    else {
-        //此处相关提示，可在此处添加可在Sudoku.cpp中添加
-        std::cerr << "Invalid value. It must be between 1 and 9." << std::endl;
-    }
-    return 1; //修改成功
+    return true; //修改成功
 }
 
 // 获取候选值

@@ -110,7 +110,7 @@ vector<int> ConsoleIO::getOperation() const {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
 
-        operation.push_back(1); // 1 代表填数操作
+        //operation.push_back(1); // 1 代表填数操作
         operation.push_back(row);
         operation.push_back(col);
         operation.push_back(num);
