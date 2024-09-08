@@ -27,6 +27,7 @@ public:
     // 显示棋盘
     virtual void displayBoard(const std::vector<std::vector<Cell*>>& board) const = 0;
 
+
     //显示信息
     virtual void displayInfo(const int id, const std::string difficulty) const = 0;
 
@@ -35,7 +36,7 @@ public:
 
     // 获取用户输入
     virtual std::string getUserInput() const = 0;
-
+    //返回向量
     virtual std::vector<int> getOperation() const = 0;
 
     // 显示菜单，返回用户选择
