@@ -27,9 +27,6 @@
     <ClCompile Include="Block.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MiniSudoku.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="IOInterface.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -45,10 +42,10 @@
     <ClCompile Include="PuzzleLoaderDAT.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="TestLoadMiniPuzzle.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="testLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -63,9 +60,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Block.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniSudoku.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="IOInterface.h">
@@ -86,8 +80,12 @@
     <ClInclude Include="PuzzleLoaderDAT.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="testLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MiniPuzzles.dat" />
+    <None Include="Puzzles.dat" />
   </ItemGroup>
 </Project>

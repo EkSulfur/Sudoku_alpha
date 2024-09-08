@@ -1,24 +1,41 @@
 // master.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
-#include "Sudoku.h"
-#include "ConsoleIO.h"
-#include "PuzzleLoaderDAT.h"
+//#include "Sudoku.h"
+//#include "ConsoleIO.h"
+
+//int main() {
+//    // 创建控制台输入输出接口
+//    ConsoleIO consoleIO;
+//
+//    // 创建DAT格式的PuzzleLoader
+//    PuzzleLoaderDAT puzzleLoader;
+//
+//    // 创建Sudoku游戏实例
+//    Sudoku game(&consoleIO, &puzzleLoader);
+//
+//    game.play();
+//
+//    return 0;
+// 
+// 
+// 
+// 
+//}
+
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include "testLoader.h"
+
 
 int main() {
-    // 创建控制台输入输出接口
-    ConsoleIO consoleIO;
-
-    // 创建DAT格式的PuzzleLoader
-    PuzzleLoaderDAT puzzleLoader;
-
-    // 创建Sudoku游戏实例
-    Sudoku game(&consoleIO, &puzzleLoader);
-
-    game.play();
-
+    testPuzzleLoader();
     return 0;
 }
+
+
 
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单

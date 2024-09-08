@@ -3,79 +3,104 @@
 #include <iostream>
 
 /*
-9ÔÂ5ÈÕĞŞ¸Ä£º
-CellÖĞÌí¼ÓfixedÊı¾İ³ÉÔ±£¬Èç¹ûÎªÕıÔò²»¿ÉĞŞ¸Ä
-Ìí¼Ó´ø²ÎµÄ¹¹Ôìº¯Êı
-½«ĞŞ¸Äº¯Êı¸ÄÎª·µ»ØboolÀàĞÍ
-9ÔÂ6ÈÕ£º
-ÖØĞ´ºòÑ¡Öµ£¬candidatesÓ¦Îª10Î¬ÏòÁ¿£¬Ã¿Î¬ÔªËØ½ö¿ÉÎª0»ò1£¬´ú±í¶ÔÓ¦Ë÷ÒıÊÇ·ñÊÇºòÑ¡Öµ
+9æœˆ5æ—¥ä¿®æ”¹ï¼š
+Cellä¸­æ·»åŠ fixedæ•°æ®æˆå‘˜ï¼Œå¦‚æœä¸ºæ­£åˆ™ä¸å¯ä¿®æ”¹
+æ·»åŠ å¸¦å‚çš„æ„é€ å‡½æ•°
+å°†ä¿®æ”¹å‡½æ•°æ”¹ä¸ºè¿”å›boolç±»å‹
+9æœˆ6æ—¥ï¼š
+é‡å†™å€™é€‰å€¼ï¼Œcandidatesåº”ä¸º10ç»´å‘é‡ï¼Œæ¯ç»´å…ƒç´ ä»…å¯ä¸º0æˆ–1ï¼Œä»£è¡¨å¯¹åº”ç´¢å¼•æ˜¯å¦æ˜¯å€™é€‰å€¼
+9æœˆ7æ—¥ï¼š
+setValueä¸ä¿®æ”¹å€™é€‰å€¼
+å¸¦å‚æ„é€ å‡½æ•°ä¸­æ·»åŠ å…³äºå€™é€‰å€¼çš„åˆå§‹åŒ–
+ä¿®æ­£resetCandidates
+æ·»åŠ addCandidateså‡½æ•°
 */
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 Cell::Cell() : value(0) {
-    // ³õÊ¼»¯ºòÑ¡Öµ£¬´´½¨Ò»¸ö´óĞ¡Îª10µÄÏòÁ¿
+    // åˆå§‹åŒ–å€™é€‰å€¼ï¼Œåˆ›å»ºä¸€ä¸ªå¤§å°ä¸º10çš„å‘é‡
     for (int i = 1; i <= 10; ++i) {
-        candidates.push_back(1); //ÖµÎª1´ú±í¶ÔÓ¦Ë÷ÒıµÄÊıÊÇºòÑ¡Öµ
+        candidates.push_back(1); //å€¼ä¸º1ä»£è¡¨å¯¹åº”ç´¢å¼•çš„æ•°æ˜¯å€™é€‰å€¼
     }
     fixed = 0;
 }
 
-//´ø²Î¹¹Ôìº¯Êı
-Cell::Cell(int val) :value(val)
-{
-    fixed = 1; //Öµ²»¿É¸Ä±ä
-    //¼øÓÚcandidatesÎªvectorÀàĞÍ£¬ÕâÀï¿ÉÒÔ²»³õÊ¼»¯£¨Ó¦¸Ã£©
+//å¸¦å‚æ„é€ å‡½æ•°
+Cell::Cell(int val):value(val)
+{   
+    if (val != 0) {
+        for (int i = 1; i <= 10; ++i) {
+            candidates.push_back(1); //å€¼ä¸º0ä»£è¡¨å¯¹åº”ç´¢å¼•ä¸æ˜¯å€™é€‰å€¼
+        }
+    }
+    else {
+        for (int i = 1; i <= 10; ++i) {
+            candidates.push_back(1); //å€¼ä¸º1ä»£è¡¨å¯¹åº”ç´¢å¼•çš„æ•°æ˜¯å€™é€‰å€¼
+        }
+    }
+    fixed = 1; //å€¼ä¸å¯æ”¹å˜
+    //é‰´äºcandidatesä¸ºvectorç±»å‹ï¼Œè¿™é‡Œå¯ä»¥ä¸åˆå§‹åŒ–ï¼ˆåº”è¯¥ï¼‰
 }
 
-// »ñÈ¡µ±Ç°µÄÖµ
+// è·å–å½“å‰çš„å€¼
 int Cell::getValue() const {
     return value;
 }
 
-// ÉèÖÃµ±Ç°µÄÖµ
+// è®¾ç½®å½“å‰çš„å€¼
 bool Cell::setValue(int val) {
-    if (this->fixed == 1) return 0; //Öµ¹Ì¶¨£¬ĞŞ¸ÄÊ§°Ü
-    if (val >= 1 && val <= 9) {
-        value = val;
-        resetCandidates(0); // ÉèÖÃÖµºó£¬Çå¿ÕºòÑ¡Öµ
+    if (this->fixed == 1) {
+        //æ­¤å¤„ç›®å‰ç¼ºå°‘ç›¸å…³æç¤ºï¼Œå¯åœ¨æ­¤å¤„æ·»åŠ å¯åœ¨Sudoku.cppä¸­æ·»åŠ 
+        return 0; //å€¼å›ºå®šï¼Œä¿®æ”¹å¤±è´¥
     }
-    else if (val == 0) { //Èç¹ûÉèÖÃÎª0´ú±íÃ»ÓĞÌî
-        value = val; //valueÎª0£¬´ú±íÃ»ÓĞÌî
-        resetCandidates(); //ºòÑ¡ÖµÉèÖÃÎªËùÓĞµÄÊı
+    //9æœˆ7æ—¥ä¿®æ”¹ï¼šè®¾ç½®å€¼åä¸éœ€è¦æ¸…ç©ºå€™é€‰å€¼ï¼Œè€ƒè™‘æ²¡æœ‰å¿…è¦ï¼Œä¸”è¿”å›æˆ–è€…å…¶å®ƒæ“ä½œå¯èƒ½éœ€è¦æ˜¾ç¤ºä¹‹å‰çš„å€™é€‰å€¼
+    //if (val >= 1 && val <= 9) {
+    //    value = val;
+    //    resetCandidates(0); // è®¾ç½®å€¼åï¼Œæ¸…ç©ºå€™é€‰å€¼
+    //}
+    else if (val == 0) { //å¦‚æœè®¾ç½®ä¸º0ä»£è¡¨æ²¡æœ‰å¡«
+        value = val; //valueä¸º0ï¼Œä»£è¡¨æ²¡æœ‰å¡«
+        // resetCandidates(); //å€™é€‰å€¼è®¾ç½®ä¸ºæ‰€æœ‰çš„æ•°ï¼Œ9æœˆ7æ—¥å»é™¤
     }
     else {
+        //æ­¤å¤„ç›¸å…³æç¤ºï¼Œå¯åœ¨æ­¤å¤„æ·»åŠ å¯åœ¨Sudoku.cppä¸­æ·»åŠ 
         std::cerr << "Invalid value. It must be between 1 and 9." << std::endl;
     }
-    return 1; //ĞŞ¸Ä³É¹¦
+    return 1; //ä¿®æ”¹æˆåŠŸ
 }
 
-// »ñÈ¡ºòÑ¡Öµ
+// è·å–å€™é€‰å€¼
 const std::vector<int>& Cell::getCandidates() const {
     return candidates;
 }
 
-// É¾³ıºòÑ¡Öµ
-void Cell::removeCandidate(int candidate) {
-    auto it = std::find(candidates.begin(), candidates.end(), candidate);
-    if (it != candidates.end()) {
-        candidates.erase(it);
-    }
+bool Cell::addCandidate(int candidate)
+{
+    if (candidate < 1 || candidate > 9) return false;
+    candidates[candidate] = 1; //å¯¹åº”ç´¢å¼•è®¾ä¸º1ä»£è¡¨æ˜¯å€™é€‰å€¼
+    return true;
 }
 
-// ÅĞ¶ÏÄ³¸öºòÑ¡ÖµÊÇ·ñ´æÔÚ
+// åˆ é™¤å€™é€‰å€¼
+bool Cell::removeCandidate(int candidate) {
+    if (candidate < 1 || candidate > 9) return false;
+    candidates[candidate] = 0; //å¯¹åº”ç´¢å¼•è®¾ä¸º0ä»£è¡¨ä¸æ˜¯å€™é€‰å€¼
+    return true;
+}
+
+// åˆ¤æ–­æŸä¸ªå€™é€‰å€¼æ˜¯å¦å­˜åœ¨
 bool Cell::hasCandidate(int candidate) const {
     return candidates[candidate];
 }
 
-// ÖØÖÃºòÑ¡Öµ
+// é‡ç½®å€™é€‰å€¼
 void Cell::resetCandidates() {
-    candidates.clear();
-    for (int i = 1; i <= 9; ++i) {
-        candidates.push_back(i);
+    for (int i = 1; i <= 10; ++i) {
+        candidates[i] = 1; //å°†å€™é€‰å€¼é‡ç½®ä¸ºéƒ½å¯é€‰
     }
 }
 
-// ÅĞ¶Ïµ±Ç°¸ñ×ÓÊÇ·ñÒÑÈ·¶¨Öµ
+// åˆ¤æ–­å½“å‰æ ¼å­æ˜¯å¦å·²ç¡®å®šå€¼
 bool Cell::isSolved() const {
     return value != 0;
 }
