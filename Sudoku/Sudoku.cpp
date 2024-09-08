@@ -7,6 +7,8 @@
 /*
 9月7日
 完成目前Sudoku类的所有函数，游戏内部逻辑主体部分告成，未测试
+9月8日
+增加play函数中游戏开始前关于读取id和加载的循环
 by lch
 */
 
@@ -63,23 +65,27 @@ bool Sudoku::saveToFile(int gameID)
 }
 
 void Sudoku::play() {
-    // 选择游戏存档ID
-    io->displayMessage("请选择存档编号（1, 2, 3）：");
-    std::string input = io->getUserInput();
+    //加载循环
+    while (true) {
+        // 选择游戏存档ID
+        io->displayMessage("请选择存档编号（1, 2, 3）：");
+        std::string input = io->getUserInput();
 
-    // 尝试将用户输入转换为整数ID
-    try {
-        id = std::stoi(input);  // 将输入的字符串转换为整数ID
-    }
-    catch (const std::invalid_argument&) {
-        io->displayMessage("无效的输入，请输入正确的存档编号。");
-        return;
-    }
+        // 尝试将用户输入转换为整数ID
+        try {
+            id = std::stoi(input);  // 将输入的字符串转换为整数ID
+        }
+        catch (const std::invalid_argument&) {
+            io->displayMessage("无效的输入，请输入正确的存档编号。");
+            continue;
+        }
 
-    // 加载游戏
-    if (!loadFromFile(id)) {
-        io->displayMessage("无法加载数独游戏。");
-        return;
+        // 加载游戏
+        if (!loadFromFile(id)) {
+            io->displayMessage("无法加载数独游戏。");
+            continue;
+        }
+        else break;
     }
 
     // 游戏循环
