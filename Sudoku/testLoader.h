@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include "PuzzleLoaderDAT.h"
 /*
-²âÊÔLoaderÏà¹ØÄÚÈİ
+æµ‹è¯•Loaderç›¸å…³å†…å®¹
 */
 
-// ´òÓ¡Êı¶ÀÆåÅÌµÄ¸¨Öúº¯Êı
+// æ‰“å°æ•°ç‹¬æ£‹ç›˜çš„è¾…åŠ©å‡½æ•°
 void printBoard(const std::vector<std::vector<int>>& board);
 
-// ²âÊÔº¯Êı
+// æµ‹è¯•å‡½æ•°
 void testPuzzleLoader();

@@ -1,4 +1,4 @@
-#ifndef MENU_MANAGER_H
+ï»¿#ifndef MENU_MANAGER_H
 #define MENU_MANAGER_H
 
 #include <functional>
@@ -7,23 +7,23 @@
 
 class MenuManager {
 private:
-    std::map<std::string, std::function<void()>> menuItems;  // ²Ëµ¥ÏîÃû³ÆÓë²Ù×÷Ó³Éä
-    std::map<int, std::string> menuIndexes;  // ²Ëµ¥±àºÅÓëÃû³ÆÓ³Éä
+    std::map<std::string, std::function<void()>> menuItems;  // èœå•é¡¹åç§°ä¸æ“ä½œæ˜ å°„
+    std::map<int, std::string> menuIndexes;  // èœå•ç¼–å·ä¸åç§°æ˜ å°„
 
-    // ¸ù¾İÃû³Æ»ñÈ¡²Ëµ¥Ïî±àºÅ
+    // æ ¹æ®åç§°è·å–èœå•é¡¹ç¼–å·
     int getMenuIndexByName(const std::string& name) const;
 
 public:
-    // Ìí¼Ó²Ëµ¥Ïî
+    // æ·»åŠ èœå•é¡¹
     void addMenuItem(const std::string& name, std::function<void()> action);
 
-    // ÒÆ³ı²Ëµ¥Ïî
+    // ç§»é™¤èœå•é¡¹
     void removeMenuItem(const std::string& name);
 
-    // ÏÔÊ¾²Ëµ¥
+    // æ˜¾ç¤ºèœå•
     void displayMenu() const;
 
-    // Ö´ĞĞ²Ëµ¥Ïî
+    // æ‰§è¡Œèœå•é¡¹
     void executeMenuItem(const std::string& input) const;
 };
 

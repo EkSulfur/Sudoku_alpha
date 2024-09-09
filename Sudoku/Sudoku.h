@@ -1,8 +1,8 @@
-
+ï»¿
 #ifndef SUDOKU_H
 #define SUDOKU_H
 /*
-Êı¶ÀÓÎÏ·Ö÷Ìå
+æ•°ç‹¬æ¸¸æˆä¸»ä½“
 */
 #include "Cell.h"
 #include "Block.h"
@@ -15,63 +15,63 @@
 #include <vector>
 
 /*
-9ÔÂ7ÈÕ
-É¾³ıSudokuÀàÖĞµÄdisplayboardº¯Êı£¨Î¯ÍĞ¸øio£©
-É¾³ıstartº¯Êı£¬Ô­ÓĞ¹¦ÄÜ°üº¬ÔÚplayÖĞ
-ĞŞ¸Ä¶à¸öº¯ÊıµÄ·µ»ØÖµ´ÓvoidÀàĞÍ±äÎªboolÀàĞÍ
-Ìí¼Ó×Ô¶¯¸üĞÂºòÑ¡Öµº¯Êı
-É¾³ıÅäÖÃ²Ëµ¥Ïîº¯Êı
-9ÔÂ8ÈÕ
-Ìí¼ÓÎö¹¹º¯Êı£¨ĞŞÕı£©
+9æœˆ7æ—¥
+åˆ é™¤Sudokuç±»ä¸­çš„displayboardå‡½æ•°ï¼ˆå§”æ‰˜ç»™ioï¼‰
+åˆ é™¤startå‡½æ•°ï¼ŒåŸæœ‰åŠŸèƒ½åŒ…å«åœ¨playä¸­
+ä¿®æ”¹å¤šä¸ªå‡½æ•°çš„è¿”å›å€¼ä»voidç±»å‹å˜ä¸ºboolç±»å‹
+æ·»åŠ è‡ªåŠ¨æ›´æ–°å€™é€‰å€¼å‡½æ•°
+åˆ é™¤é…ç½®èœå•é¡¹å‡½æ•°
+9æœˆ8æ—¥
+æ·»åŠ ææ„å‡½æ•°ï¼ˆä¿®æ­£ï¼‰
 */
 
 class Sudoku {
 private:
-    std::vector<std::vector<Cell*>> board;  // 9x9µÄCellÖ¸Õë¾ØÕó
-    std::vector<Row> rows;                  // 9¸öRow
-    std::vector<Column> columns;            // 9¸öColumn
-    std::vector<Block> blocks;              // 9¸öBlock
+    std::vector<std::vector<Cell*>> board;  // 9x9çš„CellæŒ‡é’ˆçŸ©é˜µ
+    std::vector<Row> rows;                  // 9ä¸ªRow
+    std::vector<Column> columns;            // 9ä¸ªColumn
+    std::vector<Block> blocks;              // 9ä¸ªBlock
     int id;
     std::string difficulty;
-    IOInterface* io;              // Ö¸ÏòIO½Ó¿ÚµÄÖ¸Õë
-    MenuManager menuManager;      // ¹ÜÀí²Ëµ¥µÄÊµÀı
-    PuzzleLoader* puzzleLoader;   // ÌâÄ¿¿â¼ÓÔØÆ÷µÄÖ¸Õë
+    IOInterface* io;              // æŒ‡å‘IOæ¥å£çš„æŒ‡é’ˆ
+    MenuManager menuManager;      // ç®¡ç†èœå•çš„å®ä¾‹
+    PuzzleLoader* puzzleLoader;   // é¢˜ç›®åº“åŠ è½½å™¨çš„æŒ‡é’ˆ
 
-    // ³õÊ¼»¯Board£¬ÉèÖÃ³õÊ¼ÌáÊ¾
+    // åˆå§‹åŒ–Boardï¼Œè®¾ç½®åˆå§‹æç¤º
     void initializeBoard(const std::vector<std::vector<int>>& boardData);
 
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     Sudoku(IOInterface* ioInterface, PuzzleLoader* loader);
 
-    // ´ÓÎÄ¼ş¼ÓÔØÓÎÏ·Êı¾İ
+    // ä»æ–‡ä»¶åŠ è½½æ¸¸æˆæ•°æ®
     bool loadFromFile(int gameID);
 
-    // ±£´æµ±Ç°ÓÎÏ·µ½ÎÄ¼ş
+    // ä¿å­˜å½“å‰æ¸¸æˆåˆ°æ–‡ä»¶
     bool saveToFile(int gameID);
 
-    //ÍæÓÎÏ·
+    //ç©æ¸¸æˆ
     void play();
 
-    // ÉèÖÃÄ³¸öµ¥Ôª¸ñµÄÖµ
+    // è®¾ç½®æŸä¸ªå•å…ƒæ ¼çš„å€¼
     bool setCellValue(int row, int col, int value);
 
-    // Ìí¼ÓÄ³¸öµ¥Ôª¸ñµÄºòÑ¡Öµ
+    // æ·»åŠ æŸä¸ªå•å…ƒæ ¼çš„å€™é€‰å€¼
     bool addCellCandidate(int row, int col, int candidate);
 
-    // É¾³ıÄ³¸öµ¥Ôª¸ñµÄºòÑ¡Öµ
+    // åˆ é™¤æŸä¸ªå•å…ƒæ ¼çš„å€™é€‰å€¼
     bool removeCellCandidates(int row, int col, int candidate);
 
-    // ×Ô¶¯¸üĞÂÃ¿¸öCellÖĞµÄºòÑ¡Öµ
+    // è‡ªåŠ¨æ›´æ–°æ¯ä¸ªCellä¸­çš„å€™é€‰å€¼
     bool autoUpdateCandidates();
 
-    // ¼ì²éÓÎÏ·ÊÇ·ñÍê³É
+    // æ£€æŸ¥æ¸¸æˆæ˜¯å¦å®Œæˆ
     bool checkIfSolved() const;
 
-    // ÖØÖÃÓÎÏ·
+    // é‡ç½®æ¸¸æˆ
     bool reset();
 
-    //¶¨ÒåÎö¹¹º¯Êı
+    //å®šä¹‰ææ„å‡½æ•°
     ~Sudoku();
 };
 

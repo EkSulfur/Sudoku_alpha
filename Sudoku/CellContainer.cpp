@@ -1,45 +1,45 @@
-#include "CellContainer.h"
+ï»¿#include "CellContainer.h"
 #include <unordered_set>
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 CellContainer::CellContainer() {}
 
-// Ìí¼ÓCellµ½ÈİÆ÷ÖĞ
+// æ·»åŠ Cellåˆ°å®¹å™¨ä¸­
 void CellContainer::addCell(Cell* cell) {
     cells.push_back(cell);
 }
 
-// »ñÈ¡ÈİÆ÷ÖĞµÄËùÓĞCell
+// è·å–å®¹å™¨ä¸­çš„æ‰€æœ‰Cell
 const std::vector<Cell*>& CellContainer::getCells() const {
     return cells;
 }
 
-// ÅĞ¶ÏÈİÆ÷ÊÇ·ñÓĞĞ§£¨¼´Ã¿¸öCellµÄÖµÔÚ1µ½9Ö®¼äÇÒ²»ÖØ¸´£©
+// åˆ¤æ–­å®¹å™¨æ˜¯å¦æœ‰æ•ˆï¼ˆå³æ¯ä¸ªCellçš„å€¼åœ¨1åˆ°9ä¹‹é—´ä¸”ä¸é‡å¤ï¼‰
 bool CellContainer::isValid() const {
     std::unordered_set<int> uniqueValues;
     for (const auto& cell : cells) {
         int value = cell->getValue();
         if (value != 0) {
             if (uniqueValues.find(value) != uniqueValues.end()) {
-                return false; // ÓĞÖØ¸´Öµ
+                return false; // æœ‰é‡å¤å€¼
             }
             uniqueValues.insert(value);
         }
     }
-    return true; // Ã»ÓĞÖØ¸´Öµ
+    return true; // æ²¡æœ‰é‡å¤å€¼
 }
 
-// ÅĞ¶ÏÈİÆ÷ÊÇ·ñÒÑÍê³É£¨¼´Ã¿¸öCell¶¼ÓĞÒ»¸öÈ·¶¨µÄÖµ£©
+// åˆ¤æ–­å®¹å™¨æ˜¯å¦å·²å®Œæˆï¼ˆå³æ¯ä¸ªCelléƒ½æœ‰ä¸€ä¸ªç¡®å®šçš„å€¼ï¼‰
 bool CellContainer::isSolved() const {
     for (const auto& cell : cells) {
         if (!cell->isSolved()) {
-            return false; // ´æÔÚÎ´È·¶¨µÄCell
+            return false; // å­˜åœ¨æœªç¡®å®šçš„Cell
         }
     }
     return true;
 }
 
-// ÖØÖÃËùÓĞCellµÄºòÑ¡Öµ
+// é‡ç½®æ‰€æœ‰Cellçš„å€™é€‰å€¼
 void CellContainer::resetCandidates() {
     for (auto& cell : cells) {
         cell->resetCandidates();
@@ -50,11 +50,11 @@ bool CellContainer::hasValue(int value) const
 {
     if (value < 1 || value > 9) return false;
     
-    // ±éÀúËùÓĞCell£¬¼ì²éÊÇ·ñÓĞCellµÄÖµµÈÓÚ¸ø¶¨µÄÖµ
+    // éå†æ‰€æœ‰Cellï¼Œæ£€æŸ¥æ˜¯å¦æœ‰Cellçš„å€¼ç­‰äºç»™å®šçš„å€¼
     for (const Cell* cell : cells) {
         if (cell->getValue() == value) {
-            return true;  // ÕÒµ½ÖµÎªvalueµÄCell
+            return true;  // æ‰¾åˆ°å€¼ä¸ºvalueçš„Cell
         }
     }
-    return false;  // Ã»ÓĞÕÒµ½ÖµÎªvalueµÄCell
+    return false;  // æ²¡æœ‰æ‰¾åˆ°å€¼ä¸ºvalueçš„Cell
 }

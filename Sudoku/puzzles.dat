@@ -1,4 +1,4 @@
-ID: 1
+锘縄D: 1
 Difficulty: Easy
 Board:
 5 3 4 6 7 8 9 1 2
@@ -13,7 +13,7 @@ Board:
 ---
 
 ID: 2
-Difficulty: 中等
+Difficulty: 涓瓑
 Board:
 5 3 4 6 7 8 9 1 2 
 6 7 2 1 9 5 3 4 8 
@@ -27,7 +27,7 @@ Board:
 ---
 
 ID: 3
-Difficulty: 中等
+Difficulty: 涓瓑
 Board:
 5 3 4 6 7 8 9 1 2 
 6 7 2 1 9 5 3 4 8 
@@ -41,7 +41,7 @@ Board:
 ---
 
 ID: 4
-Difficulty: 中等
+Difficulty: 涓瓑
 Board:
 6 8 0 1 0 0 0 9 0 
 0 3 4 5 0 8 0 2 0 
@@ -54,7 +54,7 @@ Board:
 0 0 0 3 0 0 0 6 7 
 ---
 ID: 5
-Difficulty: 中等
+Difficulty: 涓瓑
 Board:
 6 8 0 1 0 0 0 9 0 
 0 3 4 5 0 8 0 2 0 

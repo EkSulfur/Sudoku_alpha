@@ -1,10 +1,10 @@
-#include "MenuManager.h"
+ï»¿#include "MenuManager.h"
 #include <iostream>
 
 void MenuManager::addMenuItem(const std::string& name, std::function<void()> action) {
-    int index = menuItems.size() + 1;  // Ã¿´ÎÌí¼ÓĞÂÏîÊ±£¬·ÖÅäÒ»¸öĞÂµÄ±àºÅ
+    int index = menuItems.size() + 1;  // æ¯æ¬¡æ·»åŠ æ–°é¡¹æ—¶ï¼Œåˆ†é…ä¸€ä¸ªæ–°çš„ç¼–å·
     menuItems[name] = action;
-    menuIndexes[index] = name;  // ½«±àºÅÓë²Ëµ¥ÏîÃû³Æ¹ØÁª
+    menuIndexes[index] = name;  // å°†ç¼–å·ä¸èœå•é¡¹åç§°å…³è”
 }
 
 void MenuManager::removeMenuItem(const std::string& name) {
@@ -19,26 +19,26 @@ void MenuManager::removeMenuItem(const std::string& name) {
 void MenuManager::displayMenu() const {
     std::cout << "Menu Options:" << std::endl;
     for (const auto& item : menuIndexes) {
-        std::cout << item.first << ". " << item.second << std::endl;  // ÏÔÊ¾±àºÅºÍÃû³Æ
+        std::cout << item.first << ". " << item.second << std::endl;  // æ˜¾ç¤ºç¼–å·å’Œåç§°
     }
 }
 
 void MenuManager::executeMenuItem(const std::string& input) const {
     int index = 0;
     try {
-        index = std::stoi(input);  // ³¢ÊÔ½«ÊäÈë×ª»»ÎªÕûÊı
+        index = std::stoi(input);  // å°è¯•å°†è¾“å…¥è½¬æ¢ä¸ºæ•´æ•°
     }
     catch (...) {
-        index = -1;  // Èç¹û×ª»»Ê§°Ü£¬½«indexÉèÖÃÎªÎŞĞ§Öµ
+        index = -1;  // å¦‚æœè½¬æ¢å¤±è´¥ï¼Œå°†indexè®¾ç½®ä¸ºæ— æ•ˆå€¼
     }
 
     if (index > 0 && menuIndexes.find(index) != menuIndexes.end()) {
-        // Èç¹ûÊäÈëµÄÊÇ±àºÅ£¬²¢ÇÒ¸Ã±àºÅ´æÔÚ
+        // å¦‚æœè¾“å…¥çš„æ˜¯ç¼–å·ï¼Œå¹¶ä¸”è¯¥ç¼–å·å­˜åœ¨
         auto name = menuIndexes.at(index);
         menuItems.at(name)();
     }
     else if (menuItems.find(input) != menuItems.end()) {
-        // Èç¹ûÊäÈëµÄÊÇ²Ëµ¥ÏîÃû³Æ
+        // å¦‚æœè¾“å…¥çš„æ˜¯èœå•é¡¹åç§°
         menuItems.at(input)();
     }
     else {
@@ -52,5 +52,5 @@ int MenuManager::getMenuIndexByName(const std::string& name) const {
             return item.first;
         }
     }
-    return -1;  // Èç¹ûÎ´ÕÒµ½Ôò·µ»Ø-1
+    return -1;  // å¦‚æœæœªæ‰¾åˆ°åˆ™è¿”å›-1
 }

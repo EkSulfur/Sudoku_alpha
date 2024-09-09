@@ -1,4 +1,4 @@
-#ifndef PUZZLELOADERDAT_H
+﻿#ifndef PUZZLELOADERDAT_H
 #define PUZZLELOADERDAT_H
 
 #include <vector>

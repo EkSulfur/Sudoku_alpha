@@ -1,4 +1,4 @@
-#ifndef CONSOLE_IO_H
+ï»¿#ifndef CONSOLE_IO_H
 #define CONSOLE_IO_H
 
 #include "IOInterface.h"
@@ -7,28 +7,28 @@
 
 class ConsoleIO : public IOInterface {
 public:
-    // ÏÔÊ¾ÆåÅÌ
+    // æ˜¾ç¤ºæ£‹ç›˜
     void displayBoard(const std::vector<std::vector<Cell*>>& board) override;
 
-    // ÏÔÊ¾ĞÅÏ¢
+    // æ˜¾ç¤ºä¿¡æ¯
     void displayInfo(const int id, const std::string difficulty) override;
 
-    // ÏÔÊ¾ÏûÏ¢
+    // æ˜¾ç¤ºæ¶ˆæ¯
     void displayMessage(const std::string& message) override;
 
-    // »ñÈ¡ÓÃ»§ÊäÈë
+    // è·å–ç”¨æˆ·è¾“å…¥
     std::string getUserInput() override;
 
-    // »ñÈ¡ÓÃ»§²Ù×÷²¢·µ»Ø²Ù×÷ÏòÁ¿
+    // è·å–ç”¨æˆ·æ“ä½œå¹¶è¿”å›æ“ä½œå‘é‡
     std::vector<int> getOperation() override;
 
-    // »ñÈ¡Î»ÖÃ£¬·µ»ØÏòÁ¿
+    // è·å–ä½ç½®ï¼Œè¿”å›å‘é‡
     std::vector<int> getPosition() override;
 
-    // »ñÈ¡Êı£¬·µ»ØÒ»¸öÕûÊı
+    // è·å–æ•°ï¼Œè¿”å›ä¸€ä¸ªæ•´æ•°
     int getNumber() override;
 
-    // ÏÔÊ¾²Ëµ¥£¬·µ»ØÓÃ»§Ñ¡Ôñ
+    // æ˜¾ç¤ºèœå•ï¼Œè¿”å›ç”¨æˆ·é€‰æ‹©
     int displayMenu(const std::vector<std::string>& options) override;
 };
 

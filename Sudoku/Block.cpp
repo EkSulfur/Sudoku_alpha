@@ -1,6 +1,6 @@
-#include "Block.h"
+ï»¿#include "Block.h"
 
-// ¹¹Ôìº¯Êý
+// æž„é€ å‡½æ•°
 Block::Block() : CellContainer() {
-    // ¿ÉÒÔÔÚ´Ë´¦Ìí¼ÓÆäËû³õÊ¼»¯Âß¼­£¨Èç¹ûÓÐµÄ»°£©
+    // å¯ä»¥åœ¨æ­¤å¤„æ·»åŠ å…¶ä»–åˆå§‹åŒ–é€»è¾‘ï¼ˆå¦‚æžœæœ‰çš„è¯ï¼‰
 }

@@ -1,4 +1,4 @@
-#include <fstream>
+ï»¿#include <fstream>
 #include <sstream>
 #include <iostream>
 #include <vector>
@@ -26,16 +26,16 @@ bool PuzzleLoaderDAT::loadPuzzle(const std::string& filename, int gameID, std::v
         return false;
     }
 
-    // ¶ÁÈ¡ÄÑ¶È
+    // è¯»å–éš¾åº¦
     std::getline(file, line);
     if (line.find("Difficulty: ") != std::string::npos) {
-        difficulty = line.substr(12);  // ÌáÈ¡ÄÑ¶È
+        difficulty = line.substr(12);  // æå–éš¾åº¦
     }
 
-    // Ìø¹ı 'Board:' ĞĞ
+    // è·³è¿‡ 'Board:' è¡Œ
     std::getline(file, line);
 
-    // ¶ÁÈ¡ÆåÅÌ
+    // è¯»å–æ£‹ç›˜
     board.resize(9, std::vector<int>(9, 0));
     for (int i = 0; i < 9; ++i) {
         std::getline(file, line);
@@ -54,20 +54,20 @@ bool PuzzleLoaderDAT::savePuzzle(const std::string& filename, int gameID, const 
     bool puzzleFound = false;
     std::string line;
 
-    // ¶ÁÈ¡ÎÄ¼şÄÚÈİµ½ buffer
+    // è¯»å–æ–‡ä»¶å†…å®¹åˆ° buffer
     if (fileIn.is_open()) {
         buffer << fileIn.rdbuf();
         fileIn.close();
     }
 
-    // ¹¹½¨Òª±£´æµÄĞÂÊı¶ÀÊı¾İ£¬ÆäÖĞÎ´È·¶¨µÄÊı×ÖÊ¹ÓÃ0±íÊ¾
+    // æ„å»ºè¦ä¿å­˜çš„æ–°æ•°ç‹¬æ•°æ®ï¼Œå…¶ä¸­æœªç¡®å®šçš„æ•°å­—ä½¿ç”¨0è¡¨ç¤º
     std::string newPuzzleEntry;
     newPuzzleEntry += "ID: " + std::to_string(gameID) + "\n";
     newPuzzleEntry += "Difficulty: " + difficulty + "\n";
     newPuzzleEntry += "Board:\n";
     for (const auto& row : board) {
         for (int val : row) {
-            newPuzzleEntry += std::to_string(val) + " ";  // ½«Íæ¼ÒµÄ×´Ì¬±£´æ
+            newPuzzleEntry += std::to_string(val) + " ";  // å°†ç©å®¶çš„çŠ¶æ€ä¿å­˜
         }
         newPuzzleEntry += "\n";
     }
@@ -77,23 +77,23 @@ bool PuzzleLoaderDAT::savePuzzle(const std::string& filename, int gameID, const 
     std::size_t idPos = content.find("ID: " + std::to_string(gameID));
 
     if (idPos != std::string::npos) {
-        // ÕÒµ½ÁËÏàÍ¬µÄ gameID£¬Ìæ»»Õâ²¿·ÖµÄÊı¶ÀÊı¾İ
-        std::size_t nextPuzzlePos = content.find("ID: ", idPos + 1); // ÕÒµ½ÏÂÒ»¸ö Puzzle
+        // æ‰¾åˆ°äº†ç›¸åŒçš„ gameIDï¼Œæ›¿æ¢è¿™éƒ¨åˆ†çš„æ•°ç‹¬æ•°æ®
+        std::size_t nextPuzzlePos = content.find("ID: ", idPos + 1); // æ‰¾åˆ°ä¸‹ä¸€ä¸ª Puzzle
         if (nextPuzzlePos == std::string::npos) {
-            // Èç¹ûÃ»ÓĞÏÂÒ»¸ö Puzzle£¬Ìæ»»µ½ÎÄ¼şÄ©Î²
+            // å¦‚æœæ²¡æœ‰ä¸‹ä¸€ä¸ª Puzzleï¼Œæ›¿æ¢åˆ°æ–‡ä»¶æœ«å°¾
             nextPuzzlePos = content.size();
         }
 
-        // Ìæ»»Ô­ÓĞµÄÊı¶À
+        // æ›¿æ¢åŸæœ‰çš„æ•°ç‹¬
         content.replace(idPos, nextPuzzlePos - idPos, newPuzzleEntry);
         puzzleFound = true;
     }
     else {
-        // Ã»ÓĞÕÒµ½ÏàÍ¬µÄ gameID£¬×·¼ÓĞÂÊı¶Àµ½ÎÄ¼şÄ©Î²
+        // æ²¡æœ‰æ‰¾åˆ°ç›¸åŒçš„ gameIDï¼Œè¿½åŠ æ–°æ•°ç‹¬åˆ°æ–‡ä»¶æœ«å°¾
         content += newPuzzleEntry;
     }
 
-    // ½«ĞŞ¸ÄºóµÄÄÚÈİĞ´»ØÎÄ¼ş
+    // å°†ä¿®æ”¹åçš„å†…å®¹å†™å›æ–‡ä»¶
     std::ofstream fileOut(filename);
     if (!fileOut.is_open()) {
         std::cerr << "Error: Could not open file " << filename << std::endl;

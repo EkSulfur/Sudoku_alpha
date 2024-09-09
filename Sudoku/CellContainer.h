@@ -1,4 +1,4 @@
-#ifndef CELL_CONTAINER_H
+ï»¿#ifndef CELL_CONTAINER_H
 #define CELL_CONTAINER_H
 
 #include <vector>
@@ -6,28 +6,28 @@
 
 class CellContainer {
 protected:
-    std::vector<Cell*> cells; // Ê¹ÓÃÖ¸ÕëÊı×é£¬ÒÔ±ã²Ù×÷¾ßÌåµÄCell¶ÔÏó
+    std::vector<Cell*> cells; // ä½¿ç”¨æŒ‡é’ˆæ•°ç»„ï¼Œä»¥ä¾¿æ“ä½œå…·ä½“çš„Cellå¯¹è±¡
 
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     CellContainer();
 
-    // Ìí¼ÓCellµ½ÈİÆ÷ÖĞ
+    // æ·»åŠ Cellåˆ°å®¹å™¨ä¸­
     void addCell(Cell* cell);
 
-    // »ñÈ¡ÈİÆ÷ÖĞµÄËùÓĞCell
+    // è·å–å®¹å™¨ä¸­çš„æ‰€æœ‰Cell
     const std::vector<Cell*>& getCells() const;
 
-    // ÅĞ¶ÏÈİÆ÷ÊÇ·ñÓĞĞ§£¨¼´Ã¿¸öCellµÄÖµÔÚ1µ½9Ö®¼äÇÒ²»ÖØ¸´£©
+    // åˆ¤æ–­å®¹å™¨æ˜¯å¦æœ‰æ•ˆï¼ˆå³æ¯ä¸ªCellçš„å€¼åœ¨1åˆ°9ä¹‹é—´ä¸”ä¸é‡å¤ï¼‰
     bool isValid() const;
 
-    // ÅĞ¶ÏÈİÆ÷ÊÇ·ñÒÑÍê³É£¨¼´Ã¿¸öCell¶¼ÓĞÒ»¸öÈ·¶¨µÄÖµ£©
+    // åˆ¤æ–­å®¹å™¨æ˜¯å¦å·²å®Œæˆï¼ˆå³æ¯ä¸ªCelléƒ½æœ‰ä¸€ä¸ªç¡®å®šçš„å€¼ï¼‰
     bool isSolved() const;
 
-    // ÖØÖÃËùÓĞCellµÄºòÑ¡Öµ
+    // é‡ç½®æ‰€æœ‰Cellçš„å€™é€‰å€¼
     void resetCandidates();
 
-    // ²é¿´CellContainerÖĞÊÇ·ñ´æÔÚÄ³Ò»Öµ
+    // æŸ¥çœ‹CellContainerä¸­æ˜¯å¦å­˜åœ¨æŸä¸€å€¼
     bool hasValue(int value) const;
 };
 

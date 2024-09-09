@@ -1,4 +1,4 @@
-#include "ConsoleIO.h"
+ï»¿#include "ConsoleIO.h"
 #include "Cell.h"
 #include <iostream>
 #include <vector>
@@ -6,11 +6,11 @@
 #include <limits>
 
 /*
-9ÔÂ8ÈÕ
-Íê³ÉConsoleIOÀà
+9æœˆ8æ—¥
+å®ŒæˆConsoleIOç±»
 by lwh
-Ìí¼ÓgetPositionºÍgetNumberº¯Êı£¬²ğ·ÖgetOperationÔ­ÓĞµÄ¹¦ÄÜ
-Êµ¼ÊÉÏgetNumberºÃÏñÃ»É¶ÓÃ£¬getPositionÊÇÎªÁËÊÊÓ¦È¥³ı¸ÃÎ»ÖÃÖ®Ç°ÌîÈëµÄÊıµÄ¹¦ÄÜ
+æ·»åŠ getPositionå’ŒgetNumberå‡½æ•°ï¼Œæ‹†åˆ†getOperationåŸæœ‰çš„åŠŸèƒ½
+å®é™…ä¸ŠgetNumberå¥½åƒæ²¡å•¥ç”¨ï¼ŒgetPositionæ˜¯ä¸ºäº†é€‚åº”å»é™¤è¯¥ä½ç½®ä¹‹å‰å¡«å…¥çš„æ•°çš„åŠŸèƒ½
 by lch
 */
 
@@ -27,26 +27,26 @@ string ConsoleIO::getUserInput() {
 }
 
 void ConsoleIO::displayBoard(const vector<vector<Cell*>>& board) {
-    cout << "\n µ±Ç°Êı¶ÀÆåÅÌ: \n";
-    int size = board.size(); // ÆåÅÌ´óĞ¡£¬Í¨³£ÊÇ 9
+    cout << "\n å½“å‰æ•°ç‹¬æ£‹ç›˜: \n";
+    int size = board.size(); // æ£‹ç›˜å¤§å°ï¼Œé€šå¸¸æ˜¯ 9
 
-    // ´òÓ¡¶¥²¿·Ö¸ôÏß
+    // æ‰“å°é¡¶éƒ¨åˆ†éš”çº¿
     cout << " -------------------------\n";
 
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            // ´òÓ¡ĞĞµÄ·Ö¸ôÏß
+            // æ‰“å°è¡Œçš„åˆ†éš”çº¿
             if (j % 3 == 0) cout << " | ";
 
             if (board[i][j]->getValue() == 0)
-                cout << ". ";  // ÏÔÊ¾¿ÕÎ»Îªµã
+                cout << ". ";  // æ˜¾ç¤ºç©ºä½ä¸ºç‚¹
             else
                 cout << board[i][j]->getValue() << " ";
         }
-        cout << "|";  // ĞĞÎ²¼ÓÉÏ·Ö¸ô·û
+        cout << "|";  // è¡Œå°¾åŠ ä¸Šåˆ†éš”ç¬¦
         cout << endl;
 
-        // Ã¿ 3 ĞĞºó´òÓ¡Ò»´Î·Ö¸ôÏß
+        // æ¯ 3 è¡Œåæ‰“å°ä¸€æ¬¡åˆ†éš”çº¿
         if ((i + 1) % 3 == 0) {
             cout << " -------------------------\n";
         }
@@ -55,7 +55,7 @@ void ConsoleIO::displayBoard(const vector<vector<Cell*>>& board) {
 
 int ConsoleIO::displayMenu(const vector<string>& options) {
     cout << "\n=============================" << endl;
-    cout << "|    ÇëÑ¡ÔñÒ»¸ö²Ù×÷£º        |" << endl;
+    cout << "|    è¯·é€‰æ‹©ä¸€ä¸ªæ“ä½œï¼š        |" << endl;
 
     for (size_t i = 0; i < options.size(); ++i) {
         cout << "|    " << i + 1 << ". " << options[i] << endl;
@@ -65,50 +65,50 @@ int ConsoleIO::displayMenu(const vector<string>& options) {
 
     int choice;
     while (!(cin >> choice) || choice < 1 || choice > static_cast<int>(options.size())) {
-        cout << "ÎŞĞ§ÊäÈë£¬ÇëÑ¡ÔñÕıÈ·µÄÑ¡Ïî: ";
+        cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é€‰æ‹©æ­£ç¡®çš„é€‰é¡¹: ";
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Çå³ı´íÎóÊäÈë
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');  // æ¸…é™¤é”™è¯¯è¾“å…¥
     }
 
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');  // ÇåÀí»»ĞĞ·û
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');  // æ¸…ç†æ¢è¡Œç¬¦
     return choice;
 }
 
 void ConsoleIO::displayInfo(const int id, const string difficulty) {
-    cout << "µ±Ç°ÓÎÏ·ÄÑ¶È: " << difficulty << endl;
-    cout << "ÓÃ»§ID: " << id << endl;
-    cout << "Äã¿ÉÒÔ½øĞĞÒÔÏÂ²Ù×÷: " << endl;
-    cout << "1. ÌîÈëÊı×Ö" << endl;
-    cout << "2. ²é¿´µ±Ç°×´Ì¬" << endl;
-    cout << "3. ÍË³öÓÎÏ·" << endl;
+    cout << "å½“å‰æ¸¸æˆéš¾åº¦: " << difficulty << endl;
+    cout << "ç”¨æˆ·ID: " << id << endl;
+    cout << "ä½ å¯ä»¥è¿›è¡Œä»¥ä¸‹æ“ä½œ: " << endl;
+    cout << "1. å¡«å…¥æ•°å­—" << endl;
+    cout << "2. æŸ¥çœ‹å½“å‰çŠ¶æ€" << endl;
+    cout << "3. é€€å‡ºæ¸¸æˆ" << endl;
 }
 
 vector<int> ConsoleIO::getOperation() {
     vector<int> operation;
-    // 9ÔÂ8ÈÕ ĞŞ¸´ÈßÓàµÄ´úÂëºÍÊä³ö by lch
+    // 9æœˆ8æ—¥ ä¿®å¤å†—ä½™çš„ä»£ç å’Œè¾“å‡º by lch
     int row, col, num;
-    cout << "ÇëÊäÈëÄãÒªÌîÈëµÄĞĞ (1-9): ";
+    cout << "è¯·è¾“å…¥ä½ è¦å¡«å…¥çš„è¡Œ (1-9): ";
     while (!(cin >> row) || row < 1 || row > 9) {
-        cout << "ÎŞĞ§ÊäÈë£¬ÇëÊäÈëÕıÈ·µÄĞĞºÅ (1-9): ";
+        cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·è¾“å…¥æ­£ç¡®çš„è¡Œå· (1-9): ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cout << "ÇëÊäÈëÄãÒªÌîÈëµÄÁĞ (1-9): ";
+    cout << "è¯·è¾“å…¥ä½ è¦å¡«å…¥çš„åˆ— (1-9): ";
     while (!(cin >> col) || col < 1 || col > 9) {
-        cout << "ÎŞĞ§ÊäÈë£¬ÇëÊäÈëÕıÈ·µÄÁĞºÅ (1-9): ";
+        cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·è¾“å…¥æ­£ç¡®çš„åˆ—å· (1-9): ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cout << "ÇëÊäÈëÄãÒªÌîÈëµÄÊı×Ö (1-9): ";
+    cout << "è¯·è¾“å…¥ä½ è¦å¡«å…¥çš„æ•°å­— (1-9): ";
     while (!(cin >> num) || num < 1 || num > 9) {
-        cout << "ÎŞĞ§ÊäÈë£¬ÇëÊäÈëÕıÈ·µÄÊı×Ö (1-9): ";
+        cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·è¾“å…¥æ­£ç¡®çš„æ•°å­— (1-9): ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    //operation.push_back(1); // 1 ´ú±íÌîÊı²Ù×÷
+    //operation.push_back(1); // 1 ä»£è¡¨å¡«æ•°æ“ä½œ
     operation.push_back(row);
     operation.push_back(col);
     operation.push_back(num);
@@ -119,16 +119,16 @@ vector<int> ConsoleIO::getOperation() {
 vector<int> ConsoleIO::getPosition() {
     vector<int> operation;
     int row, col;
-    cout << "ÇëÊäÈëÄãÒªÌîÈëµÄĞĞ (1-9): ";
+    cout << "è¯·è¾“å…¥ä½ è¦å¡«å…¥çš„è¡Œ (1-9): ";
     while (!(cin >> row) || row < 1 || row > 9) {
-        cout << "ÎŞĞ§ÊäÈë£¬ÇëÊäÈëÕıÈ·µÄĞĞºÅ (1-9): ";
+        cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·è¾“å…¥æ­£ç¡®çš„è¡Œå· (1-9): ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cout << "ÇëÊäÈëÄãÒªÌîÈëµÄÁĞ (1-9): ";
+    cout << "è¯·è¾“å…¥ä½ è¦å¡«å…¥çš„åˆ— (1-9): ";
     while (!(cin >> col) || col < 1 || col > 9) {
-        cout << "ÎŞĞ§ÊäÈë£¬ÇëÊäÈëÕıÈ·µÄÁĞºÅ (1-9): ";
+        cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·è¾“å…¥æ­£ç¡®çš„åˆ—å· (1-9): ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
@@ -141,9 +141,9 @@ vector<int> ConsoleIO::getPosition() {
 int ConsoleIO::getNumber()
 {
     int num;
-    cout << "ÇëÊäÈëÄãÒªÌîÈëµÄÊı×Ö (1-9): ";
+    cout << "è¯·è¾“å…¥ä½ è¦å¡«å…¥çš„æ•°å­— (1-9): ";
     while (!(cin >> num) || num < 1 || num > 9) {
-        cout << "ÎŞĞ§ÊäÈë£¬ÇëÊäÈëÕıÈ·µÄÊı×Ö (1-9): ";
+        cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·è¾“å…¥æ­£ç¡®çš„æ•°å­— (1-9): ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }

@@ -1,29 +1,29 @@
-#ifndef PUZZLE_LOADER_H
+ï»¿#ifndef PUZZLE_LOADER_H
 #define PUZZLE_LOADER_H
 
 #include <vector>
 #include <string>
 
 /*
-9ÔÂ6ÈÕ
-Ä¿Ç°ÊÇgptĞ´µÄ
-Ğ¡ºÀ¸ºÔğÏÈÀí½âÄÚ²¿Âß¼­£¬ÔÙ¼ì²é²»ºÏÀí´¦
-×îºÃÄÜĞ´µ¥Ôª²âÊÔ²é¿´ÕâĞ©º¯ÊıÄÜ·ñÕı³£¹¤×÷
-¼¼ÊõÉÏµÄÎÊÌâ¶àÎÊgpt£¬Ğ´ºÃÌáÊ¾´Ê
+9æœˆ6æ—¥
+ç›®å‰æ˜¯gptå†™çš„
+å°è±ªè´Ÿè´£å…ˆç†è§£å†…éƒ¨é€»è¾‘ï¼Œå†æ£€æŸ¥ä¸åˆç†å¤„
+æœ€å¥½èƒ½å†™å•å…ƒæµ‹è¯•æŸ¥çœ‹è¿™äº›å‡½æ•°èƒ½å¦æ­£å¸¸å·¥ä½œ
+æŠ€æœ¯ä¸Šçš„é—®é¢˜å¤šé—®gptï¼Œå†™å¥½æç¤ºè¯
 by lch
-Ìí¼Óid²ÎÊı
+æ·»åŠ idå‚æ•°
 */
 
 class PuzzleLoader {
 public:
     virtual ~PuzzleLoader() = default;
 
-    // ´ÓÍâ²¿×ÊÔ´¼ÓÔØÊı¶ÀÆåÅÌ
-    // ²ÎÊı£ºboard ÊÇ 9x9 µÄ Cell ¾ØÕó£¬ÄÑ¶ÈÓÉ difficulty ´«µİ
+    // ä»å¤–éƒ¨èµ„æºåŠ è½½æ•°ç‹¬æ£‹ç›˜
+    // å‚æ•°ï¼šboard æ˜¯ 9x9 çš„ Cell çŸ©é˜µï¼Œéš¾åº¦ç”± difficulty ä¼ é€’
     virtual bool loadPuzzle(const std::string& filename, int gameID, std::vector<std::vector<int>>& board, std::string& difficulty) = 0;
 
-    // ½«Êı¶ÀÆåÅÌ±£´æµ½Íâ²¿×ÊÔ´
-    // ²ÎÊı£ºboard ÊÇ 9x9 µÄ Cell ¾ØÕó£¬difficulty ÊÇµ±Ç°ÄÑ¶È
+    // å°†æ•°ç‹¬æ£‹ç›˜ä¿å­˜åˆ°å¤–éƒ¨èµ„æº
+    // å‚æ•°ï¼šboard æ˜¯ 9x9 çš„ Cell çŸ©é˜µï¼Œdifficulty æ˜¯å½“å‰éš¾åº¦
     virtual bool savePuzzle(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board, const std::string& difficulty) = 0;
 };
 

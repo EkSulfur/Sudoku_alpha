@@ -1,11 +1,11 @@
-#include "testLoader.h"
+ï»¿#include "testLoader.h"
 #include <iostream>
 
 /*
-²âÊÔLoaderÏà¹ØÄÚÈİ
+æµ‹è¯•Loaderç›¸å…³å†…å®¹
 */
 
-// ´òÓ¡Êı¶ÀÆåÅÌµÄ¸¨Öúº¯Êı
+// æ‰“å°æ•°ç‹¬æ£‹ç›˜çš„è¾…åŠ©å‡½æ•°
 void printBoard(const std::vector<std::vector<int>>& board) {
     for (const auto& row : board) {
         for (int val : row) {
@@ -15,22 +15,22 @@ void printBoard(const std::vector<std::vector<int>>& board) {
     }
 }
 
-// ²âÊÔº¯Êı
+// æµ‹è¯•å‡½æ•°
 void testPuzzleLoader() {
     PuzzleLoaderDAT loader;
     std::vector<std::vector<int>> board;
     std::string difficulty;
 
-    // ²âÊÔ¼ÓÔØÊı¶ÀÆåÅÌ
+    // æµ‹è¯•åŠ è½½æ•°ç‹¬æ£‹ç›˜
     if (loader.loadPuzzle("puzzles.dat", 1, board, difficulty)) {
-        std::cout << "Êı¶À¼ÓÔØ³É¹¦£¬ÄÑ¶ÈÎª: " << difficulty << std::endl;
+        std::cout << "æ•°ç‹¬åŠ è½½æˆåŠŸï¼Œéš¾åº¦ä¸º: " << difficulty << std::endl;
         printBoard(board);
     }
     else {
-        std::cerr << "¼ÓÔØÊı¶ÀÊ§°Ü£¡" << std::endl;
+        std::cerr << "åŠ è½½æ•°ç‹¬å¤±è´¥ï¼" << std::endl;
     }
 
-    // ĞŞ¸ÄÆåÅÌ£¬±£´æÎªĞÂµÄÊı¶À
+    // ä¿®æ”¹æ£‹ç›˜ï¼Œä¿å­˜ä¸ºæ–°çš„æ•°ç‹¬
     std::vector<std::vector<int>> newBoard = {
         {5, 3, 4, 6, 7, 8, 9, 1, 2},
         {6, 7, 2, 1, 9, 5, 3, 4, 8},
@@ -42,22 +42,22 @@ void testPuzzleLoader() {
         {2, 8, 7, 4, 1, 9, 6, 3, 5},
         {3, 4, 5, 2, 8, 6, 1, 7, 9}
     };
-    std::string newDifficulty = "ÖĞµÈ";
+    std::string newDifficulty = "ä¸­ç­‰";
 
-    // ±£´æĞÂµÄÊı¶ÀÆåÅÌ
+    // ä¿å­˜æ–°çš„æ•°ç‹¬æ£‹ç›˜
     if (loader.savePuzzle("puzzles.dat", 2, newBoard, newDifficulty)) {
-        std::cout << "Êı¶À±£´æ³É¹¦£¬IDÎª 2£¬ÄÑ¶ÈÎª: " << newDifficulty << std::endl;
+        std::cout << "æ•°ç‹¬ä¿å­˜æˆåŠŸï¼ŒIDä¸º 2ï¼Œéš¾åº¦ä¸º: " << newDifficulty << std::endl;
     }
     else {
-        std::cerr << "±£´æÊı¶ÀÊ§°Ü£¡" << std::endl;
+        std::cerr << "ä¿å­˜æ•°ç‹¬å¤±è´¥ï¼" << std::endl;
     }
 
-    // ÔÙ´Î¼ÓÔØ¸Õ¸Õ±£´æµÄÊı¶À£¬ÑéÖ¤±£´æÊÇ·ñ³É¹¦
+    // å†æ¬¡åŠ è½½åˆšåˆšä¿å­˜çš„æ•°ç‹¬ï¼ŒéªŒè¯ä¿å­˜æ˜¯å¦æˆåŠŸ
     if (loader.loadPuzzle("puzzles.dat", 2, board, difficulty)) {
-        std::cout << "ID Îª 2 µÄÊı¶À¼ÓÔØ³É¹¦£¬ÄÑ¶ÈÎª: " << difficulty << std::endl;
+        std::cout << "ID ä¸º 2 çš„æ•°ç‹¬åŠ è½½æˆåŠŸï¼Œéš¾åº¦ä¸º: " << difficulty << std::endl;
         printBoard(board);
     }
     else {
-        std::cerr << "¼ÓÔØ ID Îª 2 µÄÊı¶ÀÊ§°Ü£¡" << std::endl;
+        std::cerr << "åŠ è½½ ID ä¸º 2 çš„æ•°ç‹¬å¤±è´¥ï¼" << std::endl;
     }
 }
