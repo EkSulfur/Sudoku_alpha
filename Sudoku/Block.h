@@ -1,14 +1,14 @@
-#ifndef BLOCK_H
+ï»¿#ifndef BLOCK_H
 #define BLOCK_H
 
 #include "CellContainer.h"
 
 class Block : public CellContainer {
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     Block();
 
-    // ÆäËûÓëBlockÏà¹ØµÄÌØ¶¨¹¦ÄÜ¿ÉÒÔÔÚÕâÀïÌí¼Ó
+    // å…¶ä»–ä¸Blockç›¸å…³çš„ç‰¹å®šåŠŸèƒ½å¯ä»¥åœ¨è¿™é‡Œæ·»åŠ 
 };
 
 #endif // BLOCK_H

@@ -1,64 +1,115 @@
+ï»¿#include "SFMLIO.h"
+#include <iostream>
+
 #include "SFMLIO.h"
 #include <iostream>
 
+// æ„é€ å‡½æ•°
 SFMLIO::SFMLIO() : window(sf::VideoMode(600, 600), "Sudoku Game") {
-    // ¼ÓÔØ×ÖÌå
-    if (!font.loadFromFile("FandolSong-Regular.ttf")) {
-        std::cerr << "ÎŞ·¨¼ÓÔØ×ÖÌå" << std::endl;
+    // åŠ è½½å­—ä½“
+    if (!font.loadFromFile("NotoSerifSC-Regular.otf")) {
+        std::cerr << "æ— æ³•åŠ è½½å­—ä½“" << std::endl;
     }
 
-    // ÉèÖÃÄ¬ÈÏÏûÏ¢ÎÄ±¾ÑùÊ½
+    // è®¾ç½®é»˜è®¤æ¶ˆæ¯æ–‡æœ¬æ ·å¼
     messageText.setFont(font);
     messageText.setCharacterSize(24);
     messageText.setFillColor(sf::Color::White);
 
-    // ÉèÖÃÆåÅÌ¸ñ×Ó±ß¿ò
-    cellOutline.setSize(sf::Vector2f(60, 60));
+    // è®¾ç½®æ£‹ç›˜æ ¼å­è¾¹æ¡†
+    cellOutline.setSize(sf::Vector2f(60, 60));  // æ ¼å­å¤§å°ä¸º60x60
     cellOutline.setFillColor(sf::Color::Transparent);
     cellOutline.setOutlineThickness(1);
-    cellOutline.setOutlineColor(sf::Color::Black);
+    cellOutline.setOutlineColor(sf::Color::White);
 }
 
+// ææ„å‡½æ•°
 SFMLIO::~SFMLIO() {
     if (window.isOpen()) {
         window.close();
     }
 }
 
-// ÏÔÊ¾ÆåÅÌ
+// æ˜¾ç¤ºæ£‹ç›˜
 void SFMLIO::displayBoard(const std::vector<std::vector<Cell*>>& board) {
-    window.clear(sf::Color::White);
+    window.clear(sf::Color::Black);  // èƒŒæ™¯è‰²è®¾ä¸ºé»‘è‰²
+    int gridSize = 9;
+    int cellSize = 60;  // æ¯ä¸ªæ ¼å­çš„åƒç´ å¤§å°
+    int fontSize = 12;  // å€™é€‰æ•°å­—çš„å­—ä½“å¤§å°
+    int valueFontSize = 24;  // å·²ç¡®å®šæ•°å­—çš„å­—ä½“å¤§å°
 
-    // »æÖÆÆåÅÌ
-    drawBoard(board);
+    for (int i = 0; i < gridSize; ++i) {
+        for (int j = 0; j < gridSize; ++j) {
+            // è®¡ç®—æ¯ä¸ªæ ¼å­çš„ç»˜åˆ¶ä½ç½®
+            int x = j * cellSize;
+            int y = i * cellSize;
+            cellOutline.setPosition(x, y);
 
-    window.display();
-}
-
-void SFMLIO::drawBoard(const std::vector<std::vector<Cell*>>& board) {
-    int size = board.size();
-    for (int i = 0; i < size; ++i) {
-        for (int j = 0; j < size; ++j) {
-            cellOutline.setPosition(j * 60, i * 60);
+            // ç»˜åˆ¶è¾¹æ¡†
             window.draw(cellOutline);
 
-            if (board[i][j]->getValue() != 0) {
-                sf::Text cellValue(std::to_string(board[i][j]->getValue()), font, 24);
-                cellValue.setFillColor(sf::Color::Black);
-                cellValue.setPosition(j * 60 + 20, i * 60 + 10);
+            // è·å–å½“å‰å•å…ƒæ ¼
+            Cell* cell = board[i][j];
+
+            if (cell->isSolved()) {
+                // å·²ç¡®å®šçš„æ•°å€¼ï¼Œç»˜åˆ¶åœ¨æ ¼å­ä¸­å¿ƒ
+                sf::Text cellValue;
+                cellValue.setFont(font);
+                cellValue.setCharacterSize(valueFontSize);  // è®¾ç½®å­—ç¬¦å¤§å°ä¸º24
+                cellValue.setFillColor(sf::Color::Green);  // é¢œè‰²è®¾ä¸ºç»¿è‰²
+                cellValue.setString(std::to_string(cell->getValue()));  // æ˜¾ç¤ºè¯¥æ ¼å­çš„å€¼
+                cellValue.setPosition(x + cellSize / 3, y + cellSize / 4);  // å°†æ–‡æœ¬å±…ä¸­
                 window.draw(cellValue);
+            }
+            else {
+                // å€™é€‰æ•°å¤„ç†
+                const std::vector<int>& candidates = cell->getCandidates();
+                for (int k = 1; k <= 9; ++k) {
+                    if (cell->hasCandidate(k)) {
+                        // æ¯ä¸ªå€™é€‰æ•°éƒ½æŒ‰ä½ç½®ç»˜åˆ¶åˆ°æ ¼å­çš„æŸä¸ªå°åŒºåŸŸ
+                        sf::Text candidateText;
+                        candidateText.setFont(font);
+                        candidateText.setCharacterSize(fontSize);  // è®¾ç½®å€™é€‰æ•°å­—ä½“å¤§å°
+                        candidateText.setFillColor(sf::Color::White);  // é¢œè‰²ä¸ºç™½è‰²
+                        candidateText.setString(std::to_string(k));
+
+                        // è®¡ç®—å€™é€‰æ•°å­—åœ¨æ ¼å­å†…çš„ä½ç½® (3x3 å°æ ¼å­å†…å¸ƒå±€)
+                        int candidateX = x + ((k - 1) % 3) * (cellSize / 3) + 10;
+                        int candidateY = y + ((k - 1) / 3) * (cellSize / 3) + 5;
+
+                        candidateText.setPosition(candidateX, candidateY);
+                        window.draw(candidateText);  // ç»˜åˆ¶å€™é€‰æ•°å­—
+                    }
+                }
             }
         }
     }
+
+    // ç»˜åˆ¶ç²—çº¿æ¥åŒºåˆ† 3x3 åŒºå—
+    sf::RectangleShape thickLine;
+    thickLine.setFillColor(sf::Color::White);
+    thickLine.setSize(sf::Vector2f(4, 600));  // ç«–çº¿
+    for (int k = 1; k <= 2; ++k) {
+        thickLine.setPosition(k * 3 * cellSize, 0);
+        window.draw(thickLine);
+    }
+    thickLine.setSize(sf::Vector2f(600, 4));  // æ¨ªçº¿
+    for (int k = 1; k <= 2; ++k) {
+        thickLine.setPosition(0, k * 3 * cellSize);
+        window.draw(thickLine);
+    }
+
+    window.display();  // åˆ·æ–°çª—å£æ˜¾ç¤º
 }
 
-// ÏÔÊ¾ĞÅÏ¢
+
+// æ˜¾ç¤ºä¿¡æ¯
 void SFMLIO::displayInfo(const int id, const std::string difficulty) {
-    std::string info = "ÓÃ»§ID: " + std::to_string(id) + "\nÄÑ¶È: " + difficulty;
+    std::string info = "ç”¨æˆ·ID: " + std::to_string(id) + "\néš¾åº¦: " + difficulty;
     displayMessage(info);
 }
 
-// ÏÔÊ¾ÏûÏ¢
+// æ˜¾ç¤ºæ¶ˆæ¯
 void SFMLIO::displayMessage(const std::string& message) {
     window.clear();
     messageText.setString(message);
@@ -66,74 +117,74 @@ void SFMLIO::displayMessage(const std::string& message) {
     window.display();
 }
 
-// »ñÈ¡ÓÃ»§ÊäÈë
+// è·å–ç”¨æˆ·è¾“å…¥
 std::string SFMLIO::getUserInput() {
     std::string inputText;
     sf::Text userInputDisplay;
     userInputDisplay.setFont(font);
     userInputDisplay.setCharacterSize(24);
     userInputDisplay.setFillColor(sf::Color::Black);
-    userInputDisplay.setPosition(10, 10);  // ÉèÖÃÎÄ±¾ÏÔÊ¾µÄÎ»ÖÃ
+    userInputDisplay.setPosition(10, 10);  // è®¾ç½®æ–‡æœ¬æ˜¾ç¤ºçš„ä½ç½®
 
-    displayMessage("ÇëÊäÈëÎÄ±¾£¬°´ Enter ¼ü½áÊø£º");
+    displayMessage("è¯·è¾“å…¥æ–‡æœ¬ï¼ŒæŒ‰ Enter é”®ç»“æŸï¼š");
 
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
-                return "";  // Èç¹û´°¿Ú¹Ø±Õ£¬Ôò·µ»Ø¿Õ×Ö·û´®
+                return "";  // å¦‚æœçª—å£å…³é—­ï¼Œåˆ™è¿”å›ç©ºå­—ç¬¦ä¸²
             }
 
-            // ´¦ÀíÎÄ±¾ÊäÈëÊÂ¼ş
+            // å¤„ç†æ–‡æœ¬è¾“å…¥äº‹ä»¶
             if (event.type == sf::Event::TextEntered) {
                 char inputChar = static_cast<char>(event.text.unicode);
 
-                // ´¦ÀíÍË¸ñ¼üÉ¾³ı×Ö·û
-                if (inputChar == 8 && !inputText.empty()) {  // 8 ÊÇÍË¸ñ¼ü
-                    inputText.pop_back();  // É¾³ı×îºóÒ»¸ö×Ö·û
+                // å¤„ç†é€€æ ¼é”®åˆ é™¤å­—ç¬¦
+                if (inputChar == 8 && !inputText.empty()) {  // 8 æ˜¯é€€æ ¼é”®
+                    inputText.pop_back();  // åˆ é™¤æœ€åä¸€ä¸ªå­—ç¬¦
                 }
-                // ¼ì²éÊÇ·ñÊÇ Enter ¼ü (»Ø³µ¼ü)
-                else if (inputChar == '\r' || inputChar == '\n') {  // »Ø³µ½áÊøÊäÈë
+                // æ£€æŸ¥æ˜¯å¦æ˜¯ Enter é”® (å›è½¦é”®)
+                else if (inputChar == '\r' || inputChar == '\n') {  // å›è½¦ç»“æŸè¾“å…¥
                     return inputText;
                 }
-                // ¹ıÂË¿ØÖÆ×Ö·û£¬Ö»½ÓÊÜ¿É´òÓ¡×Ö·û
+                // è¿‡æ»¤æ§åˆ¶å­—ç¬¦ï¼Œåªæ¥å—å¯æ‰“å°å­—ç¬¦
                 else if (inputChar >= 32 && inputChar <= 126) {
-                    inputText += inputChar;  // Ìí¼Óµ½ÊäÈë×Ö·û´®ÖĞ
+                    inputText += inputChar;  // æ·»åŠ åˆ°è¾“å…¥å­—ç¬¦ä¸²ä¸­
                 }
 
-                // ¸üĞÂÏÔÊ¾µÄÓÃ»§ÊäÈëÎÄ±¾
+                // æ›´æ–°æ˜¾ç¤ºçš„ç”¨æˆ·è¾“å…¥æ–‡æœ¬
                 userInputDisplay.setString(inputText);
             }
         }
 
-        window.clear(sf::Color::White);  // ÇåÆÁ
-        window.draw(userInputDisplay);   // ÏÔÊ¾ÓÃ»§µ±Ç°ÊäÈëµÄÎÄ±¾
-        window.display();                // Ë¢ĞÂÏÔÊ¾
+        window.clear(sf::Color::White);  // æ¸…å±
+        window.draw(userInputDisplay);   // æ˜¾ç¤ºç”¨æˆ·å½“å‰è¾“å…¥çš„æ–‡æœ¬
+        window.display();                // åˆ·æ–°æ˜¾ç¤º
     }
 
-    return inputText;  // Èç¹û´°¿Ú±»¹Ø±Õ£¬·µ»Øµ±Ç°ÒÑÊäÈëµÄÄÚÈİ
+    return inputText;  // å¦‚æœçª—å£è¢«å…³é—­ï¼Œè¿”å›å½“å‰å·²è¾“å…¥çš„å†…å®¹
 }
 
-// »ñÈ¡²Ù×÷ÏòÁ¿
+// è·å–æ“ä½œå‘é‡
 std::vector<int> SFMLIO::getOperation() {
-    displayMessage("ÇëÑ¡ÔñÒ»¸ö¸ñ×Ó£¬È»ºóÊäÈëÊı×Ö");
+    displayMessage("è¯·é€‰æ‹©ä¸€ä¸ªæ ¼å­ï¼Œç„¶åè¾“å…¥æ•°å­—");
 
-    // »ñÈ¡ÓÃ»§µã»÷µÄ¸ñ×ÓÎ»ÖÃ
+    // è·å–ç”¨æˆ·ç‚¹å‡»çš„æ ¼å­ä½ç½®
     std::vector<int> position = getUserPosition();
 
-    // »ñÈ¡ÓÃ»§ÊäÈëµÄÊı×Ö
+    // è·å–ç”¨æˆ·è¾“å…¥çš„æ•°å­—
     int number = getUserInputNumber();
 
-    // ·µ»Ø²Ù×÷ÏòÁ¿£¬°üº¬ĞĞ¡¢ÁĞºÍÊäÈëµÄÊı×Ö
+    // è¿”å›æ“ä½œå‘é‡ï¼ŒåŒ…å«è¡Œã€åˆ—å’Œè¾“å…¥çš„æ•°å­—
     return { position[0], position[1], number };
 }
 
-// »ñÈ¡Î»ÖÃ
+// è·å–ä½ç½®
 std::vector<int> SFMLIO::getPosition() {
-    displayMessage("ÇëÑ¡ÔñÒ»¸ö¸ñ×Ó");
+    displayMessage("è¯·é€‰æ‹©ä¸€ä¸ªæ ¼å­");
 
-    // »ñÈ¡ÓÃ»§µã»÷µÄ¸ñ×ÓÎ»ÖÃ
+    // è·å–ç”¨æˆ·ç‚¹å‡»çš„æ ¼å­ä½ç½®
     return getUserPosition();
 }
 
@@ -143,46 +194,46 @@ std::vector<int> SFMLIO::getUserPosition() {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
-                return { -1, -1 }; // ¹Ø±Õ´°¿ÚÊ±·µ»ØÎŞĞ§Î»ÖÃ
+                return { -1, -1 }; // å…³é—­çª—å£æ—¶è¿”å›æ— æ•ˆä½ç½®
             }
 
-            // ´¦ÀíÊó±êµã»÷ÊÂ¼ş
+            // å¤„ç†é¼ æ ‡ç‚¹å‡»äº‹ä»¶
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 int mouseX = event.mouseButton.x;
                 int mouseY = event.mouseButton.y;
 
-                // ¼ÆËãµã»÷µÄĞĞºÍÁĞ
+                // è®¡ç®—ç‚¹å‡»çš„è¡Œå’Œåˆ—
                 int row = mouseY / 60;
                 int col = mouseX / 60;
 
                 if (row >= 0 && row < 9 && col >= 0 && col < 9) {
-                    return { row + 1, col + 1 };  // ·µ»Ø1-9·¶Î§
+                    return { row + 1, col + 1 };  // è¿”å›1-9èŒƒå›´
                 }
             }
         }
         window.clear(sf::Color::White);
         window.display();
     }
-    return { -1, -1 };  // Ä¬ÈÏ·µ»ØÎŞĞ§Î»ÖÃ
+    return { -1, -1 };  // é»˜è®¤è¿”å›æ— æ•ˆä½ç½®
 }
 
-// »ñÈ¡Êı
+// è·å–æ•°
 int SFMLIO::getNumber() {
     return getUserInputNumber();
 }
 
 int SFMLIO::getUserInputNumber() {
-    displayMessage("ÇëÊäÈëÒ»¸öÊı×Ö (1-9)");
+    displayMessage("è¯·è¾“å…¥ä¸€ä¸ªæ•°å­— (1-9)");
 
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
-                return -1;  // ·µ»ØÎŞĞ§Êı×Ö
+                return -1;  // è¿”å›æ— æ•ˆæ•°å­—
             }
 
-            // ´¦Àí¼üÅÌÊäÈëÊÂ¼ş
+            // å¤„ç†é”®ç›˜è¾“å…¥äº‹ä»¶
             if (event.type == sf::Event::TextEntered) {
                 char inputChar = static_cast<char>(event.text.unicode);
                 if (inputChar >= '1' && inputChar <= '9') {
@@ -193,22 +244,22 @@ int SFMLIO::getUserInputNumber() {
         window.clear(sf::Color::White);
         window.display();
     }
-    return -1;  // Ä¬ÈÏ·µ»ØÎŞĞ§Êı×Ö
+    return -1;  // é»˜è®¤è¿”å›æ— æ•ˆæ•°å­—
 }
 
-// ÏÔÊ¾²Ëµ¥
+// æ˜¾ç¤ºèœå•
 int SFMLIO::displayMenu(const std::vector<std::string>& options) {
     return getUserChoiceFromMenu(options);
 }
 
 int SFMLIO::getUserChoiceFromMenu(const std::vector<std::string>& options) {
-    displayMessage("ÇëÑ¡ÔñÒ»¸öÑ¡Ïî");
+    displayMessage("è¯·é€‰æ‹©ä¸€ä¸ªé€‰é¡¹");
 
     while (window.isOpen()) {
         window.clear();
         for (size_t i = 0; i < options.size(); ++i) {
             sf::Text optionText(options[i], font, 24);
-            optionText.setPosition(100, i * 40 + 50);  // Ã¿¸öÑ¡ÏîÖ®¼äÁô40ÏñËØ
+            optionText.setPosition(100, i * 40 + 50);  // æ¯ä¸ªé€‰é¡¹ä¹‹é—´ç•™40åƒç´ 
             optionText.setFillColor(sf::Color::Black);
             window.draw(optionText);
         }
@@ -218,10 +269,10 @@ int SFMLIO::getUserChoiceFromMenu(const std::vector<std::string>& options) {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
-                return -1;  // ·µ»ØÎŞĞ§Ñ¡Ïî
+                return -1;  // è¿”å›æ— æ•ˆé€‰é¡¹
             }
 
-            // ´¦ÀíÊó±êµã»÷ÊÂ¼ş£¬ÅĞ¶Ïµã»÷µÄ²Ëµ¥Ïî
+            // å¤„ç†é¼ æ ‡ç‚¹å‡»äº‹ä»¶ï¼Œåˆ¤æ–­ç‚¹å‡»çš„èœå•é¡¹
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 int mouseY = event.mouseButton.y;
                 int choice = mouseY / 40;
@@ -230,7 +281,7 @@ int SFMLIO::getUserChoiceFromMenu(const std::vector<std::string>& options) {
                 }
             }
 
-            // ´¦Àí¼üÅÌÊäÈëÊÂ¼ş
+            // å¤„ç†é”®ç›˜è¾“å…¥äº‹ä»¶
             if (event.type == sf::Event::TextEntered) {
                 char inputChar = static_cast<char>(event.text.unicode);
                 if (inputChar >= '1' && inputChar <= '9') {
@@ -243,5 +294,5 @@ int SFMLIO::getUserChoiceFromMenu(const std::vector<std::string>& options) {
         }
     }
 
-    return -1;  // Ä¬ÈÏ·µ»ØÎŞĞ§Ñ¡Ïî
+    return -1;  // é»˜è®¤è¿”å›æ— æ•ˆé€‰é¡¹
 }

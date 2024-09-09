@@ -1,251 +1,251 @@
-#include "Sudoku.h"
+ï»¿#include "Sudoku.h"
 #include <sstream>
 #include <fstream>
 #include <iostream>
 
 
 /*
-9ÔÂ7ÈÕ
-Íê³ÉÄ¿Ç°SudokuÀàµÄËùÓĞº¯Êı£¬ÓÎÏ·ÄÚ²¿Âß¼­Ö÷Ìå²¿·Ö¸æ³É£¬Î´²âÊÔ
-9ÔÂ8ÈÕ
-Ôö¼Óplayº¯ÊıÖĞÓÎÏ·¿ªÊ¼Ç°¹ØÓÚ¶ÁÈ¡idºÍ¼ÓÔØµÄÑ­»·
+9æœˆ7æ—¥
+å®Œæˆç›®å‰Sudokuç±»çš„æ‰€æœ‰å‡½æ•°ï¼Œæ¸¸æˆå†…éƒ¨é€»è¾‘ä¸»ä½“éƒ¨åˆ†å‘Šæˆï¼Œæœªæµ‹è¯•
+9æœˆ8æ—¥
+å¢åŠ playå‡½æ•°ä¸­æ¸¸æˆå¼€å§‹å‰å…³äºè¯»å–idå’ŒåŠ è½½çš„å¾ªç¯
 by lch
 */
 
 
 void Sudoku::initializeBoard(const std::vector<std::vector<int>>& boardData)
 {
-    // ³õÊ¼»¯board, rows, columns, blocks
+    // åˆå§‹åŒ–board, rows, columns, blocks
     board.resize(9, std::vector<Cell*>(9));
     rows.resize(9);
     columns.resize(9);
     blocks.resize(9);
 
-    // Ìî³äCell²¢°ó¶¨µ½rows, columnsºÍblocksÖĞ
+    // å¡«å……Cellå¹¶ç»‘å®šåˆ°rows, columnså’Œblocksä¸­
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
-            int val = boardData[i][j];  // ´ÓÊı¾İÖĞ»ñÈ¡Êı¶ÀµÄ³õÊ¼Öµ
-            Cell* cell = new Cell(val); // Ê¹ÓÃnew´´½¨Cell¶ÔÏó
-            board[i][j] = cell;         // °ó¶¨µ½board¾ØÕó
+            int val = boardData[i][j];  // ä»æ•°æ®ä¸­è·å–æ•°ç‹¬çš„åˆå§‹å€¼
+            Cell* cell = new Cell(val); // ä½¿ç”¨newåˆ›å»ºCellå¯¹è±¡
+            board[i][j] = cell;         // ç»‘å®šåˆ°boardçŸ©é˜µ
 
-            // °ó¶¨µ½¶ÔÓ¦µÄrow, columnºÍblock
-            rows[i].addCell(cell);      // Ìí¼Óµ½¶ÔÓ¦µÄrow
-            columns[j].addCell(cell);   // Ìí¼Óµ½¶ÔÓ¦µÄcolumn
-            blocks[(i / 3) * 3 + j / 3].addCell(cell);  // Ìí¼Óµ½¶ÔÓ¦µÄblock
+            // ç»‘å®šåˆ°å¯¹åº”çš„row, columnå’Œblock
+            rows[i].addCell(cell);      // æ·»åŠ åˆ°å¯¹åº”çš„row
+            columns[j].addCell(cell);   // æ·»åŠ åˆ°å¯¹åº”çš„column
+            blocks[(i / 3) * 3 + j / 3].addCell(cell);  // æ·»åŠ åˆ°å¯¹åº”çš„block
         }
     }
 }
 
 Sudoku::Sudoku(IOInterface* ioInterface, PuzzleLoader* loader):io(ioInterface), puzzleLoader(loader)
 {
-    int id = 1; //ÏÈ³õÊ¼»¯idÎª1
+    int id = 1; //å…ˆåˆå§‹åŒ–idä¸º1
 }
 
 bool Sudoku::loadFromFile(int gameID)
 {
-    std::vector<std::vector<int>> boardData; // ´æ´¢ÌâÄ¿Êı¾İ
-    if(!(puzzleLoader->loadPuzzle("Puzzles.dat", id, boardData, difficulty))) return false;  // ¼ÓÔØÆåÅÌĞÅÏ¢
+    std::vector<std::vector<int>> boardData; // å­˜å‚¨é¢˜ç›®æ•°æ®
+    if(!(puzzleLoader->loadPuzzle("Puzzles.dat", id, boardData, difficulty))) return false;  // åŠ è½½æ£‹ç›˜ä¿¡æ¯
     initializeBoard(boardData);
     return true;
 }
 
 bool Sudoku::saveToFile(int gameID)
 {
-    std::vector<std::vector<int>> boardData(9, std::vector<int>(9));  // ´´½¨9x9µÄboardData¾ØÕó
+    std::vector<std::vector<int>> boardData(9, std::vector<int>(9));  // åˆ›å»º9x9çš„boardDataçŸ©é˜µ
 
-    // ±éÀúÊı¶ÀÆåÅÌ£¬½«Ã¿¸öCellµÄÖµ±£´æµ½boardDataÖĞ
+    // éå†æ•°ç‹¬æ£‹ç›˜ï¼Œå°†æ¯ä¸ªCellçš„å€¼ä¿å­˜åˆ°boardDataä¸­
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
-            boardData[i][j] = board[i][j]->getValue();  // ½«Ã¿¸öCellµÄÖµ´æÈëboardData
+            boardData[i][j] = board[i][j]->getValue();  // å°†æ¯ä¸ªCellçš„å€¼å­˜å…¥boardData
         }
     }
 
-    // µ÷ÓÃpuzzleLoaderµÄsavePuzzleº¯Êı£¬½«ÆåÅÌĞÅÏ¢±£´æµ½ÎÄ¼şÖĞ
+    // è°ƒç”¨puzzleLoaderçš„savePuzzleå‡½æ•°ï¼Œå°†æ£‹ç›˜ä¿¡æ¯ä¿å­˜åˆ°æ–‡ä»¶ä¸­
     return puzzleLoader->savePuzzle("Puzzles.dat", gameID, boardData, difficulty);
 }
 
 void Sudoku::play() {
-    //¼ÓÔØÑ­»·
+    //åŠ è½½å¾ªç¯
     while (true) {
-        // Ñ¡ÔñÓÎÏ·´æµµID
-        io->displayMessage("ÇëÑ¡Ôñ´æµµ±àºÅ£º");
+        // é€‰æ‹©æ¸¸æˆå­˜æ¡£ID
+        io->displayMessage("Pleaseè¯·é€‰æ‹©å­˜æ¡£ç¼–å·ï¼š");
         std::string input = io->getUserInput();
 
-        // ³¢ÊÔ½«ÓÃ»§ÊäÈë×ª»»ÎªÕûÊıID
+        // å°è¯•å°†ç”¨æˆ·è¾“å…¥è½¬æ¢ä¸ºæ•´æ•°ID
         try {
-            id = std::stoi(input);  // ½«ÊäÈëµÄ×Ö·û´®×ª»»ÎªÕûÊıID
+            id = std::stoi(input);  // å°†è¾“å…¥çš„å­—ç¬¦ä¸²è½¬æ¢ä¸ºæ•´æ•°ID
         }
         catch (const std::invalid_argument&) {
-            io->displayMessage("ÎŞĞ§µÄÊäÈë£¬ÇëÊäÈëÕıÈ·µÄ´æµµ±àºÅ¡£");
+            io->displayMessage("æ— æ•ˆçš„è¾“å…¥ï¼Œè¯·è¾“å…¥æ­£ç¡®çš„å­˜æ¡£ç¼–å·ã€‚");
             continue;
         }
 
-        // ¼ÓÔØÓÎÏ·
+        // åŠ è½½æ¸¸æˆ
         if (!loadFromFile(id)) {
-            io->displayMessage("ÎŞ·¨¼ÓÔØÊı¶ÀÓÎÏ·¡£");
+            io->displayMessage("æ— æ³•åŠ è½½æ•°ç‹¬æ¸¸æˆã€‚");
             continue;
         }
         else break;
     }
 
-    // ÓÎÏ·Ñ­»·
+    // æ¸¸æˆå¾ªç¯
     while (true) {
-        // ÏÔÊ¾ÓÎÏ·ĞÅÏ¢ºÍµ±Ç°ÆåÅÌ
+        // æ˜¾ç¤ºæ¸¸æˆä¿¡æ¯å’Œå½“å‰æ£‹ç›˜
         io->displayInfo(id, difficulty);
         io->displayBoard(board);
 
-        // ¼ì²éÓÎÏ·ÊÇ·ñÒÑ¾­Íê³É
+        // æ£€æŸ¥æ¸¸æˆæ˜¯å¦å·²ç»å®Œæˆ
         if (checkIfSolved()) {
-            io->displayMessage("¹§Ï²£¡ÄãÒÑ¾­Íê³ÉÁËÊı¶À£¡");
+            io->displayMessage("æ­å–œï¼ä½ å·²ç»å®Œæˆäº†æ•°ç‹¬ï¼");
             break;
         }
 
-        // ÏÔÊ¾²Ëµ¥²¢ÈÃÍæ¼ÒÑ¡Ôñ²Ù×÷
+        // æ˜¾ç¤ºèœå•å¹¶è®©ç©å®¶é€‰æ‹©æ“ä½œ
         std::vector<std::string> options = {
-            "ÊäÈëÒ»¸öÊı",      // ÓÃ»§ÊäÈëÒ»¸öÊıµ½ÆåÅÌ
-            "²ÁÈ¥Ò»¸öÊı",      // ²ÁÈ¥ÒÑÊäÈëµÄÊı
-            "ÊäÈëºòÑ¡Êı",      // ÊäÈëÒ»¸öºòÑ¡Êı
-            "É¾³ıºòÑ¡Êı",      // É¾³ıÒ»¸öºòÑ¡Êı
-            "×Ô¶¯²¹³äºòÑ¡Êı",  // ×Ô¶¯¸üĞÂËùÓĞµ¥Ôª¸ñµÄºòÑ¡Êı
-            "±£´æÓÎÏ·",        // ±£´æµ±Ç°ÓÎÏ·
-            "ÖØÖÃÓÎÏ·",        // ÖØÖÃÓÎÏ·
-            "ÍË³ö"             // ÍË³öÓÎÏ·
+            "è¾“å…¥ä¸€ä¸ªæ•°",      // ç”¨æˆ·è¾“å…¥ä¸€ä¸ªæ•°åˆ°æ£‹ç›˜
+            "æ“¦å»ä¸€ä¸ªæ•°",      // æ“¦å»å·²è¾“å…¥çš„æ•°
+            "è¾“å…¥å€™é€‰æ•°",      // è¾“å…¥ä¸€ä¸ªå€™é€‰æ•°
+            "åˆ é™¤å€™é€‰æ•°",      // åˆ é™¤ä¸€ä¸ªå€™é€‰æ•°
+            "è‡ªåŠ¨è¡¥å……å€™é€‰æ•°",  // è‡ªåŠ¨æ›´æ–°æ‰€æœ‰å•å…ƒæ ¼çš„å€™é€‰æ•°
+            "ä¿å­˜æ¸¸æˆ",        // ä¿å­˜å½“å‰æ¸¸æˆ
+            "é‡ç½®æ¸¸æˆ",        // é‡ç½®æ¸¸æˆ
+            "é€€å‡º"             // é€€å‡ºæ¸¸æˆ
         };
         int choice = io->displayMenu(options);
 
         switch (choice) {
-        case 1: {  // ÊäÈëÒ»¸öÊı
-            io->displayMessage("ÇëÊäÈë²Ù×÷£ºĞĞ ÁĞ Êı×Ö");
+        case 1: {  // è¾“å…¥ä¸€ä¸ªæ•°
+            io->displayMessage("è¯·è¾“å…¥æ“ä½œï¼šè¡Œ åˆ— æ•°å­—");
             std::vector<int> operation = io->getOperation();
             if (operation.size() == 3) {
                 int row = operation[0];
                 int col = operation[1];
                 int value = operation[2];
 
-                // ÉèÖÃÖ¸¶¨Î»ÖÃµÄCellÖµ
+                // è®¾ç½®æŒ‡å®šä½ç½®çš„Cellå€¼
                 if (!setCellValue(row, col, value)) {
-                    io->displayMessage("ÎŞĞ§²Ù×÷¡£ÇëÖØĞÂÊäÈë¡£");
+                    io->displayMessage("æ— æ•ˆæ“ä½œã€‚è¯·é‡æ–°è¾“å…¥ã€‚");
                 }
             }
             else {
-                io->displayMessage("ÊäÈë¸ñÊ½´íÎó¡£ÇëÖØÊÔ¡£");
+                io->displayMessage("è¾“å…¥æ ¼å¼é”™è¯¯ã€‚è¯·é‡è¯•ã€‚");
             }
             break;
         }
-        case 2: {  // ²ÁÈ¥Ò»¸öÊı
-            io->displayMessage("ÇëÊäÈë²Ù×÷£ºĞĞ ÁĞ£¨²ÁÈ¥¶ÔÓ¦Î»ÖÃµÄÊı£©");
+        case 2: {  // æ“¦å»ä¸€ä¸ªæ•°
+            io->displayMessage("è¯·è¾“å…¥æ“ä½œï¼šè¡Œ åˆ—ï¼ˆæ“¦å»å¯¹åº”ä½ç½®çš„æ•°ï¼‰");
             std::vector<int> operation = io->getPosition();
-            if (operation.size() == 2) {    // ÕâÀïÂß¼­ÅĞ¶ÏÓĞÎÊÌâ
+            if (operation.size() == 2) {    // è¿™é‡Œé€»è¾‘åˆ¤æ–­æœ‰é—®é¢˜
                 int row = operation[0];
                 int col = operation[1];
 
-                // ²ÁÈ¥Ö¸¶¨Î»ÖÃµÄÊı£¬¼´ÉèÖÃÎª 0
+                // æ“¦å»æŒ‡å®šä½ç½®çš„æ•°ï¼Œå³è®¾ç½®ä¸º 0
                 if (!setCellValue(row, col, 0)) {
-                    io->displayMessage("ÎŞ·¨²ÁÈ¥¸ÃÎ»ÖÃµÄÊı¡£");
+                    io->displayMessage("æ— æ³•æ“¦å»è¯¥ä½ç½®çš„æ•°ã€‚");
                 }
             }
             else {
-                io->displayMessage("ÊäÈë¸ñÊ½´íÎó¡£ÇëÖØÊÔ¡£");
+                io->displayMessage("è¾“å…¥æ ¼å¼é”™è¯¯ã€‚è¯·é‡è¯•ã€‚");
             }
             break;
         }
-        case 3: {  // ÊäÈëºòÑ¡Êı
-            io->displayMessage("ÇëÊäÈë²Ù×÷£ºĞĞ ÁĞ ºòÑ¡Êı");
+        case 3: {  // è¾“å…¥å€™é€‰æ•°
+            io->displayMessage("è¯·è¾“å…¥æ“ä½œï¼šè¡Œ åˆ— å€™é€‰æ•°");
             std::vector<int> operation = io->getOperation();
             if (operation.size() == 3) {
                 int row = operation[0];
                 int col = operation[1];
                 int candidate = operation[2];
 
-                // Ìí¼ÓÖ¸¶¨Î»ÖÃµÄºòÑ¡Êı
+                // æ·»åŠ æŒ‡å®šä½ç½®çš„å€™é€‰æ•°
                 if (!addCellCandidate(row, col, candidate)) {
-                    io->displayMessage("ÎŞ·¨Ìí¼Ó¸ÃºòÑ¡Êı¡£");
+                    io->displayMessage("æ— æ³•æ·»åŠ è¯¥å€™é€‰æ•°ã€‚");
                 }
             }
             else {
-                io->displayMessage("ÊäÈë¸ñÊ½´íÎó¡£ÇëÖØÊÔ¡£");
+                io->displayMessage("è¾“å…¥æ ¼å¼é”™è¯¯ã€‚è¯·é‡è¯•ã€‚");
             }
             break;
         }
-        case 4: {  // É¾³ıºòÑ¡Êı
-            io->displayMessage("ÇëÊäÈë²Ù×÷£ºĞĞ ÁĞ ºòÑ¡Êı£¨É¾³ı¸ÃºòÑ¡Êı£©");
+        case 4: {  // åˆ é™¤å€™é€‰æ•°
+            io->displayMessage("è¯·è¾“å…¥æ“ä½œï¼šè¡Œ åˆ— å€™é€‰æ•°ï¼ˆåˆ é™¤è¯¥å€™é€‰æ•°ï¼‰");
             std::vector<int> operation = io->getOperation();
             if (operation.size() == 3) {
                 int row = operation[0];
                 int col = operation[1];
                 int candidate = operation[2];
 
-                // É¾³ıÖ¸¶¨Î»ÖÃµÄºòÑ¡Êı
+                // åˆ é™¤æŒ‡å®šä½ç½®çš„å€™é€‰æ•°
                 if (!removeCellCandidates(row, col, candidate)) {
-                    io->displayMessage("ÎŞ·¨É¾³ı¸ÃºòÑ¡Êı¡£");
+                    io->displayMessage("æ— æ³•åˆ é™¤è¯¥å€™é€‰æ•°ã€‚");
                 }
             }
             else {
-                io->displayMessage("ÊäÈë¸ñÊ½´íÎó¡£ÇëÖØÊÔ¡£");
+                io->displayMessage("è¾“å…¥æ ¼å¼é”™è¯¯ã€‚è¯·é‡è¯•ã€‚");
             }
             break;
         }
-        case 5: {  // ×Ô¶¯²¹³äºòÑ¡Êı
+        case 5: {  // è‡ªåŠ¨è¡¥å……å€™é€‰æ•°
             if (autoUpdateCandidates()) {
-                io->displayMessage("×Ô¶¯²¹³äºòÑ¡ÊıÍê³É£¡");
+                io->displayMessage("è‡ªåŠ¨è¡¥å……å€™é€‰æ•°å®Œæˆï¼");
             }
             else {
-                io->displayMessage("ÎŞ·¨×Ô¶¯²¹³äºòÑ¡Êı¡£");
+                io->displayMessage("æ— æ³•è‡ªåŠ¨è¡¥å……å€™é€‰æ•°ã€‚");
             }
             break;
         }
-        case 6: {  // ±£´æÓÎÏ·
+        case 6: {  // ä¿å­˜æ¸¸æˆ
             if (saveToFile(id)) {
-                io->displayMessage("ÓÎÏ·ÒÑ³É¹¦±£´æ£¡");
+                io->displayMessage("æ¸¸æˆå·²æˆåŠŸä¿å­˜ï¼");
             }
             else {
-                io->displayMessage("±£´æÊ§°Ü¡£");
+                io->displayMessage("ä¿å­˜å¤±è´¥ã€‚");
             }
             break;
         }
-        case 7: {  // ÖØÖÃÓÎÏ·
+        case 7: {  // é‡ç½®æ¸¸æˆ
             if (reset()) {
-                io->displayMessage("ÓÎÏ·ÒÑÖØÖÃ£¡");
+                io->displayMessage("æ¸¸æˆå·²é‡ç½®ï¼");
             }
             else {
-                io->displayMessage("ÖØÖÃÊ§°Ü¡£");
+                io->displayMessage("é‡ç½®å¤±è´¥ã€‚");
             }
             break;
         }
-        case 8: {  // ÍË³öÓÎÏ·
-            io->displayMessage("ÍË³öÓÎÏ·¡£");
+        case 8: {  // é€€å‡ºæ¸¸æˆ
+            io->displayMessage("é€€å‡ºæ¸¸æˆã€‚");
             return;
         }
         default:
-            io->displayMessage("ÎŞĞ§Ñ¡Ïî¡£ÇëÖØĞÂÑ¡Ôñ¡£");
+            io->displayMessage("æ— æ•ˆé€‰é¡¹ã€‚è¯·é‡æ–°é€‰æ‹©ã€‚");
         }
     }
 }
 
 bool Sudoku::setCellValue(int row, int col, int value)
 {
-    //°ÑÓÃ»§µÄÊäÈë×ª»»³ÉË÷Òı
+    //æŠŠç”¨æˆ·çš„è¾“å…¥è½¬æ¢æˆç´¢å¼•
     row -= 1;
     col -= 1;
 
-    // ¼ì²éĞĞÁĞÊÇ·ñÔ½½ç
+    // æ£€æŸ¥è¡Œåˆ—æ˜¯å¦è¶Šç•Œ
     if (row < 0 || row >= 9 || col < 0 || col >= 9) {
         return false;
     }
 
-    // Èç¹ûÊÇÉèÖÃÎª 0£¬±íÊ¾²Á³ı¶ÔÓ¦Î»ÖÃµÄÊıÖµ
+    // å¦‚æœæ˜¯è®¾ç½®ä¸º 0ï¼Œè¡¨ç¤ºæ“¦é™¤å¯¹åº”ä½ç½®çš„æ•°å€¼
     if (value == 0) {
-        // µ÷ÓÃ¶ÔÓ¦CellµÄsetValueº¯Êı£¬½«ÖµÉèÎª0
-        board[row][col]->setValue(0);  // ²Á³ıÖµ
-        return true;  // ²Á³ı²Ù×÷×ÜÊÇºÏ·¨µÄ
+        // è°ƒç”¨å¯¹åº”Cellçš„setValueå‡½æ•°ï¼Œå°†å€¼è®¾ä¸º0
+        board[row][col]->setValue(0);  // æ“¦é™¤å€¼
+        return true;  // æ“¦é™¤æ“ä½œæ€»æ˜¯åˆæ³•çš„
     }
 
-    // µ÷ÓÃ¶ÔÓ¦CellµÄsetValueº¯Êı£¬ÉèÖÃĞÂÖµ
+    // è°ƒç”¨å¯¹åº”Cellçš„setValueå‡½æ•°ï¼Œè®¾ç½®æ–°å€¼
     if (!board[row][col]->setValue(value)) {
         return false;
     }
 
-    // ¼ì²é¶ÔÓ¦µÄĞĞ¡¢ÁĞºÍ¿éÊÇ·ñºÏ·¨
+    // æ£€æŸ¥å¯¹åº”çš„è¡Œã€åˆ—å’Œå—æ˜¯å¦åˆæ³•
     if (!rows[row].isValid()) {
         return false;
     }
@@ -256,22 +256,22 @@ bool Sudoku::setCellValue(int row, int col, int value)
         return false;
     }
 
-    // Èç¹ûËùÓĞ¼ì²é¶¼Í¨¹ı£¬Ôò·µ»Øtrue
+    // å¦‚æœæ‰€æœ‰æ£€æŸ¥éƒ½é€šè¿‡ï¼Œåˆ™è¿”å›true
     return true;
 }
 
 bool Sudoku::addCellCandidate(int row, int col, int candidate)
 {
-    //°ÑÓÃ»§µÄÊäÈë×ª»»³ÉË÷Òı
+    //æŠŠç”¨æˆ·çš„è¾“å…¥è½¬æ¢æˆç´¢å¼•
     row -= 1;
     col -= 1;
 
-    // ¼ì²éĞĞÁĞÊÇ·ñÔ½½ç
+    // æ£€æŸ¥è¡Œåˆ—æ˜¯å¦è¶Šç•Œ
     if (row < 0 || row >= 9 || col < 0 || col >= 9) {
         return false;
     }
 
-    // µ÷ÓÃ¶ÔÓ¦CellµÄaddCandidateº¯Êı£¬Ìí¼ÓĞÂÖµ
+    // è°ƒç”¨å¯¹åº”Cellçš„addCandidateå‡½æ•°ï¼Œæ·»åŠ æ–°å€¼
     if (!board[row][col]->addCandidate(candidate)) {
         return false;
     }
@@ -281,16 +281,16 @@ bool Sudoku::addCellCandidate(int row, int col, int candidate)
 
 bool Sudoku::removeCellCandidates(int row, int col, int candidate)
 {
-    //°ÑÓÃ»§µÄÊäÈë×ª»»³ÉË÷Òı
+    //æŠŠç”¨æˆ·çš„è¾“å…¥è½¬æ¢æˆç´¢å¼•
     row -= 1;
     col -= 1;
 
-    // ¼ì²éĞĞÁĞÊÇ·ñÔ½½ç
+    // æ£€æŸ¥è¡Œåˆ—æ˜¯å¦è¶Šç•Œ
     if (row < 0 || row >= 9 || col < 0 || col >= 9) {
         return false;
     }
 
-    // µ÷ÓÃ¶ÔÓ¦CellµÄremoveCandidateº¯Êı£¬ÒÆ³ıºòÑ¡Öµ
+    // è°ƒç”¨å¯¹åº”Cellçš„removeCandidateå‡½æ•°ï¼Œç§»é™¤å€™é€‰å€¼
     if (!board[row][col]->removeCandidate(candidate)) {
         return false;
     }
@@ -300,19 +300,19 @@ bool Sudoku::removeCellCandidates(int row, int col, int candidate)
 
 bool Sudoku::autoUpdateCandidates()
 {
-    // ±éÀúÊı¶ÀÆåÅÌÖĞµÄÃ¿¸öCell
+    // éå†æ•°ç‹¬æ£‹ç›˜ä¸­çš„æ¯ä¸ªCell
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
             Cell* cell = board[i][j];
 
-            // Èç¹ûÕâ¸öCellÒÑ¾­È·¶¨ÁËÖµ£¬ÔòÌø¹ı
+            // å¦‚æœè¿™ä¸ªCellå·²ç»ç¡®å®šäº†å€¼ï¼Œåˆ™è·³è¿‡
             if (cell->isSolved()) {
                 continue;
             }
 
-            // ¶ÔÓÚÃ¿¸öºòÑ¡Öµ1µ½9£¬¼ì²éËüÊÇ·ñ¿ÉÒÔ´æÔÚ
+            // å¯¹äºæ¯ä¸ªå€™é€‰å€¼1åˆ°9ï¼Œæ£€æŸ¥å®ƒæ˜¯å¦å¯ä»¥å­˜åœ¨
             for (int candidate = 1; candidate <= 9; ++candidate) {
-                // Èç¹ûĞĞ¡¢ÁĞ»ò¿éÖĞÒÑ¾­ÓĞÁËÕâ¸öÖµ£¬Ôò´ÓºòÑ¡ÖµÖĞÉ¾³ı
+                // å¦‚æœè¡Œã€åˆ—æˆ–å—ä¸­å·²ç»æœ‰äº†è¿™ä¸ªå€¼ï¼Œåˆ™ä»å€™é€‰å€¼ä¸­åˆ é™¤
                 if (rows[i].hasValue(candidate) ||
                     columns[j].hasValue(candidate) ||
                     blocks[(i / 3) * 3 + j / 3].hasValue(candidate)) {
@@ -321,41 +321,41 @@ bool Sudoku::autoUpdateCandidates()
             }
         }
     }
-    return true;  //×Ô¶¯¸üĞÂºÃ£¬·µ»Øtrue
+    return true;  //è‡ªåŠ¨æ›´æ–°å¥½ï¼Œè¿”å›true
 }
 
 bool Sudoku::checkIfSolved() const
 {
-    // ¼ì²éÃ¿Ò»¸örowÊÇ·ñÒÑ¾­Íê³É
+    // æ£€æŸ¥æ¯ä¸€ä¸ªrowæ˜¯å¦å·²ç»å®Œæˆ
     for (int i = 0; i < 9; ++i) {
         if (!rows[i].isSolved()) {
             return false;
         }
     }
 
-    // 9¸örow¶¼ÌîÍê´ú±íÓÎÏ·ÒÑ¾­Íê³É
+    // 9ä¸ªrowéƒ½å¡«å®Œä»£è¡¨æ¸¸æˆå·²ç»å®Œæˆ
     return true;
 }
 
 bool Sudoku::reset()
 {
-    std::vector<std::vector<int>> boardData; // ´æ´¢ÌâÄ¿Êı¾İ
+    std::vector<std::vector<int>> boardData; // å­˜å‚¨é¢˜ç›®æ•°æ®
 
-    // µ÷ÓÃpuzzleLoader¼ÓÔØÊı¶ÀÌâÄ¿
+    // è°ƒç”¨puzzleLoaderåŠ è½½æ•°ç‹¬é¢˜ç›®
     if (!puzzleLoader->loadPuzzle("Puzzles.dat", id, boardData, difficulty)) {
         return false;
     }
 
-    // ±éÀúboard£¬ĞŞ¸ÄÒÑÓĞµÄCell£¬²¢µ÷ÓÃresetCandidates
+    // éå†boardï¼Œä¿®æ”¹å·²æœ‰çš„Cellï¼Œå¹¶è°ƒç”¨resetCandidates
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
-            int val = boardData[i][j];              // ´Ó¼ÓÔØµÄÊı¾İ»ñÈ¡ĞÂµÄÖµ
-            board[i][j]->setValue(val);             // ĞŞ¸ÄÒÑÓĞµÄCellµÄÖµ
-            board[i][j]->resetCandidates();         // ÖØÖÃCellµÄºòÑ¡Öµ
+            int val = boardData[i][j];              // ä»åŠ è½½çš„æ•°æ®è·å–æ–°çš„å€¼
+            board[i][j]->setValue(val);             // ä¿®æ”¹å·²æœ‰çš„Cellçš„å€¼
+            board[i][j]->resetCandidates();         // é‡ç½®Cellçš„å€™é€‰å€¼
         }
     }
 
-    return true;  // ÖØÖÃ³É¹¦
+    return true;  // é‡ç½®æˆåŠŸ
 }
 
 Sudoku::~Sudoku()

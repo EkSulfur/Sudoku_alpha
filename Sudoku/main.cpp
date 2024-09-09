@@ -1,4 +1,4 @@
-// master.cpp : ´ËÎÄ¼þ°üº¬ "main" º¯Êý¡£³ÌÐòÖ´ÐÐ½«ÔÚ´Ë´¦¿ªÊ¼²¢½áÊø¡£
+ï»¿// master.cpp : æ­¤æ–‡ä»¶åŒ…å« "main" å‡½æ•°ã€‚ç¨‹åºæ‰§è¡Œå°†åœ¨æ­¤å¤„å¼€å§‹å¹¶ç»“æŸã€‚
 //
 
 #include "Sudoku.h"
@@ -7,16 +7,16 @@
 #include "PuzzleLoaderDAT.h"
 
 int main() {
-    // ´´½¨¿ØÖÆÌ¨ÊäÈëÊä³ö½Ó¿Ú
+    // åˆ›å»ºæŽ§åˆ¶å°è¾“å…¥è¾“å‡ºæŽ¥å£
     //ConsoleIO consoleIO;
 
-    // ´´½¨SFML½Ó¿Ú
+    // åˆ›å»ºSFMLæŽ¥å£
     SFMLIO sfmlIO;
 
-    // ´´½¨DAT¸ñÊ½µÄPuzzleLoader
+    // åˆ›å»ºDATæ ¼å¼çš„PuzzleLoader
     PuzzleLoaderDAT puzzleLoader;
 
-    // ´´½¨SudokuÓÎÏ·ÊµÀý
+    // åˆ›å»ºSudokuæ¸¸æˆå®žä¾‹
     Sudoku game(&sfmlIO, &puzzleLoader);
 
     game.play();
@@ -36,18 +36,18 @@ int main() {
 //    return 0;
 //}
 
-// ÔËÐÐ³ÌÐò: Ctrl + F5 »òµ÷ÊÔ >¡°¿ªÊ¼Ö´ÐÐ(²»µ÷ÊÔ)¡±²Ëµ¥
-// µ÷ÊÔ³ÌÐò: F5 »òµ÷ÊÔ >¡°¿ªÊ¼µ÷ÊÔ¡±²Ëµ¥
+// è¿è¡Œç¨‹åº: Ctrl + F5 æˆ–è°ƒè¯• >â€œå¼€å§‹æ‰§è¡Œ(ä¸è°ƒè¯•)â€èœå•
+// è°ƒè¯•ç¨‹åº: F5 æˆ–è°ƒè¯• >â€œå¼€å§‹è°ƒè¯•â€èœå•
 
-// ÈëÃÅÊ¹ÓÃ¼¼ÇÉ: 
-//   1. Ê¹ÓÃ½â¾ö·½°¸×ÊÔ´¹ÜÀíÆ÷´°¿ÚÌí¼Ó/¹ÜÀíÎÄ¼þ
-//   2. Ê¹ÓÃÍÅ¶Ó×ÊÔ´¹ÜÀíÆ÷´°¿ÚÁ¬½Óµ½Ô´´úÂë¹ÜÀí
-//   3. Ê¹ÓÃÊä³ö´°¿Ú²é¿´Éú³ÉÊä³öºÍÆäËûÏûÏ¢
-//   4. Ê¹ÓÃ´íÎóÁÐ±í´°¿Ú²é¿´´íÎó
-//   5. ×ªµ½¡°ÏîÄ¿¡±>¡°Ìí¼ÓÐÂÏî¡±ÒÔ´´½¨ÐÂµÄ´úÂëÎÄ¼þ£¬»ò×ªµ½¡°ÏîÄ¿¡±>¡°Ìí¼ÓÏÖÓÐÏî¡±ÒÔ½«ÏÖÓÐ´úÂëÎÄ¼þÌí¼Óµ½ÏîÄ¿
-//   6. ½«À´£¬ÈôÒªÔÙ´Î´ò¿ª´ËÏîÄ¿£¬Çë×ªµ½¡°ÎÄ¼þ¡±>¡°´ò¿ª¡±>¡°ÏîÄ¿¡±²¢Ñ¡Ôñ .sln ÎÄ¼þ
+// å…¥é—¨ä½¿ç”¨æŠ€å·§: 
+//   1. ä½¿ç”¨è§£å†³æ–¹æ¡ˆèµ„æºç®¡ç†å™¨çª—å£æ·»åŠ /ç®¡ç†æ–‡ä»¶
+//   2. ä½¿ç”¨å›¢é˜Ÿèµ„æºç®¡ç†å™¨çª—å£è¿žæŽ¥åˆ°æºä»£ç ç®¡ç†
+//   3. ä½¿ç”¨è¾“å‡ºçª—å£æŸ¥çœ‹ç”Ÿæˆè¾“å‡ºå’Œå…¶ä»–æ¶ˆæ¯
+//   4. ä½¿ç”¨é”™è¯¯åˆ—è¡¨çª—å£æŸ¥çœ‹é”™è¯¯
+//   5. è½¬åˆ°â€œé¡¹ç›®â€>â€œæ·»åŠ æ–°é¡¹â€ä»¥åˆ›å»ºæ–°çš„ä»£ç æ–‡ä»¶ï¼Œæˆ–è½¬åˆ°â€œé¡¹ç›®â€>â€œæ·»åŠ çŽ°æœ‰é¡¹â€ä»¥å°†çŽ°æœ‰ä»£ç æ–‡ä»¶æ·»åŠ åˆ°é¡¹ç›®
+//   6. å°†æ¥ï¼Œè‹¥è¦å†æ¬¡æ‰“å¼€æ­¤é¡¹ç›®ï¼Œè¯·è½¬åˆ°â€œæ–‡ä»¶â€>â€œæ‰“å¼€â€>â€œé¡¹ç›®â€å¹¶é€‰æ‹© .sln æ–‡ä»¶
 
-//²âÊÔSFML
+//æµ‹è¯•SFML
 
 //#include <SFML/Graphics.hpp>
 //
