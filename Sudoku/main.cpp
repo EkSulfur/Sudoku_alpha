@@ -8,16 +8,16 @@
 
 int main() {
     // 创建控制台输入输出接口
-    //ConsoleIO consoleIO;
+    ConsoleIO io;
 
     // 创建SFML接口
-    SFMLIO sfmlIO;
+    //SFMLIO io;
 
     // 创建DAT格式的PuzzleLoader
     PuzzleLoaderDAT puzzleLoader;
 
     // 创建Sudoku游戏实例
-    Sudoku game(&sfmlIO, &puzzleLoader);
+    Sudoku game(&io, &puzzleLoader);
 
     game.play();
 

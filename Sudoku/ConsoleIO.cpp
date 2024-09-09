@@ -26,7 +26,7 @@ string ConsoleIO::getUserInput() {
     return input;
 }
 
-void ConsoleIO::displayBoard(const vector<vector<Cell*>>& board) {
+void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) {
     cout << "\n 当前数独棋盘: \n";
     int size = board.size(); // 棋盘大小，通常是 9
 
@@ -38,10 +38,10 @@ void ConsoleIO::displayBoard(const vector<vector<Cell*>>& board) {
             // 打印行的分隔线
             if (j % 3 == 0) cout << " | ";
 
-            if (board[i][j]->getValue() == 0)
+            if (board[i][j].getValue() == 0)
                 cout << ". ";  // 显示空位为点
             else
-                cout << board[i][j]->getValue() << " ";
+                cout << board[i][j].getValue() << " ";
         }
         cout << "|";  // 行尾加上分隔符
         cout << endl;

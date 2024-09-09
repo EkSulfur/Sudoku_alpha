@@ -29,13 +29,13 @@ Cell::Cell() : value(0) {
 Cell::Cell(int val):value(val)
 {   
     if (val != 0) {
-        for (int i = 1; i <= 10; ++i) {
-            candidates.push_back(1); //值为0代表对应索引不是候选值
+        for (int i = 0; i <= 10; ++i) {  // 9月9日修改关键错误：i应该从0开始
+            candidates.push_back(0); //值为0代表对应索引不是候选值
             fixed = 1; //值不可改变
         }
     }
     else {
-        for (int i = 1; i <= 10; ++i) {
+        for (int i = 0; i <= 10; ++i) {
             candidates.push_back(1); //值为1代表对应索引的数是候选值
         }
     }

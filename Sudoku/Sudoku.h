@@ -27,7 +27,7 @@
 
 class Sudoku {
 private:
-    std::vector<std::vector<Cell*>> board;  // 9x9的Cell指针矩阵
+    std::vector<std::vector<Cell>> board;  // 9x9的Cell指针矩阵
     std::vector<Row> rows;                  // 9个Row
     std::vector<Column> columns;            // 9个Column
     std::vector<Block> blocks;              // 9个Block
@@ -70,9 +70,6 @@ public:
 
     // 重置游戏
     bool reset();
-
-    //定义析构函数
-    ~Sudoku();
 };
 
 #endif // SUDOKU_H

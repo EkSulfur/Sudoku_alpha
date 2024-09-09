@@ -8,7 +8,7 @@
 class ConsoleIO : public IOInterface {
 public:
     // 显示棋盘
-    void displayBoard(const std::vector<std::vector<Cell*>>& board) override;
+    void displayBoard(const std::vector<std::vector<Cell>>& board) override;
 
     // 显示信息
     void displayInfo(const int id, const std::string difficulty) override;

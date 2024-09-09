@@ -16,7 +16,7 @@ by lch
 void Sudoku::initializeBoard(const std::vector<std::vector<int>>& boardData)
 {
     // 初始化board, rows, columns, blocks
-    board.resize(9, std::vector<Cell*>(9));
+    board.resize(9, std::vector<Cell>(9));
     rows.resize(9);
     columns.resize(9);
     blocks.resize(9);
@@ -25,13 +25,13 @@ void Sudoku::initializeBoard(const std::vector<std::vector<int>>& boardData)
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
             int val = boardData[i][j];  // 从数据中获取数独的初始值
-            Cell* cell = new Cell(val); // 使用new创建Cell对象
+            Cell cell = Cell(val); // 使用new创建Cell对象
             board[i][j] = cell;         // 绑定到board矩阵
 
             // 绑定到对应的row, column和block
-            rows[i].addCell(cell);      // 添加到对应的row
-            columns[j].addCell(cell);   // 添加到对应的column
-            blocks[(i / 3) * 3 + j / 3].addCell(cell);  // 添加到对应的block
+            rows[i].addCell(&board[i][j]);      // 添加到对应的row
+            columns[j].addCell(&board[i][j]);   // 添加到对应的column
+            blocks[(i / 3) * 3 + j / 3].addCell(&board[i][j]);  // 添加到对应的block
         }
     }
 }
@@ -56,7 +56,7 @@ bool Sudoku::saveToFile(int gameID)
     // 遍历数独棋盘，将每个Cell的值保存到boardData中
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
-            boardData[i][j] = board[i][j]->getValue();  // 将每个Cell的值存入boardData
+            boardData[i][j] = board[i][j].getValue();  // 将每个Cell的值存入boardData
         }
     }
 
@@ -236,12 +236,12 @@ bool Sudoku::setCellValue(int row, int col, int value)
     // 如果是设置为 0，表示擦除对应位置的数值
     if (value == 0) {
         // 调用对应Cell的setValue函数，将值设为0
-        board[row][col]->setValue(0);  // 擦除值
+        board[row][col].setValue(0);  // 擦除值
         return true;  // 擦除操作总是合法的
     }
 
     // 调用对应Cell的setValue函数，设置新值
-    if (!board[row][col]->setValue(value)) {
+    if (!board[row][col].setValue(value)) {
         return false;
     }
 
@@ -272,7 +272,7 @@ bool Sudoku::addCellCandidate(int row, int col, int candidate)
     }
 
     // 调用对应Cell的addCandidate函数，添加新值
-    if (!board[row][col]->addCandidate(candidate)) {
+    if (!board[row][col].addCandidate(candidate)) {
         return false;
     }
 
@@ -291,7 +291,7 @@ bool Sudoku::removeCellCandidates(int row, int col, int candidate)
     }
 
     // 调用对应Cell的removeCandidate函数，移除候选值
-    if (!board[row][col]->removeCandidate(candidate)) {
+    if (!board[row][col].removeCandidate(candidate)) {
         return false;
     }
 
@@ -303,10 +303,10 @@ bool Sudoku::autoUpdateCandidates()
     // 遍历数独棋盘中的每个Cell
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
-            Cell* cell = board[i][j];
+            Cell cell = board[i][j];
 
             // 如果这个Cell已经确定了值，则跳过
-            if (cell->isSolved()) {
+            if (cell.isSolved()) {
                 continue;
             }
 
@@ -316,7 +316,7 @@ bool Sudoku::autoUpdateCandidates()
                 if (rows[i].hasValue(candidate) ||
                     columns[j].hasValue(candidate) ||
                     blocks[(i / 3) * 3 + j / 3].hasValue(candidate)) {
-                    cell->removeCandidate(candidate);
+                    cell.removeCandidate(candidate);
                 }
             }
         }
@@ -350,19 +350,10 @@ bool Sudoku::reset()
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
             int val = boardData[i][j];              // 从加载的数据获取新的值
-            board[i][j]->setValue(val);             // 修改已有的Cell的值
-            board[i][j]->resetCandidates();         // 重置Cell的候选值
+            board[i][j].setValue(val);             // 修改已有的Cell的值
+            board[i][j].resetCandidates();         // 重置Cell的候选值
         }
     }
 
     return true;  // 重置成功
-}
-
-Sudoku::~Sudoku()
-{
-    for (int i = 0; i < 9; ++i) {
-        for (int j = 0; j < 9; ++j) {
-            delete board[i][j];
-        }
-    }
 }

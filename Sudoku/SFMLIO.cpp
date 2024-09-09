@@ -31,7 +31,7 @@ SFMLIO::~SFMLIO() {
 }
 
 // 显示棋盘
-void SFMLIO::displayBoard(const std::vector<std::vector<Cell*>>& board) {
+void SFMLIO::displayBoard(const std::vector<std::vector<Cell>>& board) {
     window.clear(sf::Color::Black);  // 背景色设为黑色
     int gridSize = 9;
     int cellSize = 60;  // 每个格子的像素大小
@@ -49,23 +49,23 @@ void SFMLIO::displayBoard(const std::vector<std::vector<Cell*>>& board) {
             window.draw(cellOutline);
 
             // 获取当前单元格
-            Cell* cell = board[i][j];
+            Cell cell = board[i][j];
 
-            if (cell->isSolved()) {
+            if (cell.isSolved()) {
                 // 已确定的数值，绘制在格子中心
                 sf::Text cellValue;
                 cellValue.setFont(font);
                 cellValue.setCharacterSize(valueFontSize);  // 设置字符大小为24
                 cellValue.setFillColor(sf::Color::Green);  // 颜色设为绿色
-                cellValue.setString(std::to_string(cell->getValue()));  // 显示该格子的值
+                cellValue.setString(std::to_string(cell.getValue()));  // 显示该格子的值
                 cellValue.setPosition(x + cellSize / 3, y + cellSize / 4);  // 将文本居中
                 window.draw(cellValue);
             }
             else {
                 // 候选数处理
-                const std::vector<int>& candidates = cell->getCandidates();
+                const std::vector<int>& candidates = cell.getCandidates();
                 for (int k = 1; k <= 9; ++k) {
-                    if (cell->hasCandidate(k)) {
+                    if (cell.hasCandidate(k)) {
                         // 每个候选数都按位置绘制到格子的某个小区域
                         sf::Text candidateText;
                         candidateText.setFont(font);

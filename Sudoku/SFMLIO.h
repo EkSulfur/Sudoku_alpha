@@ -13,7 +13,7 @@ public:
     ~SFMLIO();
 
     // 显示棋盘
-    void displayBoard(const std::vector<std::vector<Cell*>>& board) override;
+    void displayBoard(const std::vector<std::vector<Cell>>& board) override;
 
     // 显示信息
     void displayInfo(const int id, const std::string difficulty) override;
@@ -42,7 +42,7 @@ private:
     sf::Text messageText;
     sf::RectangleShape cellOutline;
 
-    void drawBoard(const std::vector<std::vector<Cell*>>& board);
+    void drawBoard(const std::vector<std::vector<Cell>>& board);
     int getUserChoiceFromMenu(const std::vector<std::string>& options);
     std::vector<int> getUserPosition();
     int getUserInputNumber();
