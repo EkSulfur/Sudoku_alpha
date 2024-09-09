@@ -16,17 +16,17 @@ by lch
 
 using namespace std;
 
-void ConsoleIO::displayMessage(const string& message) const {
+void ConsoleIO::displayMessage(const string& message) {
     cout << message << endl;
 }
 
-string ConsoleIO::getUserInput() const {
+string ConsoleIO::getUserInput() {
     string input;
     getline(cin, input);
     return input;
 }
 
-void ConsoleIO::displayBoard(const vector<vector<Cell*>>& board) const {
+void ConsoleIO::displayBoard(const vector<vector<Cell*>>& board) {
     cout << "\n 当前数独棋盘: \n";
     int size = board.size(); // 棋盘大小，通常是 9
 
@@ -53,7 +53,7 @@ void ConsoleIO::displayBoard(const vector<vector<Cell*>>& board) const {
     }
 }
 
-int ConsoleIO::displayMenu(const vector<string>& options) const {
+int ConsoleIO::displayMenu(const vector<string>& options) {
     cout << "\n=============================" << endl;
     cout << "|    请选择一个操作：        |" << endl;
 
@@ -74,7 +74,7 @@ int ConsoleIO::displayMenu(const vector<string>& options) const {
     return choice;
 }
 
-void ConsoleIO::displayInfo(const int id, const string difficulty) const {
+void ConsoleIO::displayInfo(const int id, const string difficulty) {
     cout << "当前游戏难度: " << difficulty << endl;
     cout << "用户ID: " << id << endl;
     cout << "你可以进行以下操作: " << endl;
@@ -83,7 +83,7 @@ void ConsoleIO::displayInfo(const int id, const string difficulty) const {
     cout << "3. 退出游戏" << endl;
 }
 
-vector<int> ConsoleIO::getOperation() const {
+vector<int> ConsoleIO::getOperation() {
     vector<int> operation;
     // 9月8日 修复冗余的代码和输出 by lch
     int row, col, num;
@@ -116,7 +116,7 @@ vector<int> ConsoleIO::getOperation() const {
     return operation;
 }
 
-vector<int> ConsoleIO::getPosition() const {
+vector<int> ConsoleIO::getPosition() {
     vector<int> operation;
     int row, col;
     cout << "请输入你要填入的行 (1-9): ";
@@ -138,7 +138,7 @@ vector<int> ConsoleIO::getPosition() const {
     return operation;
 }
 
-int ConsoleIO::getNumber() const
+int ConsoleIO::getNumber()
 {
     int num;
     cout << "请输入你要填入的数字 (1-9): ";

@@ -1,12 +1,17 @@
-#ifndef CONSOLE_IO_H
-#define CONSOLE_IO_H
+#ifndef SFMLIO_H
+#define SFMLIO_H
 
+#include <SFML/Graphics.hpp>
 #include "IOInterface.h"
-#include <iostream>
 #include <vector>
+#include <string>
+#include "Cell.h"
 
-class ConsoleIO : public IOInterface {
+class SFMLIO : public IOInterface {
 public:
+    SFMLIO();
+    ~SFMLIO();
+
     // 显示棋盘
     void displayBoard(const std::vector<std::vector<Cell*>>& board) override;
 
@@ -30,6 +35,17 @@ public:
 
     // 显示菜单，返回用户选择
     int displayMenu(const std::vector<std::string>& options) override;
+
+private:
+    sf::RenderWindow window;
+    sf::Font font;
+    sf::Text messageText;
+    sf::RectangleShape cellOutline;
+
+    void drawBoard(const std::vector<std::vector<Cell*>>& board);
+    int getUserChoiceFromMenu(const std::vector<std::string>& options);
+    std::vector<int> getUserPosition();
+    int getUserInputNumber();
 };
 
-#endif // CONSOLE_IO_H
+#endif // SFMLIO_H

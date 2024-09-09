@@ -48,6 +48,9 @@
     <ClCompile Include="testLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SFMLIO.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h">
@@ -81,6 +84,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="testLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SFMLIO.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

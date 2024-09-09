@@ -1,24 +1,28 @@
 // master.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
-//#include "Sudoku.h"
-//#include "ConsoleIO.h"
-//#include "PuzzleLoaderDAT.h"
-//
-//int main() {
-//    // 创建控制台输入输出接口
-//    ConsoleIO consoleIO;
-//
-//    // 创建DAT格式的PuzzleLoader
-//    PuzzleLoaderDAT puzzleLoader;
-//
-//    // 创建Sudoku游戏实例
-//    Sudoku game(&consoleIO, &puzzleLoader);
-//
-//    game.play();
-//
-//    return 0;
-//}
+#include "Sudoku.h"
+#include "ConsoleIO.h"
+#include "SFMLIO.h"
+#include "PuzzleLoaderDAT.h"
+
+int main() {
+    // 创建控制台输入输出接口
+    //ConsoleIO consoleIO;
+
+    // 创建SFML接口
+    SFMLIO sfmlIO;
+
+    // 创建DAT格式的PuzzleLoader
+    PuzzleLoaderDAT puzzleLoader;
+
+    // 创建Sudoku游戏实例
+    Sudoku game(&sfmlIO, &puzzleLoader);
+
+    game.play();
+
+    return 0;
+}
 
 
 //#include <iostream>
@@ -45,27 +49,27 @@
 
 //测试SFML
 
-#include <SFML/Graphics.hpp>
-
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
-
-    return 0;
-}
+//#include <SFML/Graphics.hpp>
+//
+//int main()
+//{
+//    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+//    sf::CircleShape shape(100.f);
+//    shape.setFillColor(sf::Color::Green);
+//
+//    while (window.isOpen())
+//    {
+//        sf::Event event;
+//        while (window.pollEvent(event))
+//        {
+//            if (event.type == sf::Event::Closed)
+//                window.close();
+//        }
+//
+//        window.clear();
+//        window.draw(shape);
+//        window.display();
+//    }
+//
+//    return 0;
+//}

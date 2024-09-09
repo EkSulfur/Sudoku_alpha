@@ -19,6 +19,8 @@ by lch
 9月7日
 修改getOperation的作用（代码没变）主要使用场景是填数或者移除候选数时输入坐标和数字，应该是一个三维的向量
 by lch
+9月9日
+把所有const的函数改为非const的，适应SFMLIO中的变化
 */
 
 
@@ -28,29 +30,29 @@ public:
     virtual ~IOInterface() = default;
 
     // 显示棋盘
-    virtual void displayBoard(const std::vector<std::vector<Cell*>>& board) const = 0;
+    virtual void displayBoard(const std::vector<std::vector<Cell*>>& board) = 0;
 
 
     //显示信息
-    virtual void displayInfo(const int id, const std::string difficulty) const = 0;
+    virtual void displayInfo(const int id, const std::string difficulty) = 0;
 
     // 显示消息
-    virtual void displayMessage(const std::string& message) const = 0;
+    virtual void displayMessage(const std::string& message) = 0;
 
     // 获取用户输入
-    virtual std::string getUserInput() const = 0;
+    virtual std::string getUserInput() = 0;
 
     // 获取操作，返回向量
-    virtual std::vector<int> getOperation() const = 0;
+    virtual std::vector<int> getOperation() = 0;
 
     // 获取位置，返回向量
-    virtual std::vector<int> getPosition() const = 0;
+    virtual std::vector<int> getPosition() = 0;
 
     // 获取数，返回一个整数
-    virtual int getNumber() const = 0;
+    virtual int getNumber() = 0;
 
     // 显示菜单，返回用户选择
-    virtual int displayMenu(const std::vector<std::string>& options) const = 0;
+    virtual int displayMenu(const std::vector<std::string>& options) = 0;
 };
 
 #endif // IO_INTERFACE_H
