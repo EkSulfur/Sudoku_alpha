@@ -3,7 +3,7 @@
 
 SFMLIO::SFMLIO() : window(sf::VideoMode(600, 600), "Sudoku Game") {
     // 加载字体
-    if (!font.loadFromFile("arial.ttf")) {
+    if (!font.loadFromFile("FandolSong-Regular.ttf")) {
         std::cerr << "无法加载字体" << std::endl;
     }
 

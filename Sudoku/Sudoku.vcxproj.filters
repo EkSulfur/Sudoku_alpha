@@ -94,4 +94,9 @@
     <None Include="MiniPuzzles.dat" />
     <None Include="Puzzles.dat" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="FandolSong-Regular.ttf">
+      <Filter>资源文件</Filter>
+    </Font>
+  </ItemGroup>
 </Project>
