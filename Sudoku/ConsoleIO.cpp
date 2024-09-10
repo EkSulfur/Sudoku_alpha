@@ -11,6 +11,13 @@
 by lwh
 添加getPosition和getNumber函数，拆分getOperation原有的功能
 实际上getNumber好像没啥用，getPosition是为了适应去除该位置之前填入的数的功能
+9月10日
+目前需要完成的任务：
+理解Sudoku.cpp中的play函数，使用的Command Pattern
+区分是否fixed的cell的数的颜色
+显示候选数
+在数独中显示行、列
+美化界面（次要）
 by lch
 */
 

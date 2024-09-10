@@ -138,6 +138,7 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BasicCommands.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="CellContainer.cpp" />
@@ -152,9 +153,11 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="testLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasicCommands.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="CellContainer.h" />
+    <ClInclude Include="Command.h" />
     <ClInclude Include="ConsoleIO.h" />
     <ClInclude Include="IOInterface.h" />
     <ClInclude Include="MenuManager.h" />

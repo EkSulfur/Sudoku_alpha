@@ -1,4 +1,5 @@
 ﻿#include "Sudoku.h"
+#include "BasicCommands.h"
 #include <sstream>
 #include <fstream>
 #include <iostream>
@@ -9,6 +10,8 @@
 完成目前Sudoku类的所有函数，游戏内部逻辑主体部分告成，未测试
 9月8日
 增加play函数中游戏开始前关于读取id和加载的循环
+9月10日
+更改play函数，分离各个菜单选项选项和play函数，实现命令模式
 by lch
 */
 
@@ -88,137 +91,28 @@ void Sudoku::play() {
         else break;
     }
 
-    // 游戏循环
+    // 构建菜单并添加对应的命令
+    menuManager.addOption("输入一个数", new InputNumberCommand(this, io));
+    menuManager.addOption("擦去一个数", new EraseNumberCommand(this, io));
+    menuManager.addOption("输入候选数", new AddCandidateCommand(this, io));
+    menuManager.addOption("删除候选数", new RemoveCandidateCommand(this, io));
+    menuManager.addOption("自动补充候选数", new AutoUpdateCandidatesCommand(this, io));
+    menuManager.addOption("保存游戏", new SaveGameCommand(this, io, id));
+    menuManager.addOption("重置游戏", new ResetGameCommand(this, io));
+    menuManager.addOption("退出游戏", new ExitGameCommand(io));
+
+    // 游戏主循环
     while (true) {
-        // 显示游戏信息和当前棋盘
         io->displayInfo(id, difficulty);
         io->displayBoard(board);
 
-        // 检查游戏是否已经完成
         if (checkIfSolved()) {
             io->displayMessage("恭喜！你已经完成了数独！");
             break;
         }
 
-        // 显示菜单并让玩家选择操作
-        std::vector<std::string> options = {
-            "输入一个数",      // 用户输入一个数到棋盘
-            "擦去一个数",      // 擦去已输入的数
-            "输入候选数",      // 输入一个候选数
-            "删除候选数",      // 删除一个候选数
-            "自动补充候选数",  // 自动更新所有单元格的候选数
-            "保存游戏",        // 保存当前游戏
-            "重置游戏",        // 重置游戏
-            "退出"             // 退出游戏
-        };
-        int choice = io->displayMenu(options);
-
-        switch (choice) {
-        case 1: {  // 输入一个数
-            io->displayMessage("请输入操作：行 列 数字");
-            std::vector<int> operation = io->getOperation();
-            if (operation.size() == 3) {
-                int row = operation[0];
-                int col = operation[1];
-                int value = operation[2];
-
-                // 设置指定位置的Cell值
-                if (!setCellValue(row, col, value)) {
-                    io->displayMessage("无效操作。请重新输入。");
-                }
-            }
-            else {
-                io->displayMessage("输入格式错误。请重试。");
-            }
-            break;
-        }
-        case 2: {  // 擦去一个数
-            io->displayMessage("请输入操作：行 列（擦去对应位置的数）");
-            std::vector<int> operation = io->getPosition();
-            if (operation.size() == 2) {    // 这里逻辑判断有问题
-                int row = operation[0];
-                int col = operation[1];
-
-                // 擦去指定位置的数，即设置为 0
-                if (!setCellValue(row, col, 0)) {
-                    io->displayMessage("无法擦去该位置的数。");
-                }
-            }
-            else {
-                io->displayMessage("输入格式错误。请重试。");
-            }
-            break;
-        }
-        case 3: {  // 输入候选数
-            io->displayMessage("请输入操作：行 列 候选数");
-            std::vector<int> operation = io->getOperation();
-            if (operation.size() == 3) {
-                int row = operation[0];
-                int col = operation[1];
-                int candidate = operation[2];
-
-                // 添加指定位置的候选数
-                if (!addCellCandidate(row, col, candidate)) {
-                    io->displayMessage("无法添加该候选数。");
-                }
-            }
-            else {
-                io->displayMessage("输入格式错误。请重试。");
-            }
-            break;
-        }
-        case 4: {  // 删除候选数
-            io->displayMessage("请输入操作：行 列 候选数（删除该候选数）");
-            std::vector<int> operation = io->getOperation();
-            if (operation.size() == 3) {
-                int row = operation[0];
-                int col = operation[1];
-                int candidate = operation[2];
-
-                // 删除指定位置的候选数
-                if (!removeCellCandidates(row, col, candidate)) {
-                    io->displayMessage("无法删除该候选数。");
-                }
-            }
-            else {
-                io->displayMessage("输入格式错误。请重试。");
-            }
-            break;
-        }
-        case 5: {  // 自动补充候选数
-            if (autoUpdateCandidates()) {
-                io->displayMessage("自动补充候选数完成！");
-            }
-            else {
-                io->displayMessage("无法自动补充候选数。");
-            }
-            break;
-        }
-        case 6: {  // 保存游戏
-            if (saveToFile(id)) {
-                io->displayMessage("游戏已成功保存！");
-            }
-            else {
-                io->displayMessage("保存失败。");
-            }
-            break;
-        }
-        case 7: {  // 重置游戏
-            if (reset()) {
-                io->displayMessage("游戏已重置！");
-            }
-            else {
-                io->displayMessage("重置失败。");
-            }
-            break;
-        }
-        case 8: {  // 退出游戏
-            io->displayMessage("退出游戏。");
-            return;
-        }
-        default:
-            io->displayMessage("无效选项。请重新选择。");
-        }
+        // 通过MenuManager显示菜单并执行对应的命令
+        menuManager.displayMenu(io);
     }
 }
 
