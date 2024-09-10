@@ -1,30 +1,31 @@
 ﻿#ifndef MENU_MANAGER_H
 #define MENU_MANAGER_H
 
-#include <functional>
-#include <map>
-#include <string>
+#include "Command.h"
+#include "IOInterface.h"
+#include <vector>
+#include <cstring>
+
+/*
+9月10日
+添加MenuManager类，组合Command类，实现命令模式，更好地适应未来可能会添加菜单选项的变化
+by lch
+*/
 
 class MenuManager {
 private:
-    std::map<std::string, std::function<void()>> menuItems;  // 菜单项名称与操作映射
-    std::map<int, std::string> menuIndexes;  // 菜单编号与名称映射
-
-    // 根据名称获取菜单项编号
-    int getMenuIndexByName(const std::string& name) const;
-
+    std::vector<std::pair<std::string, Command*>> options;  // 菜单选项和对应的命令
 public:
-    // 添加菜单项
-    void addMenuItem(const std::string& name, std::function<void()> action);
+    // 添加菜单选项及对应的命令
+    void addOption(const std::string& optionText, Command* command);
 
-    // 移除菜单项
-    void removeMenuItem(const std::string& name);
+    // 显示菜单并获取用户选择
+    int displayMenu(IOInterface* io) const;
 
-    // 显示菜单
-    void displayMenu() const;
+    // 清空菜单选项
+    void clearOptions();
 
-    // 执行菜单项
-    void executeMenuItem(const std::string& input) const;
+    ~MenuManager();
 };
 
 #endif // MENU_MANAGER_H
