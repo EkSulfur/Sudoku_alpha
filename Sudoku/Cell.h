@@ -49,6 +49,9 @@ public:
 
     // 判断当前格子是否已确定值
     bool isSolved() const;
+
+    // 判断该数是否可以改动
+    bool isFixed() const;
 };
 
 #endif // CELL_H

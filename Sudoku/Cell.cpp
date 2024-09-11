@@ -100,3 +100,8 @@ void Cell::resetCandidates() {
 bool Cell::isSolved() const {
     return value != 0;
 }
+
+bool Cell::isFixed() const
+{
+    return fixed;
+}
