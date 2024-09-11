@@ -96,7 +96,7 @@ void Sudoku::play() {
     menuManager.addOption("擦去一个数", new EraseNumberCommand(this, io));
     menuManager.addOption("输入候选数", new AddCandidateCommand(this, io));
     menuManager.addOption("删除候选数", new RemoveCandidateCommand(this, io));
-    menuManager.addOption("自动补充候选数", new AutoUpdateCandidatesCommand(this, io));
+    menuManager.addOption("自动更新候选数", new AutoUpdateCandidatesCommand(this, io));
     menuManager.addOption("保存游戏", new SaveGameCommand(this, io, id));
     menuManager.addOption("重置游戏", new ResetGameCommand(this, io));
     menuManager.addOption("退出游戏", new ExitGameCommand(io));
@@ -197,10 +197,10 @@ bool Sudoku::autoUpdateCandidates()
     // 遍历数独棋盘中的每个Cell
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
-            Cell cell = board[i][j];
+            Cell *cell = &board[i][j];
 
             // 如果这个Cell已经确定了值，则跳过
-            if (cell.isSolved()) {
+            if (cell->isSolved()) {
                 continue;
             }
 
@@ -210,7 +210,7 @@ bool Sudoku::autoUpdateCandidates()
                 if (rows[i].hasValue(candidate) ||
                     columns[j].hasValue(candidate) ||
                     blocks[(i / 3) * 3 + j / 3].hasValue(candidate)) {
-                    cell.removeCandidate(candidate);
+                    cell->removeCandidate(candidate);
                 }
             }
         }

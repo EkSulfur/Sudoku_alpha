@@ -5,6 +5,13 @@
 #include <string>
 #include "PuzzleLoaderDAT.h"
 
+/*
+9月11日
+还可以做的工作：
+设计一个函数，能读取文件后返回有多少个数独存档，返回可选的id向量
+by lch
+*/
+
 bool PuzzleLoaderDAT::loadPuzzle(const std::string& filename, int gameID, std::vector<std::vector<int>>& board, std::string& difficulty){
     std::ifstream file(filename);
     if (!file.is_open()) {
