@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <limits>
+#include <iomanip>
 
 /*
 9月8日
@@ -37,25 +38,65 @@ void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) {
     cout << "\n 当前数独棋盘: \n";
     int size = board.size(); // 棋盘大小，通常是 9
 
-    // 打印顶部分隔线
-    cout << " -------------------------\n";
+    // 调整列号的对齐
+    cout << "     ";  // 留出行号的空格
+    for (int i = 0; i < size; ++i) {
+        cout << "   C" << i + 1 << "  ";  // 增加空格，保证对齐
+    }
+    cout << "\n  ----------------------------------------------------------------\n";
 
     for (int i = 0; i < size; ++i) {
-        for (int j = 0; j < size; ++j) {
-            // 打印行的分隔线
-            if (j % 3 == 0) cout << " | ";
+        // 每行有三行候选数输出，分别从候选数矩阵的每一行输出
+        for (int sub_row = 0; sub_row < 3; ++sub_row) {
+            // 打印行号（仅在第一次输出该行的候选数时打印），并确保对齐
+            if (sub_row == 1) {
+                cout << "R" << setw(2) << i + 1 << " ";  // 对齐行号
+            }
+            else {
+                cout << "    ";
+            }
 
-            if (board[i][j].getValue() == 0)
-                cout << ". ";  // 显示空位为点
-            else
-                cout << board[i][j].getValue() << " ";
+            for (int j = 0; j < size; ++j) {
+                // 打印分隔线，确保3x3的分块更加明显
+                if (j % 3 == 0) cout << "| ";
+
+                const Cell& cell = board[i][j];
+
+                if (cell.getValue() == 0) {
+                    // 打印候选数字，分成 3 行显示，增加空格保证对齐
+                    vector<int> candidates = cell.getCandidates();
+                    for (int k = sub_row * 3 + 1; k <= sub_row * 3 + 3; ++k) {
+                        if (candidates[k]) {
+                            cout << setw(2) << k;  // 候选数
+                        }
+                        else {
+                            cout << setw(2) << " ";  // 非候选数
+                        }
+                    }
+                }
+                else {
+                    // 如果当前值是固定值或用户输入值，直接显示数字
+                    if (sub_row == 1) {
+                        if (cell.isFixed()) {
+                            cout << "\033[32m" << setw(6) << cell.getValue() << "\033[0m";  // 绿色表示固定值
+                        }
+                        else {
+                            cout << "\033[31m" << setw(6) << cell.getValue() << "\033[0m";  // 红色表示用户输入值
+                        }
+                    }
+                    else {
+                        cout << setw(6) << " ";  // 空行，用于保持候选数字格式对齐
+                    }
+                }
+            }
+
+            cout << " |";  // 行尾加上分隔符
+            cout << endl;
         }
-        cout << "|";  // 行尾加上分隔符
-        cout << endl;
 
-        // 每 3 行后打印一次分隔线
+        // 每 3 行后打印一次分隔线，并确保3x3的分块更加明显
         if ((i + 1) % 3 == 0) {
-            cout << " -------------------------\n";
+            cout << "  ---------------------------------------------------------------\n";
         }
     }
 }
