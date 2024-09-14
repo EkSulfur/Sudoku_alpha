@@ -102,6 +102,9 @@
   <ItemGroup>
     <None Include="MiniPuzzles.dat" />
     <None Include="Puzzles.dat" />
+    <None Include="puzzles.hx.dat">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Font Include="FandolSong-Regular.ttf">

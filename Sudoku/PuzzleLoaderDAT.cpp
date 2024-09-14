@@ -5,7 +5,7 @@
 #include <string>
 #include "PuzzleLoaderDAT.h"
 
-bool PuzzleLoaderDAT::loadPuzzle(const std::string& filename, int gameID, std::vector<std::vector<int>>& board, std::string& difficulty){
+bool PuzzleLoaderDAT::loadPuzzle(const std::string& filename, int gameID, std::vector<std::vector<int>>& board, std::string& difficulty) {
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Error: Could not open file " << filename << std::endl;
@@ -48,7 +48,52 @@ bool PuzzleLoaderDAT::loadPuzzle(const std::string& filename, int gameID, std::v
     return true;
 }
 
-bool PuzzleLoaderDAT::savePuzzle(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board, const std::string& difficulty){
+bool PuzzleLoaderDAT::loadCandidates(const std::string& filename, int gameID, std::map<std::pair<int, int>, std::vector<int>>& candidates) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error: Could not open candidates file " << filename << std::endl;
+        return false;
+    }
+
+    std::string line;
+    bool puzzleFound = false;
+    while (std::getline(file, line)) {
+        if (line.find("ID: " + std::to_string(gameID)) != std::string::npos) {
+            puzzleFound = true;
+            break;
+        }
+    }
+
+    if (!puzzleFound) {
+        std::cerr << "Error: Candidates for ID " << gameID << " not found." << std::endl;
+        return false;
+    }
+
+    // 跳过难度和Board的几行
+    while (std::getline(file, line)) {
+        if (line.find("---") != std::string::npos) {
+            break;
+        }
+
+        // 处理候选数数据
+        std::stringstream ss(line);
+        int row, col;
+        char comma;
+        ss >> row >> comma >> col;
+
+        std::vector<int> candidateList;
+        int candidate;
+        while (ss >> candidate) {
+            candidateList.push_back(candidate);
+        }
+
+        candidates[std::make_pair(row - 1, col - 1)] = candidateList;
+    }
+
+    return true;
+}
+
+bool PuzzleLoaderDAT::savePuzzle(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board, const std::string& difficulty) {
     std::ifstream fileIn(filename);
     std::stringstream buffer;
     bool puzzleFound = false;
@@ -94,6 +139,58 @@ bool PuzzleLoaderDAT::savePuzzle(const std::string& filename, int gameID, const 
     }
 
     // 将修改后的内容写回文件
+    std::ofstream fileOut(filename);
+    if (!fileOut.is_open()) {
+        std::cerr << "Error: Could not open file " << filename << std::endl;
+        return false;
+    }
+    fileOut << content;
+    fileOut.close();
+
+    return true;
+}
+
+bool PuzzleLoaderDAT::saveCandidates(const std::string& filename, int gameID, const std::map<std::pair<int, int>, std::vector<int>>& candidates) {
+    std::ifstream fileIn(filename);
+    std::stringstream buffer;
+    bool puzzleFound = false;
+    std::string line;
+
+    // 读取文件内容到 buffer
+    if (fileIn.is_open()) {
+        buffer << fileIn.rdbuf();
+        fileIn.close();
+    }
+
+    // 构建新的候选数内容
+    std::string newCandidateEntry;
+    newCandidateEntry += "ID: " + std::to_string(gameID) + "\n";
+    newCandidateEntry += "Candidates:\n";
+    for (const auto& candidate : candidates) {
+        newCandidateEntry += std::to_string(candidate.first.first + 1) + "," + std::to_string(candidate.first.second + 1) + " ";
+        for (int val : candidate.second) {
+            newCandidateEntry += std::to_string(val) + " ";
+        }
+        newCandidateEntry += "\n";
+    }
+    newCandidateEntry += "---\n";
+
+    std::string content = buffer.str();
+    std::size_t idPos = content.find("ID: " + std::to_string(gameID));
+
+    if (idPos != std::string::npos) {
+        std::size_t nextPuzzlePos = content.find("ID: ", idPos + 1);
+        if (nextPuzzlePos == std::string::npos) {
+            nextPuzzlePos = content.size();
+        }
+
+        content.replace(idPos, nextPuzzlePos - idPos, newCandidateEntry);
+        puzzleFound = true;
+    }
+    else {
+        content += newCandidateEntry;
+    }
+
     std::ofstream fileOut(filename);
     if (!fileOut.is_open()) {
         std::cerr << "Error: Could not open file " << filename << std::endl;
