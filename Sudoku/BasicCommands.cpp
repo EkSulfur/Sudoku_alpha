@@ -123,3 +123,10 @@ void ExitGameCommand::execute()
     io->displayMessage("退出游戏。");
     exit(0);  // 直接退出程序
 }
+
+
+//// 自动填充唯一候选数的命令
+//void AutoSetNumberCommand::execute()
+//{
+//
+//}

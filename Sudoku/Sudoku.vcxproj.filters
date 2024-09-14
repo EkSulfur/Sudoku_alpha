@@ -54,6 +54,9 @@
     <ClCompile Include="BasicCommands.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SudokuController.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h">
@@ -96,6 +99,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BasicCommands.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SudokuController.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -35,7 +35,6 @@ private:
     std::vector<Block> blocks;              // 9个Block
     int id;
     std::string difficulty;
-    IOInterface* io;              // 指向IO接口的指针
     MenuManager menuManager;      // 管理菜单的实例
     PuzzleLoader* puzzleLoader;   // 题目库加载器的指针
 
@@ -44,7 +43,7 @@ private:
 
 public:
     // 构造函数
-    Sudoku(IOInterface* ioInterface, PuzzleLoader* loader);
+    Sudoku(PuzzleLoader* loader);
 
     // 从文件加载游戏数据
     bool loadFromFile(int gameID);
@@ -72,6 +71,15 @@ public:
 
     // 重置游戏
     bool reset();
+
+    // 获取目前的id
+    int getID() const;
+
+    // 获取目前的难度
+    std::string getDifficulty() const;
+
+    // 获取棋盘
+    std::vector<std::vector<Cell>> getBoard() const;
 };
 
 #endif // SUDOKU_H

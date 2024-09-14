@@ -5,6 +5,7 @@
 #include "ConsoleIO.h"
 #include "SFMLIO.h"
 #include "PuzzleLoaderDAT.h"
+#include "SudokuController.h"
 
 int main() {
     // 创建控制台输入输出接口
@@ -17,9 +18,14 @@ int main() {
     PuzzleLoaderDAT puzzleLoader;
 
     // 创建Sudoku游戏实例
-    Sudoku game(&io, &puzzleLoader);
+    Sudoku game(&puzzleLoader);
 
-    game.play();
+    //game.play();
+
+    // 创建控制器实例
+    SudokuController controller(&game, &io);
+
+    controller.startGame();
 
     return 0;
 }

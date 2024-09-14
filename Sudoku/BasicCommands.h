@@ -96,10 +96,22 @@ public:
 class ExitGameCommand : public Command {
 private:
     IOInterface* io;
+    bool *isRunning;
 public:
-    ExitGameCommand(IOInterface* ioInterface) : io(ioInterface) {}
+    // 先设置isRunning默认参数为nullptr
+    ExitGameCommand(IOInterface* ioInterface, bool *isRunning = nullptr) : io(ioInterface),isRunning(isRunning) {}
 
     void execute() override;
 };
 
+
+//// 自动把唯一候选数填充上的命令
+//class AutoSetNumberCommand : public Command {
+//private:
+//    IOInterface* io;
+//public:
+//    AutoSetNumberCommand(Sudoku* s, IOInterface* ioInterface) : io(ioInterface) {}
+//
+//    void execute() override;
+//};
 #endif 

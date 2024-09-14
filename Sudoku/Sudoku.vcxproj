@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>SFML_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\Packages\SFML-2.6.1\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +151,7 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="PuzzleLoaderDAT.cpp" />
     <ClCompile Include="SFMLIO.cpp" />
     <ClCompile Include="Sudoku.cpp" />
+    <ClCompile Include="SudokuController.cpp" />
     <ClCompile Include="testLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +168,7 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="resource.h" />
     <ClInclude Include="SFMLIO.h" />
     <ClInclude Include="Sudoku.h" />
+    <ClInclude Include="SudokuController.h" />
     <ClInclude Include="testLoader.h" />
   </ItemGroup>
   <ItemGroup>

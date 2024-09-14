@@ -12,6 +12,8 @@
 增加play函数中游戏开始前关于读取id和加载的循环
 9月10日
 更改play函数，分离各个菜单选项选项和play函数，实现命令模式
+9月14日
+修复了无法删除数时不会显示信息的bug
 by lch
 */
 
@@ -39,10 +41,7 @@ void Sudoku::initializeBoard(const std::vector<std::vector<int>>& boardData)
     }
 }
 
-Sudoku::Sudoku(IOInterface* ioInterface, PuzzleLoader* loader):io(ioInterface), puzzleLoader(loader)
-{
-    int id = 1; //先初始化id为1
-}
+Sudoku::Sudoku(PuzzleLoader* loader):puzzleLoader(loader), id(1) {} // 默认初始化的id为1
 
 bool Sudoku::loadFromFile(int gameID)
 {
@@ -67,55 +66,6 @@ bool Sudoku::saveToFile(int gameID)
     return puzzleLoader->savePuzzle("Puzzles.dat", gameID, boardData, difficulty);
 }
 
-void Sudoku::play() {
-    //加载循环
-    while (true) {
-        // 选择游戏存档ID
-        io->displayMessage("Please请选择存档编号：");
-        std::string input = io->getUserInput();
-
-        // 尝试将用户输入转换为整数ID
-        try {
-            id = std::stoi(input);  // 将输入的字符串转换为整数ID
-        }
-        catch (const std::invalid_argument&) {
-            io->displayMessage("无效的输入，请输入正确的存档编号。");
-            continue;
-        }
-
-        // 加载游戏
-        if (!loadFromFile(id)) {
-            io->displayMessage("无法加载数独游戏。");
-            continue;
-        }
-        else break;
-    }
-
-    // 构建菜单并添加对应的命令
-    menuManager.addOption("输入一个数", new InputNumberCommand(this, io));
-    menuManager.addOption("擦去一个数", new EraseNumberCommand(this, io));
-    menuManager.addOption("输入候选数", new AddCandidateCommand(this, io));
-    menuManager.addOption("删除候选数", new RemoveCandidateCommand(this, io));
-    menuManager.addOption("自动更新候选数", new AutoUpdateCandidatesCommand(this, io));
-    menuManager.addOption("保存游戏", new SaveGameCommand(this, io, id));
-    menuManager.addOption("重置游戏", new ResetGameCommand(this, io));
-    menuManager.addOption("退出游戏", new ExitGameCommand(io));
-
-    // 游戏主循环
-    while (true) {
-        io->displayInfo(id, difficulty);
-        io->displayBoard(board);
-
-        if (checkIfSolved()) {
-            io->displayMessage("恭喜！你已经完成了数独！");
-            break;
-        }
-
-        // 通过MenuManager显示菜单并执行对应的命令
-        menuManager.displayMenu(io);
-    }
-}
-
 bool Sudoku::setCellValue(int row, int col, int value)
 {
     //把用户的输入转换成索引
@@ -126,6 +76,9 @@ bool Sudoku::setCellValue(int row, int col, int value)
     if (row < 0 || row >= 9 || col < 0 || col >= 9) {
         return false;
     }
+
+    // 如果Cell中数字是固定的，返回false
+    if (board[row][col].isFixed()) return false;
 
     // 如果是设置为 0，表示擦除对应位置的数值
     if (value == 0) {
@@ -141,12 +94,15 @@ bool Sudoku::setCellValue(int row, int col, int value)
 
     // 检查对应的行、列和块是否合法
     if (!rows[row].isValid()) {
+        board[row][col].setValue(0); // 重新设置值为0
         return false;
     }
     if (!columns[col].isValid()) {
+        board[row][col].setValue(0); // 重新设置值为0
         return false;
     }
     if (!blocks[(row / 3) * 3 + col / 3].isValid()) {
+        board[row][col].setValue(0); // 重新设置值为0
         return false;
     }
 
@@ -250,4 +206,19 @@ bool Sudoku::reset()
     }
 
     return true;  // 重置成功
+}
+
+int Sudoku::getID() const
+{
+    return this->id;
+}
+
+std::string Sudoku::getDifficulty() const
+{
+    return this->difficulty;
+}
+
+std::vector<std::vector<Cell>> Sudoku::getBoard() const
+{
+    return this->board;
 }
