@@ -105,13 +105,13 @@ public:
 };
 
 
-//// 自动把唯一候选数填充上的命令
-//class AutoSetNumberCommand : public Command {
-//private:
-//    IOInterface* io;
-//public:
-//    AutoSetNumberCommand(Sudoku* s, IOInterface* ioInterface) : io(ioInterface) {}
-//
-//    void execute() override;
-//};
+// 自动把唯一候选数填充上的命令
+class AutoSetNumberCommand : public Command {
+private:
+    Sudoku* sudoku;
+public:
+    AutoSetNumberCommand(Sudoku* s) : sudoku(s) {}
+
+    void execute() override;
+};
 #endif 

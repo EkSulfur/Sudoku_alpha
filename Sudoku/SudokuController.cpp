@@ -12,6 +12,7 @@ SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface
     menuManager.addOption("自动更新候选数", new AutoUpdateCandidatesCommand(sudoku, io));
     menuManager.addOption("保存游戏", new SaveGameCommand(sudoku, io, sudoku->getID()));
     menuManager.addOption("重置游戏", new ResetGameCommand(sudoku, io));
+    menuManager.addOption("自动填入唯一候选数", new AutoSetNumberCommand(sudoku));
     menuManager.addOption("退出游戏", new ExitGameCommand(io, &isRunning));
 }
 

@@ -125,8 +125,29 @@ void ExitGameCommand::execute()
 }
 
 
-//// 自动填充唯一候选数的命令
-//void AutoSetNumberCommand::execute()
-//{
-//
-//}
+// 自动填充唯一候选数的命令
+void AutoSetNumberCommand::execute()
+{
+    std::vector<std::vector<Cell>> board = sudoku->getBoard();
+    // 遍历数独棋盘中的每个Cell
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            Cell* cell = &board[i][j];
+
+            // 如果这个Cell已经确定了值，则跳过
+            if (cell->isSolved()) {
+                continue;
+            }
+            int candidate_num = 0, the_candidate = 0;
+            // 对于每个候选值1到9，检查它是否可以存在
+            for (int candidate = 1; candidate <= 9; ++candidate) {
+                if (cell->hasCandidate(candidate)) {
+                    candidate_num += 1;
+                    the_candidate = candidate;
+                }
+            }
+            if (candidate_num == 1) sudoku->setCellValue(i+1, j+1, the_candidate);
+        }
+    }
+    return;  //自动更新好，返回true
+}
