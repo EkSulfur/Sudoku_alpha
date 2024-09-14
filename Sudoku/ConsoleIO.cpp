@@ -5,36 +5,52 @@
 #include <string>
 #include <limits>
 #include <iomanip>
-
-/*
-9月8日
-完成ConsoleIO类
-by lwh
-添加getPosition和getNumber函数，拆分getOperation原有的功能
-实际上getNumber好像没啥用，getPosition是为了适应去除该位置之前填入的数的功能
-9月10日
-目前需要完成的任务：
-理解Sudoku.cpp中的play函数，使用的Command Pattern
-区分是否fixed的cell的数的颜色
-显示候选数
-在数独中显示行、列
-美化界面（次要）
-by lch
-*/
+#include <chrono>  // 引入计时器库
 
 using namespace std;
+using namespace std::chrono;
 
+// 构造函数的定义，初始化成员变量
+ConsoleIO::ConsoleIO() : start_time(std::chrono::steady_clock::now()), move_count(0) {}
+
+// 初始化计时器和步数统计
+void ConsoleIO::startGame() {
+    start_time = std::chrono::steady_clock::now();  // 记录游戏开始时间
+    move_count = 0;                    // 重置操作次数
+    displayMessage("游戏开始！祝你好运！");
+}
+
+// 增加步数统计
+void ConsoleIO::incrementMoveCount() {
+    move_count++;
+}
+
+// 显示当前时间和步数
+void ConsoleIO::displayTimeAndMoves() {
+    auto current_time = std::chrono::steady_clock::now();
+    auto elapsed_seconds = std::chrono::duration_cast<std::chrono::seconds>(current_time - start_time).count();  // 计算经过的秒数
+
+    int minutes = static_cast<int>(elapsed_seconds / 60);   // 分钟数
+    int seconds = static_cast<int>(elapsed_seconds % 60);   // 秒数
+
+    cout << "\n时间已用: " << minutes << " 分 " << seconds << " 秒";
+    cout << "\n步数: " << move_count << endl;
+}
+// 显示消息
 void ConsoleIO::displayMessage(const string& message) {
     cout << message << endl;
 }
 
+// 获取用户输入
 string ConsoleIO::getUserInput() {
     string input;
     getline(cin, input);
     return input;
 }
 
+// 显示棋盘并显示时间和步数
 void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) {
+    displayTimeAndMoves();  // 显示时间和步数
     cout << "\n 当前数独棋盘: \n";
     int size = board.size(); // 棋盘大小，通常是 9
 
@@ -101,7 +117,9 @@ void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) {
     }
 }
 
+// 显示菜单
 int ConsoleIO::displayMenu(const vector<string>& options) {
+    displayTimeAndMoves();  // 显示时间和步数
     cout << "\n=============================" << endl;
     cout << "|    请选择一个操作：        |" << endl;
 
@@ -122,6 +140,7 @@ int ConsoleIO::displayMenu(const vector<string>& options) {
     return choice;
 }
 
+// 显示游戏信息
 void ConsoleIO::displayInfo(const int id, const string difficulty) {
     cout << "当前游戏难度: " << difficulty << endl;
     cout << "用户ID: " << id << endl;
@@ -131,9 +150,9 @@ void ConsoleIO::displayInfo(const int id, const string difficulty) {
     cout << "3. 退出游戏" << endl;
 }
 
+// 获取用户操作
 vector<int> ConsoleIO::getOperation() {
     vector<int> operation;
-    // 9月8日 修复冗余的代码和输出 by lch
     int row, col, num;
     cout << "请输入你要填入的行 (1-9): ";
     while (!(cin >> row) || row < 1 || row > 9) {
@@ -156,7 +175,8 @@ vector<int> ConsoleIO::getOperation() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    //operation.push_back(1); // 1 代表填数操作
+    incrementMoveCount();  // 增加操作计数
+
     operation.push_back(row);
     operation.push_back(col);
     operation.push_back(num);
@@ -164,6 +184,7 @@ vector<int> ConsoleIO::getOperation() {
     return operation;
 }
 
+// 获取用户输入的位置
 vector<int> ConsoleIO::getPosition() {
     vector<int> operation;
     int row, col;
@@ -181,13 +202,15 @@ vector<int> ConsoleIO::getPosition() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
+    incrementMoveCount();  // 增加操作计数
+
     operation.push_back(row);
     operation.push_back(col);
     return operation;
 }
 
-int ConsoleIO::getNumber()
-{
+// 获取用户输入的数字
+int ConsoleIO::getNumber() {
     int num;
     cout << "请输入你要填入的数字 (1-9): ";
     while (!(cin >> num) || num < 1 || num > 9) {
@@ -195,5 +218,8 @@ int ConsoleIO::getNumber()
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
+
+    incrementMoveCount();  // 增加操作计数
+
     return num;
 }
