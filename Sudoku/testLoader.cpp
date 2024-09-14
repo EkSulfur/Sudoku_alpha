@@ -1,63 +1,140 @@
-﻿#include "testLoader.h"
+﻿#include "PuzzleLoaderDAT.h"
 #include <iostream>
+#include <map>
+#include <vector>
+#include <exception>
 
-/*
-测试Loader相关内容
-*/
+// 测试读取数独棋盘
+void testLoadPuzzle() {
+    try {
+        PuzzleLoaderDAT loader;
+        std::vector<std::vector<int>> board;
+        std::string difficulty;
 
-// 打印数独棋盘的辅助函数
-void printBoard(const std::vector<std::vector<int>>& board) {
-    for (const auto& row : board) {
-        for (int val : row) {
-            std::cout << val << " ";
+        if (loader.loadPuzzle("puzzles.dat", 1, board, difficulty)) {
+            std::cout << "成功加载数独棋盘！\n";
+            std::cout << "难度：" << difficulty << "\n";
+            std::cout << "棋盘：\n";
+            for (const auto& row : board) {
+                for (int num : row) {
+                    std::cout << num << " ";
+                }
+                std::cout << "\n";
+            }
         }
-        std::cout << std::endl;
+        else {
+            std::cerr << "加载数独棋盘失败。请检查 puzzles.dat 是否存在且格式正确。\n";
+        }
+    }
+    catch (const std::exception& e) {
+        std::cerr << "加载数独棋盘时发生错误：" << e.what() << std::endl;
+    }
+    catch (...) {
+        std::cerr << "加载数独棋盘时发生未知错误。" << std::endl;
     }
 }
 
-// 测试函数
-void testPuzzleLoader() {
-    PuzzleLoaderDAT loader;
-    std::vector<std::vector<int>> board;
-    std::string difficulty;
+// 测试保存数独棋盘
+void testSavePuzzle() {
+    try {
+        PuzzleLoaderDAT loader;
+        std::vector<std::vector<int>> board = {
+            {5, 3, 0, 0, 7, 0, 0, 0, 0},
+            {6, 0, 0, 1, 9, 5, 0, 0, 0},
+            {0, 9, 8, 0, 0, 0, 0, 6, 0},
+            {8, 0, 0, 0, 6, 0, 0, 0, 3},
+            {4, 0, 0, 8, 0, 3, 0, 0, 1},
+            {7, 0, 0, 0, 2, 0, 0, 0, 6},
+            {0, 6, 0, 0, 0, 0, 2, 8, 0},
+            {0, 0, 0, 4, 1, 9, 0, 0, 5},
+            {0, 0, 0, 0, 8, 0, 0, 7, 9}
+        };
+        std::string difficulty = "中等";
 
-    // 测试加载数独棋盘
-    if (loader.loadPuzzle("puzzles.dat", 1, board, difficulty)) {
-        std::cout << "数独加载成功，难度为: " << difficulty << std::endl;
-        printBoard(board);
+        if (loader.savePuzzle("puzzles.dat", 1, board, difficulty)) {
+            std::cout << "成功保存数独棋盘！\n";
+        }
+        else {
+            std::cerr << "保存数独棋盘失败。\n";
+        }
     }
-    else {
-        std::cerr << "加载数独失败！" << std::endl;
+    catch (const std::exception& e) {
+        std::cerr << "保存数独棋盘时发生错误：" << e.what() << std::endl;
     }
+    catch (...) {
+        std::cerr << "保存数独棋盘时发生未知错误。" << std::endl;
+    }
+}
 
-    // 修改棋盘，保存为新的数独
-    std::vector<std::vector<int>> newBoard = {
-        {5, 3, 4, 6, 7, 8, 9, 1, 2},
-        {6, 7, 2, 1, 9, 5, 3, 4, 8},
-        {1, 9, 8, 3, 4, 2, 5, 6, 7},
-        {8, 5, 9, 7, 6, 1, 4, 2, 3},
-        {4, 2, 6, 8, 5, 3, 7, 9, 1},
-        {7, 1, 3, 9, 2, 4, 8, 5, 6},
-        {9, 6, 1, 5, 3, 7, 2, 8, 4},
-        {2, 8, 7, 4, 1, 9, 6, 3, 5},
-        {3, 4, 5, 2, 8, 6, 1, 7, 9}
-    };
-    std::string newDifficulty = "中等";
+// 测试读取候选数
+void testLoadCandidates() {
+    try {
+        PuzzleLoaderDAT loader;
+        std::map<std::pair<int, int>, std::vector<int>> candidates;
 
-    // 保存新的数独棋盘
-    if (loader.savePuzzle("puzzles.dat", 2, newBoard, newDifficulty)) {
-        std::cout << "数独保存成功，ID为 2，难度为: " << newDifficulty << std::endl;
+        if (loader.loadCandidates("puzzles.hx.dat", 1, candidates)) {
+            std::cout << "成功加载候选数！\n";
+            for (const auto& candidate : candidates) {
+                std::cout << "(" << candidate.first.first + 1 << ", "
+                    << candidate.first.second + 1 << "): [";
+                for (size_t i = 0; i < candidate.second.size(); ++i) {
+                    std::cout << candidate.second[i];
+                    if (i != candidate.second.size() - 1) {
+                        std::cout << ", ";
+                    }
+                }
+                std::cout << "]\n";
+            }
+        }
+        else {
+            std::cerr << "加载候选数失败。请检查 puzzles.hx.dat 是否存在且格式正确。\n";
+        }
     }
-    else {
-        std::cerr << "保存数独失败！" << std::endl;
+    catch (const std::exception& e) {
+        std::cerr << "加载候选数时发生错误：" << e.what() << std::endl;
     }
+    catch (...) {
+        std::cerr << "加载候选数时发生未知错误。" << std::endl;
+    }
+}
 
-    // 再次加载刚刚保存的数独，验证保存是否成功
-    if (loader.loadPuzzle("puzzles.dat", 2, board, difficulty)) {
-        std::cout << "ID 为 2 的数独加载成功，难度为: " << difficulty << std::endl;
-        printBoard(board);
+// 测试保存候选数
+void testSaveCandidates() {
+    try {
+        PuzzleLoaderDAT loader;
+        std::map<std::pair<int, int>, std::vector<int>> candidates = {
+            {{1, 3}, {2, 4, 7}},
+            {{2, 4}, {3, 5}},
+            {{4, 5}, {1, 6}}
+        };
+
+        if (loader.saveCandidates("puzzles.hx.dat", 1, candidates)) {
+            std::cout << "成功保存候选数！\n";
+        }
+        else {
+            std::cerr << "保存候选数失败。\n";
+        }
     }
-    else {
-        std::cerr << "加载 ID 为 2 的数独失败！" << std::endl;
+    catch (const std::exception& e) {
+        std::cerr << "保存候选数时发生错误：" << e.what() << std::endl;
     }
+    catch (...) {
+        std::cerr << "保存候选数时发生未知错误。" << std::endl;
+    }
+}
+
+int main() {
+    std::cout << "测试保存数独棋盘：\n";
+    testSavePuzzle();
+
+    std::cout << "\n测试加载数独棋盘：\n";
+    testLoadPuzzle();
+
+    std::cout << "\n测试保存候选数：\n";
+    testSaveCandidates();
+
+    std::cout << "\n测试加载候选数：\n";
+    testLoadCandidates();
+
+    return 0;
 }

@@ -1,28 +1,28 @@
 ﻿// master.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
-#include "Sudoku.h"
-#include "ConsoleIO.h"
-#include "SFMLIO.h"
-#include "PuzzleLoaderDAT.h"
-
-int main() {
-    // 创建控制台输入输出接口
-    ConsoleIO io;
-
-    // 创建SFML接口
-    //SFMLIO io;
-
-    // 创建DAT格式的PuzzleLoader
-    PuzzleLoaderDAT puzzleLoader;
-
-    // 创建Sudoku游戏实例
-    Sudoku game(&io, &puzzleLoader);
-
-    game.play();
-
-    return 0;
-}
+//#include "Sudoku.h"
+//#include "ConsoleIO.h"
+//#include "SFMLIO.h"
+//#include "PuzzleLoaderDAT.h"
+//
+//int main() {
+//    // 创建控制台输入输出接口
+//    ConsoleIO io;
+//
+//    // 创建SFML接口
+//    //SFMLIO io;
+//
+//    // 创建DAT格式的PuzzleLoader
+//    PuzzleLoaderDAT puzzleLoader;
+//
+//    // 创建Sudoku游戏实例
+//    Sudoku game(&io, &puzzleLoader);
+//
+//    game.play();
+//
+//    return 0;
+//}
 
 
 //#include <iostream>
