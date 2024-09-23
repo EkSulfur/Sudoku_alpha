@@ -7,8 +7,11 @@
 
 class PuzzleLoaderDAT : public PuzzleLoader {
 public:
-    bool loadPuzzle(const std::string& filename, int gameID, std::vector<std::vector<int>>& board, std::string& difficulty) override;
-    bool savePuzzle(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board, const std::string& difficulty) override;
+    // 实现加载数独棋盘的功能，传递封装了元数据的 PuzzleData
+    bool loadPuzzle(PuzzleData& data) override;
+
+    // 实现保存数独棋盘的功能，传递封装了元数据的 PuzzleData
+    bool savePuzzle(const PuzzleData& data) override;
 };
 
 #endif // PUZZLELOADERDAT_H

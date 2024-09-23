@@ -172,6 +172,7 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="testLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="filed.dat" />
     <None Include="MiniPuzzles.dat" />
     <None Include="Puzzles.dat" />
   </ItemGroup>
