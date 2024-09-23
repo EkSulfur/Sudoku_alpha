@@ -98,12 +98,33 @@ void RemoveCandidateCommand::execute()
 // 自动补全候选数的命令的执行函数实现
 void AutoUpdateCandidatesCommand::execute()
 {
-    if (sudoku->autoUpdateCandidates()) {
-        io->displayMessage("自动补充候选数完成！");
+    // 获取棋盘
+    std::vector<std::vector<Cell>> board = sudoku->getBoard();
+    // 遍历数独棋盘中的每个Cell
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            Cell* cell = &board[i][j];
+
+            // 如果这个Cell已经确定了值，则跳过
+            if (cell->isSolved()) {
+                continue;
+            }
+
+            // 对于每个候选值1到9，检查它是否可以存在
+            for (int candidate = 1; candidate <= 9; ++candidate) {
+                // 如果行、列或块中已经有了这个值，则从候选值中删除
+                if (sudoku->getRow(i).hasValue(candidate) ||
+                    sudoku->getColumn(j).hasValue(candidate) ||
+                    sudoku->getBlock((i / 3) * 3 + j / 3).hasValue(candidate)) {
+                    if (!sudoku->removeCellCandidates(i+1, j+1, candidate)) {
+                        io->displayMessage("自动补充候选数失败！");
+                        return;
+                    }
+                }
+            }
+        }
     }
-    else {
-        io->displayMessage("无法自动补充候选数。");
-    }
+    io->displayMessage("自动补充候选数完成！");
 }
 
 // 重置游戏的命令的执行函数实现
