@@ -97,7 +97,7 @@ void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) {
                             cout << "\033[32m" << setw(6) << cell.getValue() << "\033[0m";  // 绿色表示固定值
                         }
                         else {
-                            cout << "\033[31m" << setw(6) << cell.getValue() << "\033[0m";  // 红色表示用户输入值
+                            cout << "\033[35m" << setw(6) << cell.getValue() << "\033[0m";  // 红色表示用户输入值
                         }
                     }
                     else {

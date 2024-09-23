@@ -32,7 +32,6 @@ public:
     // 显示棋盘
     virtual void displayBoard(const std::vector<std::vector<Cell>>& board) = 0;
 
-
     //显示信息
     virtual void displayInfo(const int id, const std::string difficulty) = 0;
 

@@ -25,6 +25,8 @@
 添加析构函数（修正）
 9月10日
 添加MenuManager的使用
+9月22日
+TODO:更好地分离类的职责，禁止该禁止的拷贝构造。
 */
 
 class Sudoku {
@@ -50,9 +52,6 @@ public:
 
     // 保存当前游戏到文件
     bool saveToFile(int gameID);
-
-    //玩游戏
-    void play();
 
     // 设置某个单元格的值
     bool setCellValue(int row, int col, int value);
