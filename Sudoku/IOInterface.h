@@ -52,6 +52,15 @@ public:
 
     // 显示菜单，返回用户选择
     virtual int displayMenu(const std::vector<std::string>& options) = 0;
+    
+    //禁止拷贝构造函数
+    IOInterface(const IOInterface&) = delete;
+
+    //禁止赋值操作符
+    IOInterface& operator=(const IOInterface&) = delete;
+    
+    //禁止构造函数
+    IOInterface() = delete;
 };
 
 #endif // IO_INTERFACE_H
