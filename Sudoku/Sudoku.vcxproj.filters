@@ -48,13 +48,16 @@
     <ClCompile Include="testLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="SFMLIO.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="BasicCommands.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SudokuController.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Row.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Column.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,9 +95,6 @@
     <ClInclude Include="testLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SFMLIO.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Command.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -102,6 +102,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="SudokuController.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Row.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Column.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

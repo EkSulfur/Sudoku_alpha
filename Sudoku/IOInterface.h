@@ -59,8 +59,9 @@ public:
     //禁止赋值操作符
     IOInterface& operator=(const IOInterface&) = delete;
     
-    //禁止构造函数
-    IOInterface() = delete;
+protected:
+    // 构造函数设置为保护
+    IOInterface() {};
 };
 
 #endif // IO_INTERFACE_H

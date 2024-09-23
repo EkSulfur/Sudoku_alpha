@@ -25,6 +25,16 @@ public:
     // 将数独棋盘保存到外部资源
     // 参数：board 是 9x9 的 Cell 矩阵，difficulty 是当前难度
     virtual bool savePuzzle(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board, const std::string& difficulty) = 0;
+
+    // 禁止拷贝构造函数
+    PuzzleLoader(const PuzzleLoader&) = delete;
+
+    // 禁止赋值操作符
+    PuzzleLoader& operator=(const PuzzleLoader&) = delete;
+
+protected:
+    // 构造函数设置为保护
+    PuzzleLoader() {};
 };
 
 #endif // PUZZLE_LOADER_H

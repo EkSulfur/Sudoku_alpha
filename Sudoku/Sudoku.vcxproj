@@ -143,13 +143,14 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="CellContainer.cpp" />
+    <ClCompile Include="Column.cpp" />
     <ClCompile Include="ConsoleIO.cpp" />
     <ClCompile Include="IOInterface.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="PuzzleLoader.cpp" />
     <ClCompile Include="PuzzleLoaderDAT.cpp" />
-    <ClCompile Include="SFMLIO.cpp" />
+    <ClCompile Include="Row.cpp" />
     <ClCompile Include="Sudoku.cpp" />
     <ClCompile Include="SudokuController.cpp" />
     <ClCompile Include="testLoader.cpp" />
@@ -159,6 +160,7 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Block.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="CellContainer.h" />
+    <ClInclude Include="Column.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="ConsoleIO.h" />
     <ClInclude Include="IOInterface.h" />
@@ -166,7 +168,7 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="PuzzleLoader.h" />
     <ClInclude Include="PuzzleLoaderDAT.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="SFMLIO.h" />
+    <ClInclude Include="Row.h" />
     <ClInclude Include="Sudoku.h" />
     <ClInclude Include="SudokuController.h" />
     <ClInclude Include="testLoader.h" />
