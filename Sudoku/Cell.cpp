@@ -26,7 +26,7 @@ Cell::Cell() : value(0) {
 }
 
 //带参构造函数
-Cell::Cell(int val):value(val)
+Cell::Cell(int val):value(val), fixed(0)
 {   
     if (val != 0) {
         for (int i = 0; i <= 10; ++i) {  // 9月9日修改关键错误：i应该从0开始

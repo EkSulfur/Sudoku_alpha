@@ -144,10 +144,8 @@ int ConsoleIO::displayMenu(const vector<string>& options) {
 void ConsoleIO::displayInfo(const int id, const string difficulty) {
     cout << "当前游戏难度: " << difficulty << endl;
     cout << "用户ID: " << id << endl;
-    cout << "你可以进行以下操作: " << endl;
-    cout << "1. 填入数字" << endl;
-    cout << "2. 查看当前状态" << endl;
-    cout << "3. 退出游戏" << endl;
+    // 9月30 删除冗杂信息
+    return;
 }
 
 // 获取用户操作

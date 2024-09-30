@@ -11,14 +11,17 @@ by lch
 #include "Command.h"
 #include "Sudoku.h"
 #include "IOInterface.h"
+#include "OperationRecorder.h"
 
 // 输入一个数的命令
 class InputNumberCommand : public Command {
 private:
     Sudoku* sudoku;
     IOInterface* io;
+    OperationRecorder* operationRecorder;
 public:
-    InputNumberCommand(Sudoku* s, IOInterface* ioInterface) : sudoku(s), io(ioInterface) {}
+    InputNumberCommand(Sudoku* s, IOInterface* ioInterface, OperationRecorder* operationRecorder) : sudoku(s),
+        io(ioInterface),operationRecorder(operationRecorder) {}
 
     void execute() override;
 };
@@ -28,8 +31,10 @@ class EraseNumberCommand : public Command {
 private:
     Sudoku* sudoku;
     IOInterface* io;
+    OperationRecorder* operationRecorder;
 public:
-    EraseNumberCommand(Sudoku* s, IOInterface* ioInterface) : sudoku(s), io(ioInterface) {}
+    EraseNumberCommand(Sudoku* s, IOInterface* ioInterface, OperationRecorder* operationRecorder) : sudoku(s),
+        io(ioInterface),operationRecorder(operationRecorder) {}
 
     void execute() override;
 };
@@ -113,5 +118,11 @@ public:
     AutoSetNumberCommand(Sudoku* s) : sudoku(s) {}
 
     void execute() override;
+};
+
+// 返回上一操作的命令
+class BackCommand : public Command {
+
+
 };
 #endif 

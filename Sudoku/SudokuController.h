@@ -4,6 +4,7 @@
 #include "Sudoku.h"
 #include "IOInterface.h"
 #include "MenuManager.h"
+#include "OperationRecorder.h"
 
 class SudokuController {
 private:
@@ -11,7 +12,7 @@ private:
     IOInterface* io;
     MenuManager menuManager;
     bool isRunning;
-
+    OperationRecorder operationRecorder;
 public:
     // 构造函数
     SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface);

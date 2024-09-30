@@ -148,6 +148,7 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="IOInterface.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuManager.cpp" />
+    <ClCompile Include="OperationRecorder.cpp" />
     <ClCompile Include="PuzzleLoader.cpp" />
     <ClCompile Include="PuzzleLoaderDAT.cpp" />
     <ClCompile Include="Row.cpp" />
@@ -165,6 +166,7 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="ConsoleIO.h" />
     <ClInclude Include="IOInterface.h" />
     <ClInclude Include="MenuManager.h" />
+    <ClInclude Include="OperationRecorder.h" />
     <ClInclude Include="PuzzleLoader.h" />
     <ClInclude Include="PuzzleLoaderDAT.h" />
     <ClInclude Include="resource.h" />
