@@ -48,7 +48,7 @@ public:
     Sudoku(PuzzleLoader* loader);
 
     // 从文件加载游戏数据
-    bool loadFromFile(int gameID);
+    bool loadFromFile(PuzzleData puzzleData);
 
     // 保存当前游戏到文件
     bool saveToFile(int gameID);
@@ -76,6 +76,9 @@ public:
 
     // 获取目前的难度
     std::string getDifficulty() const;
+
+    // 设置目前的难度
+    void setDifficulty(const std::string& difficulty);
 
     // 获取棋盘
     std::vector<std::vector<Cell>> getBoard() const;

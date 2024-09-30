@@ -3,7 +3,7 @@
 #include <fstream>
 
 SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface)
-    : sudoku(sudokuModel), io(ioInterface), isRunning(true) {
+    : sudoku(sudokuModel), io(ioInterface), isRunning(true){
     // 初始化菜单选项
     menuManager.addOption("输入一个数", new InputNumberCommand(sudoku, io));
     menuManager.addOption("擦去一个数", new EraseNumberCommand(sudoku, io));
@@ -17,7 +17,7 @@ SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface
 }
 
 
-void SudokuController::startGame() {
+void SudokuController::startGame(){
     int id;
 
     // 加载循环
@@ -35,8 +35,10 @@ void SudokuController::startGame() {
             continue;
         }
 
+        PuzzleData puzzleData(id);
+
         // 加载游戏
-        if (!sudoku->loadFromFile(id)) {
+        if (!sudoku->loadFromFile(puzzleData)) {
             io->displayMessage("无法加载数独游戏。");
             continue;
         }

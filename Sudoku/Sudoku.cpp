@@ -43,13 +43,10 @@ void Sudoku::initializeBoard(const std::vector<std::vector<int>>& boardData)
 
 Sudoku::Sudoku(PuzzleLoader* loader):puzzleLoader(loader), id(1) {} // 默认初始化的id为1
 
-bool Sudoku::loadFromFile(int gameID)
+bool Sudoku::loadFromFile(PuzzleData puzzleData)
 {
     // 创建一个9x9的棋盘矩阵
     std::vector<std::vector<int>> boardData(9, std::vector<int>(9));
-
-    // 创建 PuzzleData 对象，将游戏数据封装其中
-    PuzzleData puzzleData("Puzzles.dat", gameID, boardData, "easy"); // 默认设置难度，实际加载时会覆盖
 
     // 调用puzzleLoader的loadPuzzle函数
     if (!(puzzleLoader->loadPuzzle(puzzleData))) {
@@ -58,7 +55,7 @@ bool Sudoku::loadFromFile(int gameID)
 
     // 加载成功后，用 puzzleData 中的数据初始化游戏棋盘
     initializeBoard(puzzleData.board);  // 使用加载的棋盘数据
-
+    setDifficulty(puzzleData.difficulty);
     return true;
 }
 
@@ -235,9 +232,14 @@ int Sudoku::getID() const
     return this->id;
 }
 
-std::string Sudoku::getDifficulty() const
-{
+std::string Sudoku::getDifficulty()const 
+{    
     return this->difficulty;
+}
+
+void Sudoku::setDifficulty(const std::string& difficulty)
+{
+     this->difficulty=difficulty;
 }
 
 std::vector<std::vector<Cell>> Sudoku::getBoard() const

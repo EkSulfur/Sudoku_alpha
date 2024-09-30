@@ -22,14 +22,22 @@ public:
     std::vector<std::vector<int>> board;
     std::string difficulty;
 
+    // 无参构造函数
+    PuzzleData() {}
+
     // 构造函数，不需要日期和玩家ID
     PuzzleData(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board, const std::string& difficulty)
         : filename(filename), gameID(gameID), board(board), difficulty(difficulty) {}
 
     // 默认构造函数（可以选择性启用扩展字段）
     PuzzleData(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board)
-        : filename(filename), gameID(gameID), board(board), difficulty("easy") {}
+        : filename("Puzzles.dat"), gameID(gameID), board(board), difficulty("easy") {}
+
+    PuzzleData(int gameID)
+        : filename("Puzzles.dat"), gameID(gameID), difficulty("easy") {}
 };
+
+
 
 class PuzzleLoader {
 public:

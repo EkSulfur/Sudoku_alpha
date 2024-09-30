@@ -108,6 +108,7 @@
   <ItemGroup>
     <None Include="MiniPuzzles.dat" />
     <None Include="Puzzles.dat" />
+    <None Include="filed.dat" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="FandolSong-Regular.ttf">

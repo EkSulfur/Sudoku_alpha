@@ -23,31 +23,33 @@ bool PuzzleLoaderDAT::loadPuzzle(PuzzleData& data) {
     }
 
     if (!puzzleFound) {
+        // 如果没有找到相应的gameID，保留默认值并返回false
         std::cerr << "Error: Puzzle with ID " << data.gameID << " not found." << std::endl;
         return false;
     }
 
-    // 读取难度
+    // 读取难度（如果有）
     std::getline(file, line);
     if (line.find("Difficulty: ") != std::string::npos) {
-        data.difficulty = line.substr(12);  // 提取难度
+        data.difficulty = line.substr(12);  // 提取难度，覆盖默认值
     }
 
     // 跳过 'Board:' 行
     std::getline(file, line);
 
-    // 读取棋盘
-    data.board.resize(9, std::vector<int>(9, 0));
+    // 读取棋盘（覆盖默认的空棋盘）
+    data.board.resize(9, std::vector<int>(9, 0)); // 假设棋盘总是9x9
     for (int i = 0; i < 9; ++i) {
         std::getline(file, line);
         std::stringstream ss(line);
         for (int j = 0; j < 9; ++j) {
-            ss >> data.board[i][j];
+            ss >> data.board[i][j];  // 用文件中的棋盘数据覆盖默认的空棋盘
         }
     }
 
-    return true;
+    return true;  // 成功加载并覆盖默认值
 }
+
 bool PuzzleLoaderDAT::savePuzzle(const PuzzleData& data) {
     std::ifstream fileIn(data.filename);
     std::stringstream buffer;

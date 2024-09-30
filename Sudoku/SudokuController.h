@@ -4,19 +4,23 @@
 #include "Sudoku.h"
 #include "IOInterface.h"
 #include "MenuManager.h"
+#include "PuzzleLoader.h"
 
 class SudokuController {
 private:
+    PuzzleData puzzleData;
     Sudoku* sudoku;
     IOInterface* io;
     MenuManager menuManager;
     bool isRunning;
 
+
 public:
     // 构造函数
     SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface);
 
-    // 开始游戏
+
+    // 开始#include "MenuManager.h"游戏
     void startGame();
 
 private:
