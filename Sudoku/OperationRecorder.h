@@ -15,8 +15,11 @@ public:
 	OperationRecorder(Sudoku* sudoku);
 	bool RecordSetValue(int row, int col, int num);
 	bool RecordDelValue(int row, int col, int num);
-	std::string GetLastOperation(void);
+	std::string GetOperationBackward(void);
+	std::string GetOperationForward(void);
 	bool UpdateOperation(void);
+	int getTop(void) const;
+	int getSize(void) const;
 private:
 	Sudoku* sudoku;
 	int top;

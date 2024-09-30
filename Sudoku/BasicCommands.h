@@ -122,7 +122,25 @@ public:
 
 // 返回上一操作的命令
 class BackCommand : public Command {
+private:
+    Sudoku* sudoku;
+    IOInterface* io;
+    OperationRecorder* operationRecorder;
+public:
+    BackCommand(Sudoku* s, IOInterface* io, OperationRecorder* op):sudoku(s), io(io), operationRecorder(op){}
 
+    void execute() override;
+};
 
+// 撤销返回上上一步操作的命令 还存在问题
+class RevokeBackCommand : public Command {
+private:
+    Sudoku* sudoku;
+    IOInterface* io;
+    OperationRecorder* operationRecorder;
+public:
+    RevokeBackCommand(Sudoku* s, IOInterface* io, OperationRecorder* op) :sudoku(s), io(io), operationRecorder(op) {}
+
+    void execute() override;
 };
 #endif 

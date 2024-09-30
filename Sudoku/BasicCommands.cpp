@@ -21,6 +21,7 @@ void InputNumberCommand::execute()
         if (!sudoku->setCellValue(row, col, value)) {
             io->displayMessage("无效操作。请重新输入。");
         }
+        operationRecorder->RecordSetValue(row, col, value);
     }
     else {
         io->displayMessage("输入格式错误。请重试。");
@@ -35,9 +36,11 @@ void EraseNumberCommand::execute()
     if (operation.size() == 2) {
         int row = operation[0];
         int col = operation[1];
+        int origin = sudoku->getBoard()[row - 1][col - 1].getValue();
         if (!sudoku->setCellValue(row, col, 0)) {
             io->displayMessage("无法擦去该位置的数。");
         }
+        operationRecorder->RecordDelValue(row, col, origin);
     }
     else {
         io->displayMessage("输入格式错误。请重试。");
@@ -168,7 +171,76 @@ void AutoSetNumberCommand::execute()
                 }
             }
             if (candidate_num == 1) sudoku->setCellValue(i+1, j+1, the_candidate);
+            // operationRecorder->RecordSetValue(i, j, the_candidate);
         }
     }
     return;  //自动更新好，返回true
+}
+
+void BackCommand::execute()
+{
+    // 判断栈是否为空
+    if (operationRecorder->getTop() == 0) {
+        io->displayMessage("不存在上一个操作");
+    }
+    // 解析上一步和填数、删除有关的操作
+    int op_num = atoi(operationRecorder->GetOperationBackward().c_str());
+    int operation = (op_num / 1000) % 10;
+    int row = (op_num / 100) % 10;
+    int col = (op_num / 10) % 10;
+    int value = op_num % 10;
+    switch (operation)
+    {
+    case 1:
+        // 上一步为添加某个数的情况
+        if (!sudoku->setCellValue(row, col, 0)) {
+            io->displayMessage("返回失败");
+        }
+        // 对应操作为撤销那个数
+        break;
+    case 2:
+        // 上一步为去除某个数的情况
+        if (!sudoku->setCellValue(row, col, value)) {
+            io->displayMessage("返回失败");
+        }
+        // 对应操作为恢复这个数
+        break;
+    default:
+        io->displayMessage("错误：未经行任何操作");
+        break;
+    }
+}
+
+void RevokeBackCommand::execute()
+{
+    // 判断top是否指向最上面的元素
+    if (operationRecorder->getTop() >= operationRecorder->getSize()) {
+        io->displayMessage("不存在下一个操作");
+    }
+    // 解析上一步和填数、删除有关的操作
+    int op_num = atoi(operationRecorder->GetOperationForward().c_str());
+    int operation = (op_num / 1000) % 10;
+    int row = (op_num / 100) % 10;
+    int col = (op_num / 10) % 10;
+    int value = op_num % 10;
+    switch (operation)
+    {
+    case 1:
+        // 上一步为添加某个数的情况
+        if (!sudoku->setCellValue(row, col, 0)) {
+            io->displayMessage("返回失败");
+        }
+        // 对应操作为撤销那个数
+        break;
+    case 2:
+        // 上一步为去除某个数的情况
+        if (!sudoku->setCellValue(row, col, value)) {
+            io->displayMessage("返回失败");
+        }
+        // 对应操作为恢复这个数
+        break;
+    default:
+        io->displayMessage("错误：未经行任何操作");
+        break;
+    }
 }

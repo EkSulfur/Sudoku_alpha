@@ -15,6 +15,9 @@ SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface
     menuManager.addOption("保存游戏", new SaveGameCommand(sudoku, io, sudoku->getID()));
     menuManager.addOption("重置游戏", new ResetGameCommand(sudoku, io));
     menuManager.addOption("自动填入唯一候选数", new AutoSetNumberCommand(sudoku));
+    menuManager.addOption("返回上一步对值的修改", new BackCommand(sudoku, io, &operationRecorder));
+    // 下面的命令还存在问题
+    //menuManager.addOption("撤销返回上一步", new RevokeBackCommand(sudoku, io, &operationRecorder));
     menuManager.addOption("退出游戏", new ExitGameCommand(io, &isRunning));
 }
 
