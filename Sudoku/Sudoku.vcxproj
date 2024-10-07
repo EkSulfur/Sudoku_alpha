@@ -140,10 +140,8 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BasicCommands.cpp" />
-    <ClCompile Include="Block.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="CellContainer.cpp" />
-    <ClCompile Include="Column.cpp" />
     <ClCompile Include="ConsoleIO.cpp" />
     <ClCompile Include="IOInterface.cpp" />
     <ClCompile Include="main.cpp" />
@@ -151,19 +149,16 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="OperationRecorder.cpp" />
     <ClCompile Include="PuzzleLoader.cpp" />
     <ClCompile Include="PuzzleLoaderDAT.cpp" />
-    <ClCompile Include="Row.cpp" />
     <ClCompile Include="Sudoku.cpp" />
     <ClCompile Include="SudokuController.cpp" />
-    <ClCompile Include="testLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicCommands.h" />
-    <ClInclude Include="Block.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="CellContainer.h" />
-    <ClInclude Include="Column.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="ConsoleIO.h" />
+    <ClInclude Include="DerivedCellContainer.h" />
     <ClInclude Include="IOInterface.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="PuzzleData.h" />
@@ -171,13 +166,10 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="PuzzleLoader.h" />
     <ClInclude Include="PuzzleLoaderDAT.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Row.h" />
     <ClInclude Include="Sudoku.h" />
     <ClInclude Include="SudokuController.h" />
-    <ClInclude Include="testLoader.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="filed.dat" />
     <None Include="Puzzles.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

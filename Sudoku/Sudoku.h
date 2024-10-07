@@ -5,9 +5,7 @@
 数独游戏主体
 */
 #include "Cell.h"
-#include "Block.h"
-#include "Row.h"
-#include "Column.h"
+#include "DerivedCellContainer.h"
 #include "IOInterface.h"
 #include "MenuManager.h"
 #include "PuzzleLoader.h"

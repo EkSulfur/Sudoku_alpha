@@ -1,4 +1,4 @@
-#ifndef PUZZLE_DATA_H
+﻿#ifndef PUZZLE_DATA_H
 #define PUZZLE_DATA_H
 
 #include <vector>
