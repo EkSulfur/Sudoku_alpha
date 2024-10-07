@@ -59,7 +59,7 @@ std::string OperationRecorder::GetOperationForward(void)
 		return "";
 	}
 	top += 1;
-	return operations[top];
+	return operations[top-1];
 }
 
 bool OperationRecorder::UpdateOperation(void)
