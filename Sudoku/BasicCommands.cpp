@@ -7,6 +7,10 @@ by lch
 9月11日
 关于添加数存在bug:不会检查是否合法、冲突
 可以添加自动设置唯一候选数的菜单项
+国庆前一次课
+添加返回、撤销返回命令
+10月7日
+修改退出游戏逻辑，从直接exit修改为将isRunning设置为0
 */
 
 // 输入一个数的命令的执行函数实现
@@ -145,7 +149,8 @@ void ResetGameCommand::execute()
 void ExitGameCommand::execute()
 {
     io->displayMessage("退出游戏。");
-    exit(0);  // 直接退出程序
+    *isRunning = false;
+    return;
 }
 
 

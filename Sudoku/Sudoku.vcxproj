@@ -176,12 +176,7 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="testLoader.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MiniPuzzles.dat" />
     <None Include="Puzzles.dat" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="FandolSong-Regular.ttf" />
-    <Font Include="NotoSerifSC-Regular.otf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
