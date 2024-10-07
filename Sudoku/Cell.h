@@ -12,13 +12,13 @@ Cell中添加fixed数据成员，如果为正则不可修改
 重写候选值相关的函数
 9月7日：
 修改候选值相关的函数
+10月7日：
+将函数签名放在类的前面，添加setFixed函数（更改单元格里的值是否固定），在setValue函数中
+添加force参数，强制修改值并把fixed设为1（考虑后续可能要求在游戏中基于原有的数独生成新数独或覆盖已有的
+，让类的适应性更强）
 */
 
 class Cell {
-private:
-    int value; // 当前的值，如果未确定则为 0
-    std::vector<int> candidates; // 候选值
-    bool fixed;
 public:
     // 构造函数
     Cell();
@@ -30,7 +30,7 @@ public:
     int getValue() const;
 
     // 设置当前的值
-    bool setValue(int val);
+    bool setValue(int val, bool force=false);
 
     // 获取候选值
     const std::vector<int>& getCandidates() const;
@@ -52,6 +52,13 @@ public:
 
     // 判断该数是否可以改动
     bool isFixed() const;
+
+    // 设置数是否可以改动
+    void setFixed(bool new_fixed);
+private:
+    int value; // 当前的值，如果未确定则为 0
+    std::vector<int> candidates; // 候选值
+    bool fixed;
 };
 
 #endif // CELL_H
