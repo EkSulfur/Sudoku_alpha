@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-
+#include "PuzzleData.h"
 /*
 9月6日
 目前是gpt写的
@@ -15,28 +15,6 @@ by lch
 */
 
 // 封装所有与数独棋盘相关的信息到 PuzzleData 类
-class PuzzleData {
-public:
-    std::string filename;
-    int gameID;
-    std::vector<std::vector<int>> board;
-    std::string difficulty;
-
-    // 无参构造函数
-    PuzzleData() {}
-
-    // 构造函数，不需要日期和玩家ID
-    PuzzleData(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board, const std::string& difficulty)
-        : filename(filename), gameID(gameID), board(board), difficulty(difficulty) {}
-
-    // 默认构造函数（可以选择性启用扩展字段）
-    PuzzleData(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board)
-        : filename("Puzzles.dat"), gameID(gameID), board(board), difficulty("easy") {}
-
-    PuzzleData(int gameID)
-        : filename("Puzzles.dat"), gameID(gameID), difficulty("easy") {}
-};
-
 
 
 class PuzzleLoader {

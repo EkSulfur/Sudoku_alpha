@@ -5,6 +5,7 @@
 #include <string>
 #include "PuzzleLoader.h"
 
+
 class PuzzleLoaderDAT : public PuzzleLoader {
 public:
     // 实现加载数独棋盘的功能，传递封装了元数据的 PuzzleData

@@ -163,6 +163,7 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="ConsoleIO.h" />
     <ClInclude Include="IOInterface.h" />
     <ClInclude Include="MenuManager.h" />
+    <ClInclude Include="PuzzleData.h" />
     <ClInclude Include="PuzzleLoader.h" />
     <ClInclude Include="PuzzleLoaderDAT.h" />
     <ClInclude Include="resource.h" />
