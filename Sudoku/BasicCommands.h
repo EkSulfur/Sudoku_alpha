@@ -98,13 +98,13 @@ public:
 
 
 // 退出游戏的命令
-class ExitGameCommand : public Command {
+class ExitCommand : public Command {
 private:
     IOInterface* io;
     bool *isRunning;
 public:
     // 先设置isRunning默认参数为nullptr
-    ExitGameCommand(IOInterface* ioInterface, bool *isRunning = nullptr) : io(ioInterface),isRunning(isRunning) {}
+    ExitCommand(IOInterface* ioInterface, bool *isRunning = nullptr) : io(ioInterface),isRunning(isRunning) {}
 
     void execute() override;
 };
@@ -140,6 +140,17 @@ private:
     OperationRecorder* operationRecorder;
 public:
     RevokeBackCommand(Sudoku* s, IOInterface* io, OperationRecorder* op) :sudoku(s), io(io), operationRecorder(op) {}
+
+    void execute() override;
+};
+
+// 获取单独一个数的命令
+class GetNumber : public Command {
+private:
+    IOInterface* io;
+    int* value;
+public:
+    GetNumber(IOInterface* io, int* v):io(io), value(v){}
 
     void execute() override;
 };

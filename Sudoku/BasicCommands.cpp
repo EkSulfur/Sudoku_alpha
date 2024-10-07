@@ -146,7 +146,7 @@ void ResetGameCommand::execute()
 }
 
 // 退出游戏的命令的执行函数实现
-void ExitGameCommand::execute()
+void ExitCommand::execute()
 {
     io->displayMessage("退出游戏。");
     *isRunning = false;
@@ -250,4 +250,10 @@ void RevokeBackCommand::execute()
         io->displayMessage("错误：解析操作失败");
         break;
     }
+}
+
+void GetNumber::execute()
+{
+    *value = io->getNumber();
+    return;
 }

@@ -4,20 +4,24 @@
 #include <fstream>
 
 SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface)
-    : sudoku(sudokuModel), io(ioInterface),
-    isRunning(true),operationRecorder(sudokuModel) {
-    // 初始化菜单选项
-    menuManager.addOption("输入一个数", new InputNumberCommand(sudoku, io, &operationRecorder));
-    menuManager.addOption("擦去一个数", new EraseNumberCommand(sudoku, io, &operationRecorder));
-    menuManager.addOption("输入候选数", new AddCandidateCommand(sudoku, io));
-    menuManager.addOption("删除候选数", new RemoveCandidateCommand(sudoku, io));
-    menuManager.addOption("自动更新候选数", new AutoUpdateCandidatesCommand(sudoku, io));
-    menuManager.addOption("保存游戏", new SaveGameCommand(sudoku, io, sudoku->getID()));
-    menuManager.addOption("重置游戏", new ResetGameCommand(sudoku, io));
-    menuManager.addOption("自动填入唯一候选数", new AutoSetNumberCommand(sudoku));
-    menuManager.addOption("返回上一步对值的修改", new BackCommand(sudoku, io, &operationRecorder));
-    menuManager.addOption("撤销返回上一步", new RevokeBackCommand(sudoku, io, &operationRecorder));
-    menuManager.addOption("退出游戏", new ExitGameCommand(io, &isRunning));
+    : sudoku(sudokuModel), io(ioInterface),archieve(1),
+    isSudokuRunning(true), isRunning(true), operationRecorder(sudokuModel) {
+    // 初始化游戏菜单选项
+    gameMenuManager.addOption("输入一个数", new InputNumberCommand(sudoku, io, &operationRecorder));
+    gameMenuManager.addOption("擦去一个数", new EraseNumberCommand(sudoku, io, &operationRecorder));
+    gameMenuManager.addOption("输入候选数", new AddCandidateCommand(sudoku, io));
+    gameMenuManager.addOption("删除候选数", new RemoveCandidateCommand(sudoku, io));
+    gameMenuManager.addOption("自动更新候选数", new AutoUpdateCandidatesCommand(sudoku, io));
+    gameMenuManager.addOption("保存游戏", new SaveGameCommand(sudoku, io, sudoku->getID()));
+    gameMenuManager.addOption("重置游戏", new ResetGameCommand(sudoku, io));
+    gameMenuManager.addOption("自动填入唯一候选数", new AutoSetNumberCommand(sudoku));
+    gameMenuManager.addOption("返回上一步对值的修改", new BackCommand(sudoku, io, &operationRecorder));
+    gameMenuManager.addOption("撤销返回上一步", new RevokeBackCommand(sudoku, io, &operationRecorder));
+    gameMenuManager.addOption("退出游戏", new ExitCommand(io, &isSudokuRunning));
+    
+    // 初始化主菜单选项
+    mainMenuManager.addOption("选择游戏存档", new GetNumber(io, &archieve));
+    mainMenuManager.addOption("退出程序", new ExitCommand(io, &isRunning));
 }
 
 
@@ -50,7 +54,7 @@ void SudokuController::startGame(){
     }
 
     // 游戏主循环
-    while (isRunning) {
+    while (isSudokuRunning) {
         io->displayInfo(sudoku->getID(), sudoku->getDifficulty());
         io->displayBoard(sudoku->getBoard());
 
@@ -67,5 +71,5 @@ void SudokuController::startGame(){
 
 void SudokuController::handleMenuSelection() {
     // 通过MenuManager显示菜单并执行对应的命令
-    menuManager.displayMenu(io);
+    gameMenuManager.displayMenu(io);
 }
