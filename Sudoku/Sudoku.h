@@ -27,6 +27,7 @@
 添加MenuManager的使用
 9月22日
 TODO:更好地分离类的职责，禁止该禁止的拷贝构造。
+添加获取列、九宫格、行的函数
 */
 
 class Sudoku {
@@ -62,9 +63,6 @@ public:
     // 删除某个单元格的候选值
     bool removeCellCandidates(int row, int col, int candidate);
 
-    // 自动更新每个Cell中的候选值
-    bool autoUpdateCandidates();
-
     // 检查游戏是否完成
     bool checkIfSolved() const;
 
@@ -82,6 +80,15 @@ public:
 
     // 获取棋盘
     std::vector<std::vector<Cell>> getBoard() const;
+
+    // 获取行
+    Row getRow(int row) const;
+
+    // 获取列
+    Column getColumn(int column) const;
+
+    // 获取九宫格
+    Block getBlock(int block) const;
 };
 
 #endif // SUDOKU_H

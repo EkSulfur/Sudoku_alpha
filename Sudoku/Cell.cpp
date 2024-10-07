@@ -26,7 +26,7 @@ Cell::Cell() : value(0) {
 }
 
 //带参构造函数
-Cell::Cell(int val):value(val)
+Cell::Cell(int val):value(val), fixed(0)
 {   
     if (val != 0) {
         for (int i = 0; i <= 10; ++i) {  // 9月9日修改关键错误：i应该从0开始
@@ -48,21 +48,21 @@ int Cell::getValue() const {
 }
 
 // 设置当前的值
-bool Cell::setValue(int val) {
-    if (this->fixed == 1) {
-        //此处目前缺少相关提示，可在此处添加可在Sudoku.cpp中添加
-        return false; //值固定，修改失败
+bool Cell::setValue(int val, bool force) {
+    if (!force) {
+        if (this->fixed == 1) {
+            return false; //值固定，修改失败
+        }
+        else {
+            value = val;
+        }
     }
-    //9月7日修改：设置值后不需要清空候选值，考虑没有必要，且返回或者其它操作可能需要显示之前的候选值
-    //if (val >= 1 && val <= 9) {
-    //    value = val;
-    //    resetCandidates(0); // 设置值后，清空候选值
-    //}
-    else{ //9月8号修改
-        value = val; //赋值给cell的value
-        // resetCandidates(); //候选值设置为所有的数，9月7日去除
+    else {
+        // 强制修改
+        this->fixed = 1;
+        value = val;
     }
-    return true; //修改成功
+    return true;
 }
 
 // 获取候选值
@@ -104,4 +104,10 @@ bool Cell::isSolved() const {
 bool Cell::isFixed() const
 {
     return fixed;
+}
+
+void Cell::setFixed(bool new_fixed)
+{
+    fixed = new_fixed ? 1 : 0;
+    return;
 }

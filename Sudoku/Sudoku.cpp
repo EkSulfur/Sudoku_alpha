@@ -145,7 +145,7 @@ bool Sudoku::addCellCandidate(int row, int col, int candidate)
 
 bool Sudoku::removeCellCandidates(int row, int col, int candidate)
 {
-    //把用户的输入转换成索引
+    //把用户的输入转换成索引  注意此处！！！
     row -= 1;
     col -= 1;
 
@@ -160,32 +160,6 @@ bool Sudoku::removeCellCandidates(int row, int col, int candidate)
     }
 
     return true;
-}
-
-bool Sudoku::autoUpdateCandidates()
-{
-    // 遍历数独棋盘中的每个Cell
-    for (int i = 0; i < 9; ++i) {
-        for (int j = 0; j < 9; ++j) {
-            Cell *cell = &board[i][j];
-
-            // 如果这个Cell已经确定了值，则跳过
-            if (cell->isSolved()) {
-                continue;
-            }
-
-            // 对于每个候选值1到9，检查它是否可以存在
-            for (int candidate = 1; candidate <= 9; ++candidate) {
-                // 如果行、列或块中已经有了这个值，则从候选值中删除
-                if (rows[i].hasValue(candidate) ||
-                    columns[j].hasValue(candidate) ||
-                    blocks[(i / 3) * 3 + j / 3].hasValue(candidate)) {
-                    cell->removeCandidate(candidate);
-                }
-            }
-        }
-    }
-    return true;  //自动更新好，返回true
 }
 
 bool Sudoku::checkIfSolved() const
@@ -245,4 +219,19 @@ void Sudoku::setDifficulty(const std::string& difficulty)
 std::vector<std::vector<Cell>> Sudoku::getBoard() const
 {
     return this->board;
+}
+
+Row Sudoku::getRow(int row) const
+{
+    return this->rows[row];
+}
+
+Column Sudoku::getColumn(int column) const
+{
+    return this->columns[column];
+}
+
+Block Sudoku::getBlock(int block) const
+{
+    return this->blocks[block];
 }

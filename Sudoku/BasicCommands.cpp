@@ -7,6 +7,10 @@ by lch
 9月11日
 关于添加数存在bug:不会检查是否合法、冲突
 可以添加自动设置唯一候选数的菜单项
+国庆前一次课
+添加返回、撤销返回命令
+10月7日
+修改退出游戏逻辑，从直接exit修改为将isRunning设置为0
 */
 
 // 输入一个数的命令的执行函数实现
@@ -21,6 +25,7 @@ void InputNumberCommand::execute()
         if (!sudoku->setCellValue(row, col, value)) {
             io->displayMessage("无效操作。请重新输入。");
         }
+        operationRecorder->RecordSetValue(row, col, value);
     }
     else {
         io->displayMessage("输入格式错误。请重试。");
@@ -35,9 +40,11 @@ void EraseNumberCommand::execute()
     if (operation.size() == 2) {
         int row = operation[0];
         int col = operation[1];
+        int origin = sudoku->getBoard()[row - 1][col - 1].getValue();
         if (!sudoku->setCellValue(row, col, 0)) {
             io->displayMessage("无法擦去该位置的数。");
         }
+        operationRecorder->RecordDelValue(row, col, origin);
     }
     else {
         io->displayMessage("输入格式错误。请重试。");
@@ -98,12 +105,33 @@ void RemoveCandidateCommand::execute()
 // 自动补全候选数的命令的执行函数实现
 void AutoUpdateCandidatesCommand::execute()
 {
-    if (sudoku->autoUpdateCandidates()) {
-        io->displayMessage("自动补充候选数完成！");
+    // 获取棋盘
+    std::vector<std::vector<Cell>> board = sudoku->getBoard();
+    // 遍历数独棋盘中的每个Cell
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            Cell* cell = &board[i][j];
+
+            // 如果这个Cell已经确定了值，则跳过
+            if (cell->isSolved()) {
+                continue;
+            }
+
+            // 对于每个候选值1到9，检查它是否可以存在
+            for (int candidate = 1; candidate <= 9; ++candidate) {
+                // 如果行、列或块中已经有了这个值，则从候选值中删除
+                if (sudoku->getRow(i).hasValue(candidate) ||
+                    sudoku->getColumn(j).hasValue(candidate) ||
+                    sudoku->getBlock((i / 3) * 3 + j / 3).hasValue(candidate)) {
+                    if (!sudoku->removeCellCandidates(i+1, j+1, candidate)) {
+                        io->displayMessage("自动补充候选数失败！");
+                        return;
+                    }
+                }
+            }
+        }
     }
-    else {
-        io->displayMessage("无法自动补充候选数。");
-    }
+    io->displayMessage("自动补充候选数完成！");
 }
 
 // 重置游戏的命令的执行函数实现
@@ -121,7 +149,8 @@ void ResetGameCommand::execute()
 void ExitGameCommand::execute()
 {
     io->displayMessage("退出游戏。");
-    exit(0);  // 直接退出程序
+    *isRunning = false;
+    return;
 }
 
 
@@ -147,7 +176,77 @@ void AutoSetNumberCommand::execute()
                 }
             }
             if (candidate_num == 1) sudoku->setCellValue(i+1, j+1, the_candidate);
+            // operationRecorder->RecordSetValue(i, j, the_candidate);
         }
     }
     return;  //自动更新好，返回true
+}
+
+void BackCommand::execute()
+{
+    // 判断栈是否为空
+    if (operationRecorder->getTop() == 0) {
+        io->displayMessage("不存在上一个操作");
+    }
+    // 解析上一步和填数、删除有关的操作
+    int op_num = atoi(operationRecorder->GetOperationBackward().c_str());
+    int operation = (op_num / 1000) % 10;
+    int row = (op_num / 100) % 10;
+    int col = (op_num / 10) % 10;
+    int value = op_num % 10;
+    switch (operation)
+    {
+    case 1:
+        // 上一步为添加某个数的情况
+        if (!sudoku->setCellValue(row, col, 0)) {
+            io->displayMessage("返回失败");
+        }
+        // 对应操作为撤销那个数
+        break;
+    case 2:
+        // 上一步为去除某个数的情况
+        if (!sudoku->setCellValue(row, col, value)) {
+            io->displayMessage("返回失败");
+        }
+        // 对应操作为恢复这个数
+        break;
+    default:
+        io->displayMessage("错误：未经行任何操作");
+        break;
+    }
+}
+
+void RevokeBackCommand::execute()
+{
+    // 判断top是否指向最上面的元素
+    if (operationRecorder->getTop() >= operationRecorder->getSize()) {
+        io->displayMessage("不存在下一个操作");
+        return;
+    }
+    // 解析上一步和填数、删除有关的操作
+    int op_num = atoi(operationRecorder->GetOperationForward().c_str());
+    int operation = (op_num / 1000) % 10;
+    int row = (op_num / 100) % 10;
+    int col = (op_num / 10) % 10;
+    int value = op_num % 10;
+    switch (operation)
+    {
+    case 1:
+        // 上一步为添加某个数的情况
+        if (!sudoku->setCellValue(row, col, value)) {
+            io->displayMessage("返回失败");
+        }
+        // 对应操作为恢复那个数
+        break;
+    case 2:
+        // 上一步为去除某个数的情况
+        if (!sudoku->setCellValue(row, col, 0)) {
+            io->displayMessage("返回失败");
+        }
+        // 对应操作为去除这个数
+        break;
+    default:
+        io->displayMessage("错误：未经行任何操作");
+        break;
+    }
 }

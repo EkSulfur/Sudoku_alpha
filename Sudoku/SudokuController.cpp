@@ -1,18 +1,22 @@
 ﻿#include "SudokuController.h"
 #include "BasicCommands.h"
+#include "OperationRecorder.h"
 #include <fstream>
 
 SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface)
-    : sudoku(sudokuModel), io(ioInterface), isRunning(true){
+    : sudoku(sudokuModel), io(ioInterface),
+    isRunning(true),operationRecorder(sudokuModel) {
     // 初始化菜单选项
-    menuManager.addOption("输入一个数", new InputNumberCommand(sudoku, io));
-    menuManager.addOption("擦去一个数", new EraseNumberCommand(sudoku, io));
+    menuManager.addOption("输入一个数", new InputNumberCommand(sudoku, io, &operationRecorder));
+    menuManager.addOption("擦去一个数", new EraseNumberCommand(sudoku, io, &operationRecorder));
     menuManager.addOption("输入候选数", new AddCandidateCommand(sudoku, io));
     menuManager.addOption("删除候选数", new RemoveCandidateCommand(sudoku, io));
     menuManager.addOption("自动更新候选数", new AutoUpdateCandidatesCommand(sudoku, io));
     menuManager.addOption("保存游戏", new SaveGameCommand(sudoku, io, sudoku->getID()));
     menuManager.addOption("重置游戏", new ResetGameCommand(sudoku, io));
     menuManager.addOption("自动填入唯一候选数", new AutoSetNumberCommand(sudoku));
+    menuManager.addOption("返回上一步对值的修改", new BackCommand(sudoku, io, &operationRecorder));
+    menuManager.addOption("撤销返回上一步", new RevokeBackCommand(sudoku, io, &operationRecorder));
     menuManager.addOption("退出游戏", new ExitGameCommand(io, &isRunning));
 }
 

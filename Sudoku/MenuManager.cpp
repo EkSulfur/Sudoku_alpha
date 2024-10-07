@@ -39,7 +39,9 @@ void MenuManager::clearOptions()
 // 析构函数实现
 MenuManager::~MenuManager()
 {
+    // 遍历选项容器中的每一个元素
     for (auto& option : options) {
+        // 对于每个元素，删除其pair中的第二个成员（即命令对象指针）
         delete option.second;  // 确保释放所有命令对象
     }
 }

@@ -3,16 +3,12 @@
 
 #include "Sudoku.h"
 #include "ConsoleIO.h"
-#include "SFMLIO.h"
 #include "PuzzleLoaderDAT.h"
 #include "SudokuController.h"
 
 int main() {
     // 创建控制台输入输出接口
     ConsoleIO io;
-
-    // 创建SFML接口
-    //SFMLIO io;
 
     // 创建DAT格式的PuzzleLoader
     PuzzleLoaderDAT puzzleLoader;
@@ -52,30 +48,3 @@ int main() {
 //   4. 使用错误列表窗口查看错误
 //   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
 //   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件
-
-//测试SFML
-
-//#include <SFML/Graphics.hpp>
-//
-//int main()
-//{
-//    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-//    sf::CircleShape shape(100.f);
-//    shape.setFillColor(sf::Color::Green);
-//
-//    while (window.isOpen())
-//    {
-//        sf::Event event;
-//        while (window.pollEvent(event))
-//        {
-//            if (event.type == sf::Event::Closed)
-//                window.close();
-//        }
-//
-//        window.clear();
-//        window.draw(shape);
-//        window.display();
-//    }
-//
-//    return 0;
-//}

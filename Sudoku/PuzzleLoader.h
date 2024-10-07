@@ -26,6 +26,7 @@ public:
     virtual bool loadPuzzle(PuzzleData& data) = 0;
 
     // 将数独棋盘保存到外部资源
+
     // 参数：PuzzleData 封装数独棋盘及其元数据信息
     virtual bool savePuzzle(const PuzzleData& data) = 0;
 };

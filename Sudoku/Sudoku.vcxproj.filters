@@ -48,13 +48,19 @@
     <ClCompile Include="testLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="SFMLIO.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="BasicCommands.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SudokuController.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Row.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Column.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OperationRecorder.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,9 +98,6 @@
     <ClInclude Include="testLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SFMLIO.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Command.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -105,20 +108,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="PuzzleData.h">
+    <ClInclude Include="Row.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Column.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OperationRecorder.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MiniPuzzles.dat" />
     <None Include="Puzzles.dat" />
     <None Include="filed.dat" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="FandolSong-Regular.ttf">
-      <Filter>资源文件</Filter>
-    </Font>
-    <Font Include="NotoSerifSC-Regular.otf">
-      <Filter>资源文件</Filter>
-    </Font>
   </ItemGroup>
 </Project>
