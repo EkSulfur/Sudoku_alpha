@@ -107,6 +107,7 @@
     <ClInclude Include="SudokuController.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="PuzzleData.h">
     <ClInclude Include="Row.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -119,5 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Puzzles.dat" />
+    <None Include="filed.dat" />
   </ItemGroup>
 </Project>

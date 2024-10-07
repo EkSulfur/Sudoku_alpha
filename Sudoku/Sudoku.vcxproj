@@ -166,6 +166,7 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="ConsoleIO.h" />
     <ClInclude Include="IOInterface.h" />
     <ClInclude Include="MenuManager.h" />
+    <ClInclude Include="PuzzleData.h" />
     <ClInclude Include="OperationRecorder.h" />
     <ClInclude Include="PuzzleLoader.h" />
     <ClInclude Include="PuzzleLoaderDAT.h" />
@@ -176,6 +177,7 @@ ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="testLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="filed.dat" />
     <None Include="Puzzles.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

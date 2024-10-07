@@ -5,61 +5,56 @@
 #include <string>
 #include "PuzzleLoaderDAT.h"
 
-/*
-9月11日
-还可以做的工作：
-设计一个函数，能读取文件后返回有多少个数独存档，返回可选的id向量
-by lch
-*/
-
-bool PuzzleLoaderDAT::loadPuzzle(const std::string& filename, int gameID, std::vector<std::vector<int>>& board, std::string& difficulty){
-    std::ifstream file(filename);
+bool PuzzleLoaderDAT::loadPuzzle(PuzzleData& data) {
+    std::ifstream file(data.filename);
     if (!file.is_open()) {
-        std::cerr << "Error: Could not open file " << filename << std::endl;
+        std::cerr << "Error: Could not open file " << data.filename << std::endl;
         return false;
     }
 
     std::string line;
     bool puzzleFound = false;
     while (std::getline(file, line)) {
-        if (line.find("ID: " + std::to_string(gameID)) != std::string::npos) {
+        // 查找目标ID
+        if (line.find("ID: " + std::to_string(data.gameID)) != std::string::npos) {
             puzzleFound = true;
             break;
         }
     }
 
     if (!puzzleFound) {
-        std::cerr << "Error: Puzzle with ID " << gameID << " not found." << std::endl;
+        // 如果没有找到相应的gameID，保留默认值并返回false
+        std::cerr << "Error: Puzzle with ID " << data.gameID << " not found." << std::endl;
         return false;
     }
 
-    // 读取难度
+    // 读取难度（如果有）
     std::getline(file, line);
     if (line.find("Difficulty: ") != std::string::npos) {
-        difficulty = line.substr(12);  // 提取难度
+        data.difficulty = line.substr(12);  // 提取难度，覆盖默认值
     }
 
     // 跳过 'Board:' 行
     std::getline(file, line);
 
-    // 读取棋盘
-    board.resize(9, std::vector<int>(9, 0));
+    // 读取棋盘（覆盖默认的空棋盘）
+    data.board.resize(9, std::vector<int>(9, 0)); // 假设棋盘总是9x9
     for (int i = 0; i < 9; ++i) {
         std::getline(file, line);
         std::stringstream ss(line);
         for (int j = 0; j < 9; ++j) {
-            ss >> board[i][j];
+            ss >> data.board[i][j];  // 用文件中的棋盘数据覆盖默认的空棋盘
         }
     }
 
-    return true;
+    return true;  // 成功加载并覆盖默认值
 }
 
-bool PuzzleLoaderDAT::savePuzzle(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board, const std::string& difficulty){
-    std::ifstream fileIn(filename);
+bool PuzzleLoaderDAT::savePuzzle(const PuzzleData& data) {
+    std::ifstream fileIn(data.filename);
     std::stringstream buffer;
-    bool puzzleFound = false;
     std::string line;
+    bool puzzleFound = false;
 
     // 读取文件内容到 buffer
     if (fileIn.is_open()) {
@@ -67,43 +62,43 @@ bool PuzzleLoaderDAT::savePuzzle(const std::string& filename, int gameID, const 
         fileIn.close();
     }
 
-    // 构建要保存的新数独数据，其中未确定的数字使用0表示
+    // 构建新的数独条目
     std::string newPuzzleEntry;
-    newPuzzleEntry += "ID: " + std::to_string(gameID) + "\n";
-    newPuzzleEntry += "Difficulty: " + difficulty + "\n";
+    newPuzzleEntry += "ID: " + std::to_string(data.gameID) + "\n";
+    newPuzzleEntry += "Difficulty: " + data.difficulty + "\n";
     newPuzzleEntry += "Board:\n";
-    for (const auto& row : board) {
+    for (const auto& row : data.board) {
         for (int val : row) {
-            newPuzzleEntry += std::to_string(val) + " ";  // 将玩家的状态保存
+            newPuzzleEntry += std::to_string(val) + " ";
         }
         newPuzzleEntry += "\n";
     }
     newPuzzleEntry += "---\n";
 
+    // 读取文件内容为字符串
     std::string content = buffer.str();
-    std::size_t idPos = content.find("ID: " + std::to_string(gameID));
+    std::size_t idPos = content.find("ID: " + std::to_string(data.gameID));
 
     if (idPos != std::string::npos) {
-        // 找到了相同的 gameID，替换这部分的数独数据
+        // 找到相同的gameID，替换该部分的数独数据
         std::size_t nextPuzzlePos = content.find("ID: ", idPos + 1); // 找到下一个 Puzzle
         if (nextPuzzlePos == std::string::npos) {
-            // 如果没有下一个 Puzzle，替换到文件末尾
-            nextPuzzlePos = content.size();
+            nextPuzzlePos = content.size(); // 如果没有下一个ID, 替换到文件末尾
         }
 
-        // 替换原有的数独
+        // 替换原有数独数据
         content.replace(idPos, nextPuzzlePos - idPos, newPuzzleEntry);
         puzzleFound = true;
     }
     else {
-        // 没有找到相同的 gameID，追加新数独到文件末尾
+        // 没有找到相同的gameID，追加到文件末尾
         content += newPuzzleEntry;
     }
 
-    // 将修改后的内容写回文件
-    std::ofstream fileOut(filename);
+    // 将更新后的内容写回文件
+    std::ofstream fileOut(data.filename);
     if (!fileOut.is_open()) {
-        std::cerr << "Error: Could not open file " << filename << std::endl;
+        std::cerr << "Error: Could not open file " << data.filename << std::endl;
         return false;
     }
     fileOut << content;

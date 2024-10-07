@@ -43,28 +43,42 @@ void Sudoku::initializeBoard(const std::vector<std::vector<int>>& boardData)
 
 Sudoku::Sudoku(PuzzleLoader* loader):puzzleLoader(loader), id(1) {} // 默认初始化的id为1
 
-bool Sudoku::loadFromFile(int gameID)
+bool Sudoku::loadFromFile(PuzzleData puzzleData)
 {
-    std::vector<std::vector<int>> boardData; // 存储题目数据
-    if(!(puzzleLoader->loadPuzzle("Puzzles.dat", id, boardData, difficulty))) return false;  // 加载棋盘信息
-    initializeBoard(boardData);
+    // 创建一个9x9的棋盘矩阵
+    std::vector<std::vector<int>> boardData(9, std::vector<int>(9));
+
+    // 调用puzzleLoader的loadPuzzle函数
+    if (!(puzzleLoader->loadPuzzle(puzzleData))) {
+        return false;  // 如果加载失败，返回false
+    }
+
+    // 加载成功后，用 puzzleData 中的数据初始化游戏棋盘
+    initializeBoard(puzzleData.board);  // 使用加载的棋盘数据
+    setDifficulty(puzzleData.difficulty);
     return true;
 }
 
+
 bool Sudoku::saveToFile(int gameID)
 {
-    std::vector<std::vector<int>> boardData(9, std::vector<int>(9));  // 创建9x9的boardData矩阵
+    // 创建9x9的棋盘数据矩阵
+    std::vector<std::vector<int>> boardData(9, std::vector<int>(9));
 
     // 遍历数独棋盘，将每个Cell的值保存到boardData中
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
-            boardData[i][j] = board[i][j].getValue();  // 将每个Cell的值存入boardData
+            boardData[i][j] = board[i][j].getValue();  // 将Cell的值存入boardData
         }
     }
 
-    // 调用puzzleLoader的savePuzzle函数，将棋盘信息保存到文件中
-    return puzzleLoader->savePuzzle("Puzzles.dat", gameID, boardData, difficulty);
+    // 创建一个 PuzzleData 对象，封装要保存的棋盘信息
+    PuzzleData puzzleData("Puzzles.dat", gameID, boardData, difficulty); // 包含棋盘、gameID和难度信息
+
+    // 调用 puzzleLoader 的 savePuzzle 函数保存数独数据
+    return puzzleLoader->savePuzzle(puzzleData);
 }
+
 
 bool Sudoku::setCellValue(int row, int col, int value)
 {
@@ -163,18 +177,22 @@ bool Sudoku::checkIfSolved() const
 
 bool Sudoku::reset()
 {
-    std::vector<std::vector<int>> boardData; // 存储题目数据
+    // 创建一个9x9的棋盘矩阵来存储题目数据
+    std::vector<std::vector<int>> boardData(9, std::vector<int>(9));
 
-    // 调用puzzleLoader加载数独题目
-    if (!puzzleLoader->loadPuzzle("Puzzles.dat", id, boardData, difficulty)) {
-        return false;
+    // 创建一个 PuzzleData 对象，用于加载原始棋盘数据
+    PuzzleData puzzleData("Puzzles.dat", id, boardData, difficulty);
+
+    // 调用 puzzleLoader 来加载数独题目
+    if (!puzzleLoader->loadPuzzle(puzzleData)) {
+        return false;  // 如果加载失败，返回false
     }
 
-    // 遍历board，修改已有的Cell，并调用resetCandidates
+    // 遍历棋盘，重置每个Cell的值和候选值
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
-            int val = boardData[i][j];              // 从加载的数据获取新的值
-            board[i][j].setValue(val);             // 修改已有的Cell的值
+            int val = puzzleData.board[i][j];       // 从加载的数据获取新的值
+            board[i][j].setValue(val);             // 设置Cell的值
             board[i][j].resetCandidates();         // 重置Cell的候选值
         }
     }
@@ -182,14 +200,20 @@ bool Sudoku::reset()
     return true;  // 重置成功
 }
 
+
 int Sudoku::getID() const
 {
     return this->id;
 }
 
-std::string Sudoku::getDifficulty() const
-{
+std::string Sudoku::getDifficulty()const 
+{    
     return this->difficulty;
+}
+
+void Sudoku::setDifficulty(const std::string& difficulty)
+{
+     this->difficulty=difficulty;
 }
 
 std::vector<std::vector<Cell>> Sudoku::getBoard() const

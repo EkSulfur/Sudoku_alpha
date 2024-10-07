@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-
+#include "PuzzleData.h"
 /*
 9月6日
 目前是gpt写的
@@ -14,27 +14,21 @@ by lch
 添加id参数
 */
 
+// 封装所有与数独棋盘相关的信息到 PuzzleData 类
+
+
 class PuzzleLoader {
 public:
     virtual ~PuzzleLoader() = default;
 
     // 从外部资源加载数独棋盘
-    // 参数：board 是 9x9 的 Cell 矩阵，难度由 difficulty 传递
-    virtual bool loadPuzzle(const std::string& filename, int gameID, std::vector<std::vector<int>>& board, std::string& difficulty) = 0;
+    // 参数：PuzzleData 封装数独棋盘及其元数据信息
+    virtual bool loadPuzzle(PuzzleData& data) = 0;
 
     // 将数独棋盘保存到外部资源
-    // 参数：board 是 9x9 的 Cell 矩阵，difficulty 是当前难度
-    virtual bool savePuzzle(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board, const std::string& difficulty) = 0;
 
-    // 禁止拷贝构造函数
-    PuzzleLoader(const PuzzleLoader&) = delete;
-
-    // 禁止赋值操作符
-    PuzzleLoader& operator=(const PuzzleLoader&) = delete;
-
-protected:
-    // 构造函数设置为保护
-    PuzzleLoader() {};
+    // 参数：PuzzleData 封装数独棋盘及其元数据信息
+    virtual bool savePuzzle(const PuzzleData& data) = 0;
 };
 
 #endif // PUZZLE_LOADER_H
