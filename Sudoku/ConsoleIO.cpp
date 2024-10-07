@@ -52,7 +52,7 @@ string ConsoleIO::getUserInput() {
 void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) {
     displayTimeAndMoves();  // 显示时间和步数
     cout << "\n 当前数独棋盘: \n";
-    int size = board.size(); // 棋盘大小，通常是 9
+    int size = static_cast<int>(board.size()); // 棋盘大小，通常是 9；使用强制类型转换，解决size_t转换为int的警告
 
     // 调整列号的对齐
     cout << "     ";  // 留出行号的空格

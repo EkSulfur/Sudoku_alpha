@@ -83,5 +83,6 @@ int OperationRecorder::getTop(void) const
 
 int OperationRecorder::getSize(void) const
 {
-	return operations.size();
+	int size = static_cast<int>(operations.size()); // 使用强制类型转换，解决size_t转换为int的警告
+	return size;
 }

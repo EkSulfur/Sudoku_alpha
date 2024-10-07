@@ -1,4 +1,4 @@
-#ifndef DERIVEDCELLCONTAINER
+﻿#ifndef DERIVEDCELLCONTAINER
 #define DERIVEDCELLCONTAINER
 
 // 10月7日：整合Block, Column, Row到这一个文件中

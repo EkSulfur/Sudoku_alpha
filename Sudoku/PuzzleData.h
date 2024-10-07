@@ -14,7 +14,7 @@ public:
     std::string difficulty;
 
     // 无参构造函数
-    PuzzleData() {}
+    PuzzleData() { gameID = 1;} // 设置默认id，这里应该无关紧要（后续会修改）
 
     // 构造函数，不需要日期和玩家ID
     PuzzleData(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board, const std::string& difficulty)

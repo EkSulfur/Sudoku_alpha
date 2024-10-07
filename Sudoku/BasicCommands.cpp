@@ -186,7 +186,8 @@ void BackCommand::execute()
 {
     // 判断栈是否为空
     if (operationRecorder->getTop() == 0) {
-        io->displayMessage("不存在上一个操作");
+        io->displayMessage("错误：不存在上一个操作");
+        return;
     }
     // 解析上一步和填数、删除有关的操作
     int op_num = atoi(operationRecorder->GetOperationBackward().c_str());
@@ -211,7 +212,7 @@ void BackCommand::execute()
         // 对应操作为恢复这个数
         break;
     default:
-        io->displayMessage("错误：未经行任何操作");
+        io->displayMessage("错误：解析操作失败");
         break;
     }
 }
@@ -220,7 +221,7 @@ void RevokeBackCommand::execute()
 {
     // 判断top是否指向最上面的元素
     if (operationRecorder->getTop() >= operationRecorder->getSize()) {
-        io->displayMessage("不存在下一个操作");
+        io->displayMessage("错误：不存在下一个操作");
         return;
     }
     // 解析上一步和填数、删除有关的操作
@@ -246,7 +247,7 @@ void RevokeBackCommand::execute()
         // 对应操作为去除这个数
         break;
     default:
-        io->displayMessage("错误：未经行任何操作");
+        io->displayMessage("错误：解析操作失败");
         break;
     }
 }
