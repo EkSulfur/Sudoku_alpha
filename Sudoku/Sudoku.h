@@ -6,7 +6,6 @@
 */
 #include "Cell.h"
 #include "DerivedCellContainer.h"
-#include "IOInterface.h"
 #include "MenuManager.h"
 #include "PuzzleLoader.h"
 #include <string>
@@ -26,19 +25,12 @@
 9月22日
 TODO:更好地分离类的职责，禁止该禁止的拷贝构造。
 添加获取列、九宫格、行的函数
+10月7日：
+将函数放在数据成员上面，使得类的功能更加直观
 */
 
 class Sudoku {
 private:
-    std::vector<std::vector<Cell>> board;  // 9x9的Cell指针矩阵
-    std::vector<Row> rows;                  // 9个Row
-    std::vector<Column> columns;            // 9个Column
-    std::vector<Block> blocks;              // 9个Block
-    int id;
-    std::string difficulty;
-    MenuManager menuManager;      // 管理菜单的实例
-    PuzzleLoader* puzzleLoader;   // 题目库加载器的指针
-
     // 初始化Board，设置初始提示
     void initializeBoard(const std::vector<std::vector<int>>& boardData);
 
@@ -87,6 +79,15 @@ public:
 
     // 获取九宫格
     Block getBlock(int block) const;
+
+private:
+    std::vector<std::vector<Cell>> board;  // 9x9的Cell指针矩阵
+    std::vector<Row> rows;                  // 9个Row
+    std::vector<Column> columns;            // 9个Column
+    std::vector<Block> blocks;              // 9个Block
+    int id;
+    std::string difficulty;
+    PuzzleLoader* puzzleLoader;   // 题目库加载器的指针
 };
 
 #endif // SUDOKU_H

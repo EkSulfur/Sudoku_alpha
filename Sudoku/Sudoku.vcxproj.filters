@@ -1,125 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="BasicCommands.cpp" />
+    <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="CellContainer.cpp" />
+    <ClCompile Include="ConsoleIO.cpp" />
+    <ClCompile Include="IOInterface.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuManager.cpp" />
+    <ClCompile Include="OperationRecorder.cpp" />
+    <ClCompile Include="PuzzleLoader.cpp" />
+    <ClCompile Include="PuzzleLoaderDAT.cpp" />
+    <ClCompile Include="Sudoku.cpp" />
+    <ClCompile Include="SudokuController.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Cell.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Sudoku.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CellContainer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="IOInterface.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ConsoleIO.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="PuzzleLoader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="PuzzleLoaderDAT.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="testLoader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicCommands.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SudokuController.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Row.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Column.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="OperationRecorder.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
+    <ClInclude Include="BasicCommands.h" />
+    <ClInclude Include="Cell.h" />
+    <ClInclude Include="CellContainer.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="ConsoleIO.h" />
+    <ClInclude Include="DerivedCellContainer.h" />
+    <ClInclude Include="IOInterface.h" />
+    <ClInclude Include="MenuManager.h" />
+    <ClInclude Include="PuzzleData.h" />
+    <ClInclude Include="OperationRecorder.h" />
+    <ClInclude Include="PuzzleLoader.h" />
+    <ClInclude Include="PuzzleLoaderDAT.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Sudoku.h" />
+    <ClInclude Include="SudokuController.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cell.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Sudoku.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CellContainer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="IOInterface.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ConsoleIO.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="PuzzleLoader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="PuzzleLoaderDAT.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="testLoader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="BasicCommands.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SudokuController.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="PuzzleData.h">
-    <ClInclude Include="Row.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Column.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="OperationRecorder.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="archive.dat" />
     <None Include="Puzzles.dat" />
-    <None Include="filed.dat" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
