@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 
-
 // 封装所有与数独棋盘相关的信息到 PuzzleData 类
 class PuzzleData {
 public:
@@ -12,19 +11,22 @@ public:
     int gameID;
     std::vector<std::vector<int>> board;
     std::string difficulty;
+    int boardSize;  // 棋盘的大小
 
-    // 无参构造函数
-    PuzzleData() { gameID = 1;} // 设置默认id，这里应该无关紧要（后续会修改）
+    // 无参构造函数，默认9x9棋盘
+    PuzzleData() : filename("Puzzles.dat"), gameID(1), boardSize(9), difficulty("easy") {
+        board.resize(boardSize, std::vector<int>(boardSize, 0));
+    }
 
-    // 构造函数，不需要日期和玩家ID
+    // 带有自定义棋盘大小的构造函数
+    PuzzleData(int gameID, int boardSize = 9)
+        : filename("Puzzles.dat"), gameID(gameID), boardSize(boardSize), difficulty("easy") {
+        board.resize(boardSize, std::vector<int>(boardSize, 0));
+    }
+
+    // 带有自定义棋盘大小和其他信息的构造函数
     PuzzleData(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board, const std::string& difficulty)
-        : filename(filename), gameID(gameID), board(board), difficulty(difficulty) {}
-
-    // 默认构造函数（可以选择性启用扩展字段）
-    PuzzleData(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board)
-        : filename("Puzzles.dat"), gameID(gameID), board(board), difficulty("easy") {}
-
-    PuzzleData(int gameID)
-        : filename("Puzzles.dat"), gameID(gameID), difficulty("easy") {}
+        : filename(filename), gameID(gameID), board(board), difficulty(difficulty), boardSize(board.size()) {}
 };
+
 #endif // PUZZLE_DATA_H
