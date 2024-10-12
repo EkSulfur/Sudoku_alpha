@@ -6,9 +6,9 @@
 #include "PuzzleLoaderDAT.h"
 
 bool PuzzleLoaderDAT::loadPuzzle(PuzzleData& data) {
-    std::ifstream file(data.filename);
+    std::ifstream file(this->filename);
     if (!file.is_open()) {
-        std::cerr << "Error: Could not open file " << data.filename << std::endl;
+        std::cerr << "Error: Could not open file " << this->filename << std::endl;
         return false;
     }
 
@@ -23,6 +23,7 @@ bool PuzzleLoaderDAT::loadPuzzle(PuzzleData& data) {
     }
 
     if (!puzzleFound) {
+        // 如果没有找到相应的gameID，返回false
         std::cerr << "Error: Puzzle with ID " << data.gameID << " not found." << std::endl;
         return false;
     }
@@ -37,15 +38,23 @@ bool PuzzleLoaderDAT::loadPuzzle(PuzzleData& data) {
     std::getline(file, line);
     if (line.find("BoardSize: ") != std::string::npos) {
         data.boardSize = std::stoi(line.substr(11));  // 提取棋盘大小
-        data.board.resize(data.boardSize, std::vector<int>(data.boardSize, 0));  // 动态调整棋盘大小
+    }
+    else {
+        data.boardSize = 9; // 默认 9x9
     }
 
     // 跳过 'Board:' 行
     std::getline(file, line);
 
-    // 读取棋盘
+    // 初始化棋盘
+    data.board.resize(data.boardSize, std::vector<int>(data.boardSize, 0));
+
+    // 读取棋盘数据
     for (int i = 0; i < data.boardSize; ++i) {
-        std::getline(file, line);
+        if (!std::getline(file, line)) {
+            std::cerr << "Error: Incomplete board data for puzzle ID " << data.gameID << std::endl;
+            return false;
+        }
         std::stringstream ss(line);
         for (int j = 0; j < data.boardSize; ++j) {
             ss >> data.board[i][j];
@@ -55,8 +64,9 @@ bool PuzzleLoaderDAT::loadPuzzle(PuzzleData& data) {
     return true;  // 成功加载
 }
 
+
 bool PuzzleLoaderDAT::savePuzzle(const PuzzleData& data) {
-    std::ifstream fileIn(data.filename);
+    std::ifstream fileIn(this->filename);
     std::stringstream buffer;
     std::string line;
     bool puzzleFound = false;
@@ -71,7 +81,7 @@ bool PuzzleLoaderDAT::savePuzzle(const PuzzleData& data) {
     std::string newPuzzleEntry;
     newPuzzleEntry += "ID: " + std::to_string(data.gameID) + "\n";
     newPuzzleEntry += "Difficulty: " + data.difficulty + "\n";
-    newPuzzleEntry += "BoardSize: " + std::to_string(data.boardSize) + "\n";  // 保存棋盘大小
+    newPuzzleEntry += "BoardSize: " + std::to_string(data.boardSize) + "\n";
     newPuzzleEntry += "Board:\n";
     for (const auto& row : data.board) {
         for (int val : row) {
@@ -102,9 +112,9 @@ bool PuzzleLoaderDAT::savePuzzle(const PuzzleData& data) {
     }
 
     // 将更新后的内容写回文件
-    std::ofstream fileOut(data.filename);
+    std::ofstream fileOut(this->filename);
     if (!fileOut.is_open()) {
-        std::cerr << "Error: Could not open file " << data.filename << std::endl;
+        std::cerr << "Error: Could not open file " << this->filename << std::endl;
         return false;
     }
     fileOut << content;
