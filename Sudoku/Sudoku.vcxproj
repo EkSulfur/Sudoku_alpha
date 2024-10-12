@@ -147,6 +147,9 @@
     <ClCompile Include="OperationRecorder.cpp" />
     <ClCompile Include="PuzzleLoader.cpp" />
     <ClCompile Include="PuzzleLoaderDAT.cpp" />
+    <ClCompile Include="PuzzleLoaderFactory.cpp" />
+    <ClCompile Include="PuzzleLoaderJSON.cpp" />
+    <ClCompile Include="PuzzleLoaderXML.cpp" />
     <ClCompile Include="Sudoku.cpp" />
     <ClCompile Include="SudokuController.cpp" />
   </ItemGroup>
@@ -167,6 +170,9 @@
     <ClInclude Include="OperationRecorder.h" />
     <ClInclude Include="PuzzleLoader.h" />
     <ClInclude Include="PuzzleLoaderDAT.h" />
+    <ClInclude Include="PuzzleLoaderFactory.h" />
+    <ClInclude Include="PuzzleLoaderJSON.h" />
+    <ClInclude Include="PuzzleLoaderXML.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sudoku.h" />
     <ClInclude Include="SudokuController.h" />

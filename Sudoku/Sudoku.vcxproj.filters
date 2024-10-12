@@ -14,6 +14,9 @@
     <ClCompile Include="Sudoku.cpp" />
     <ClCompile Include="SudokuController.cpp" />
     <ClCompile Include="GameApplication.cpp" />
+    <ClCompile Include="PuzzleLoaderFactory.cpp" />
+    <ClCompile Include="PuzzleLoaderJSON.cpp" />
+    <ClCompile Include="PuzzleLoaderXML.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicCommands.h" />
@@ -35,6 +38,9 @@
     <ClInclude Include="ConsoleGameComponentsFactory.h" />
     <ClInclude Include="GUIGameComponentsFactory.h" />
     <ClInclude Include="GameApplication.h" />
+    <ClInclude Include="PuzzleLoaderJSON.h" />
+    <ClInclude Include="PuzzleLoaderXML.h" />
+    <ClInclude Include="PuzzleLoaderFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="archive.dat" />

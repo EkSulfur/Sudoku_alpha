@@ -45,39 +45,45 @@ Sudoku::Sudoku(PuzzleLoader* loader):puzzleLoader(loader), id(1) {} // 默认初
 
 bool Sudoku::loadFromFile(PuzzleData puzzleData)
 {
-    // 创建一个9x9的棋盘矩阵
-    std::vector<std::vector<int>> boardData(9, std::vector<int>(9));
-
-    // 调用puzzleLoader的loadPuzzle函数
+    // 调用 puzzleLoader 的 loadPuzzle 函数，加载数据到 puzzleData
     if (!(puzzleLoader->loadPuzzle(puzzleData))) {
-        return false;  // 如果加载失败，返回false
+        return false;  // 如果加载失败，返回 false
     }
 
-    // 加载成功后，用 puzzleData 中的数据初始化游戏棋盘
-    initializeBoard(puzzleData.board);  // 使用加载的棋盘数据
+    // 使用加载的棋盘数据初始化游戏棋盘
+    initializeBoard(puzzleData.board);
     setDifficulty(puzzleData.difficulty);
+    id = puzzleData.gameID;  // 更新当前游戏的 ID
+
     return true;
 }
 
-
 bool Sudoku::saveToFile(int gameID)
 {
-    // 创建9x9的棋盘数据矩阵
-    std::vector<std::vector<int>> boardData(9, std::vector<int>(9));
+    // 获取当前棋盘大小
+    size_t boardSize = board.size();
 
-    // 遍历数独棋盘，将每个Cell的值保存到boardData中
-    for (int i = 0; i < 9; ++i) {
-        for (int j = 0; j < 9; ++j) {
-            boardData[i][j] = board[i][j].getValue();  // 将Cell的值存入boardData
+    // 创建棋盘数据矩阵
+    std::vector<std::vector<int>> boardData(boardSize, std::vector<int>(boardSize, 0));
+
+    // 遍历数独棋盘，将每个 Cell 的值保存到 boardData 中
+    for (size_t i = 0; i < boardSize; ++i) {
+        for (size_t j = 0; j < boardSize; ++j) {
+            boardData[i][j] = board[i][j].getValue();
         }
     }
 
     // 创建一个 PuzzleData 对象，封装要保存的棋盘信息
-    PuzzleData puzzleData("Puzzles.dat", gameID, boardData, difficulty); // 包含棋盘、gameID和难度信息
+    PuzzleData puzzleData;
+    puzzleData.gameID = gameID;
+    puzzleData.difficulty = difficulty;
+    puzzleData.boardSize = static_cast<int>(boardSize);
+    puzzleData.board = boardData;
 
     // 调用 puzzleLoader 的 savePuzzle 函数保存数独数据
     return puzzleLoader->savePuzzle(puzzleData);
 }
+
 
 
 bool Sudoku::setCellValue(int row, int col, int value)
