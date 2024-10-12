@@ -5,7 +5,7 @@
 
 SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface)
     : sudoku(sudokuModel), io(ioInterface),archieve(1),
-    isSudokuRunning(true), isRunning(true), operationRecorder(sudokuModel) {
+    isSudokuRunning(true), isRunning(true), timer(), counter(),operationRecorder(sudokuModel) {
     // 初始化游戏菜单选项
     gameMenuManager.addOption("输入一个数", new InputNumberCommand(sudoku, io, &operationRecorder));
     gameMenuManager.addOption("擦去一个数", new EraseNumberCommand(sudoku, io, &operationRecorder));
@@ -27,6 +27,9 @@ SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface
 
 void SudokuController::startGame(){
     int id;
+
+    // 开始计时器
+    timer.start();
 
     // 加载循环
     while (true) {
@@ -57,12 +60,13 @@ void SudokuController::startGame(){
     while (isSudokuRunning) {
         io->displayInfo(sudoku->getID(), sudoku->getDifficulty());
         io->displayBoard(sudoku->getBoard());
-
+        displayTimeAndMoves();  // 显示时间和步数
         if (sudoku->checkIfSolved()) {
             io->displayMessage("恭喜！你已经完成了数独！");
             break;
         }
 
+  
         // 显示菜单并处理用户选择
         handleMenuSelection();
     }
@@ -70,6 +74,16 @@ void SudokuController::startGame(){
 
 
 void SudokuController::handleMenuSelection() {
-    // 通过MenuManager显示菜单并执行对应的命令
-    gameMenuManager.displayMenu(io);
+    int choice = gameMenuManager.displayMenu(io);
+
+    // 增加操作次数
+    counter.increment();
+
+    // 显示当前时间和步数
+    displayTimeAndMoves();
+}
+
+void SudokuController::displayTimeAndMoves() {
+    timer.displayTime();
+    counter.displayCount();
 }
