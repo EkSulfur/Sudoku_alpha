@@ -179,6 +179,7 @@
     <None Include="archive.dat" />
     <None Include="ClassDiagram.cd" />
     <None Include="Puzzles.dat" />
+    <None Include="课设报告_10_12.docx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
