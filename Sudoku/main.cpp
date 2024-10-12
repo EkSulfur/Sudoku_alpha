@@ -10,18 +10,19 @@
 
 #include "GameApplication.h"
 #include "ConsoleGameComponentsFactory.h"
+#include <memory>
 
 int main() {
     // 创建具体工厂
-    GameComponentsFactory* factory = new ConsoleGameComponentsFactory();
+    auto factory = std::make_unique<ConsoleGameComponentsFactory>();
 
     // 创建游戏应用程序
-    GameApplication game(factory);
+    GameApplication app(std::move(factory));
 
     // 启动游戏
-    game.startGame();
+    app.startGame();
 
-    // game 析构函数会自动清理资源
+    // 智能指针会自动清理资源
 
     return 0;
 }
