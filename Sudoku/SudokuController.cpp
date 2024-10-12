@@ -19,7 +19,7 @@ SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface
     gameMenuManager.addOption("撤销返回上一步", new RevokeBackCommand(sudoku, io, &operationRecorder));
     gameMenuManager.addOption("退出游戏", new ExitCommand(io, &isSudokuRunning));
     
-    // 初始化主菜单选项
+    // 初始化主菜单选项（未实现，可以后拓展）
     mainMenuManager.addOption("选择游戏存档", new GetNumber(io, &archieve));
     mainMenuManager.addOption("退出程序", new ExitCommand(io, &isRunning));
 }

@@ -1,5 +1,4 @@
-﻿
-#ifndef SUDOKU_H
+﻿#ifndef SUDOKU_H
 #define SUDOKU_H
 /*
 数独游戏主体

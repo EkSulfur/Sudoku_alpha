@@ -142,11 +142,9 @@
     <ClCompile Include="ConsoleIO.cpp" />
     <ClCompile Include="Counter.cpp" />
     <ClCompile Include="GameApplication.cpp" />
-    <ClCompile Include="IOInterface.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="OperationRecorder.cpp" />
-    <ClCompile Include="PuzzleLoader.cpp" />
     <ClCompile Include="PuzzleLoaderDAT.cpp" />
     <ClCompile Include="Sudoku.cpp" />
     <ClCompile Include="SudokuController.cpp" />

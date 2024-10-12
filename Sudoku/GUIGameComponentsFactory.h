@@ -1,5 +1,5 @@
-﻿#ifndef GUIGAMECOMPONENTSFACTORY
-#define GUIGAMECOMPONENTSFACTORY
+﻿#ifndef GUI_GAME_COMPONENTS_FACTORY_H
+#define GUI_GAME_COMPONENTS_FACTORY_H
 
 // 未来可能如果未来需要支持其他平台或变种，例如 GUI 版本，可以创建新的工厂类如下
 
@@ -30,4 +30,4 @@ public:
 };
 */
 
-#endif // !GUIGAMECOMPONENTSFACTORY
+#endif // !GUI_GAME_COMPONENTS_FACTORY_H

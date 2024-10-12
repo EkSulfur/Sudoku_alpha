@@ -1,5 +1,5 @@
-﻿#ifndef SUDOKUCONTROLLER_H
-#define SUDOKUCONTROLLER_H
+﻿#ifndef SUDOKU_CONTROLLER_H
+#define SUDOKU_CONTROLLER_H
 
 #include "Sudoku.h"
 #include "IOInterface.h"

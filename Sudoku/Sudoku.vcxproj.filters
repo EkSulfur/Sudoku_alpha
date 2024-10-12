@@ -18,17 +18,11 @@
     <ClCompile Include="Counter.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="IOInterface.cpp">
-      <Filter>IO</Filter>
-    </ClCompile>
     <ClCompile Include="MenuManager.cpp">
       <Filter>Menu&amp;Commands</Filter>
     </ClCompile>
     <ClCompile Include="OperationRecorder.cpp">
       <Filter>Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="PuzzleLoader.cpp">
-      <Filter>Data Management</Filter>
     </ClCompile>
     <ClCompile Include="PuzzleLoaderDAT.cpp">
       <Filter>Data Management</Filter>

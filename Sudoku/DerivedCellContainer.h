@@ -1,5 +1,5 @@
-﻿#ifndef DERIVEDCELLCONTAINER
-#define DERIVEDCELLCONTAINER
+﻿#ifndef DERIVED_CELLCONTAINER_H
+#define DERIVED_CELLCONTAINER_H
 
 // 10月7日：整合Block, Column, Row到这一个文件中
 

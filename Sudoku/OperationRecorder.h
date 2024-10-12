@@ -5,8 +5,8 @@
 2代表去除某个数，后面两个跟行、列，最后为去除的数原来是什么（无意义）
 1代表添加某个数，后面两个跟行、列、添加的数
 */
-#ifndef OPERATIONRECORDER
-#define OPERATIONRECORDER
+#ifndef OPERATION_RECORDER_H
+#define OPERATION_RECORDER_H
 #include "Sudoku.h"
 #include <vector>
 #include <string>
