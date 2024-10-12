@@ -1,6 +1,7 @@
 ﻿#include "MenuManager.h"
 #include <iostream>
-
+#include <vector>
+#include <string>
 /*
 9月10日
 完成MenuManager类的函数实现
@@ -15,10 +16,14 @@ void MenuManager::addOption(const std::string& optionText, Command* command)
 // 显示菜单并获取用户选择
 int MenuManager::displayMenu(IOInterface* io) const
 {
-    for (int i = 0; i < options.size(); ++i) {
-        io->displayMessage(std::to_string(i + 1) + ". " + options[i].first);
+    std::vector<std::string> newOptions;
+    // 遍历原来的 options，将 pair 中的 string 提取到 newOptions 中
+    for (const auto& option : options) {
+        newOptions.push_back(option.first);
     }
-    io->displayMessage("请选择操作：");
+
+    io->displayMenu(newOptions);
+
     int choice;
     std::cin >> choice;
     if (choice >= 1 && choice <= options.size()) {
