@@ -16,7 +16,7 @@ private:
     int archieve;                           // 存档编号
     IOInterface* io;                        // io接口
     MenuManager gameMenuManager;            // 游戏菜单
-    MenuManager mainMenuManager;            // 主菜单
+    MenuManager mainMenuManager;            // 主菜单 
     bool isSudokuRunning;                   // 数独是否运行
     bool isRunning;  
     Timer timer;  // 组合 Timer 类
