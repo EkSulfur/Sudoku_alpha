@@ -120,27 +120,18 @@ void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) {
 }
 
 // 显示菜单
-int ConsoleIO::displayMenu(const vector<string>& options) {
+void ConsoleIO::displayMenu(const vector<string>& options) {
     displayTimeAndMoves();  // 显示时间和步数
 
     cout << COLOR_YELLOW << "\n=============================" << endl;
     cout << "|    请选择一个操作：        |" << endl;
 
     for (size_t i = 0; i < options.size(); ++i) {
-        cout << "|    " << i + 1 << ". " << options[i] << endl;
+        cout << "|    " << i + 1 << ". " << options[i]<< endl;
     }
 
     cout << "=============================" << COLOR_RESET << endl;
-
-    int choice;
-    while (!(cin >> choice) || choice < 1 || choice > static_cast<int>(options.size())) {
-        cout << COLOR_RED "无效输入，请选择正确的选项: " COLOR_RESET;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    }
-
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    return choice;
+    return;
 }
 
 // 显示游戏信息

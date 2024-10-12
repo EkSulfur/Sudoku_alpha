@@ -50,8 +50,8 @@ public:
     // 获取数，返回一个整数
     virtual int getNumber() = 0;
 
-    // 显示菜单，返回用户选择
-    virtual int displayMenu(const std::vector<std::string>& options) = 0;
+    // 显示菜单
+    virtual void displayMenu(const std::vector<std::string>& options) = 0;
     
     //禁止拷贝构造函数
     IOInterface(const IOInterface&) = delete;
