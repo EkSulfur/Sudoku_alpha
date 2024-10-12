@@ -30,8 +30,8 @@ public:
     // 获取数，返回一个整数
     int getNumber() override;
 
-    // 显示菜单，返回用户选择
-    int displayMenu(const std::vector<std::string>& options) override;
+    // 显示菜单
+    void displayMenu(const std::vector<std::string>& options) override;
 
     // 开始游戏，初始化计时器和步数统计
     void startGame();
