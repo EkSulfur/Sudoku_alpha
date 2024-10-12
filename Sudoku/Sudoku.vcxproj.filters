@@ -1,44 +1,137 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="BasicCommands.cpp" />
-    <ClCompile Include="Cell.cpp" />
-    <ClCompile Include="CellContainer.cpp" />
-    <ClCompile Include="ConsoleIO.cpp" />
-    <ClCompile Include="IOInterface.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MenuManager.cpp" />
-    <ClCompile Include="OperationRecorder.cpp" />
-    <ClCompile Include="PuzzleLoader.cpp" />
-    <ClCompile Include="PuzzleLoaderDAT.cpp" />
-    <ClCompile Include="Sudoku.cpp" />
-    <ClCompile Include="SudokuController.cpp" />
     <ClCompile Include="GameApplication.cpp" />
+    <ClCompile Include="BasicCommands.cpp">
+      <Filter>Menu&amp;Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Cell.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="CellContainer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleIO.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Counter.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="IOInterface.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuManager.cpp">
+      <Filter>Menu&amp;Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="OperationRecorder.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="PuzzleLoader.cpp">
+      <Filter>Data Management</Filter>
+    </ClCompile>
+    <ClCompile Include="PuzzleLoaderDAT.cpp">
+      <Filter>Data Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Sudoku.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="SudokuController.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BasicCommands.h" />
-    <ClInclude Include="Cell.h" />
-    <ClInclude Include="CellContainer.h" />
-    <ClInclude Include="Command.h" />
-    <ClInclude Include="ConsoleIO.h" />
-    <ClInclude Include="DerivedCellContainer.h" />
-    <ClInclude Include="IOInterface.h" />
-    <ClInclude Include="MenuManager.h" />
-    <ClInclude Include="PuzzleData.h" />
-    <ClInclude Include="OperationRecorder.h" />
-    <ClInclude Include="PuzzleLoader.h" />
-    <ClInclude Include="PuzzleLoaderDAT.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Sudoku.h" />
-    <ClInclude Include="SudokuController.h" />
-    <ClInclude Include="GameComponentsFactory.h" />
-    <ClInclude Include="ConsoleGameComponentsFactory.h" />
-    <ClInclude Include="GUIGameComponentsFactory.h" />
     <ClInclude Include="GameApplication.h" />
+    <ClInclude Include="BasicCommands.h">
+      <Filter>Menu&amp;Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CellContainer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Menu&amp;Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleGameComponentsFactory.h">
+      <Filter>fatories</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleIO.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Counter.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="DerivedCellContainer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponentsFactory.h">
+      <Filter>fatories</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIGameComponentsFactory.h">
+      <Filter>fatories</Filter>
+    </ClInclude>
+    <ClInclude Include="IOInterface.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuManager.h">
+      <Filter>Menu&amp;Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="OperationRecorder.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="PuzzleData.h">
+      <Filter>Data Management</Filter>
+    </ClInclude>
+    <ClInclude Include="PuzzleLoader.h">
+      <Filter>Data Management</Filter>
+    </ClInclude>
+    <ClInclude Include="PuzzleLoaderDAT.h">
+      <Filter>Data Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Sudoku.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="SudokuController.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="archive.dat" />
-    <None Include="Puzzles.dat" />
     <None Include="ClassDiagram.cd" />
+    <None Include="课设报告_10_12.docx" />
+    <None Include="Puzzles.dat">
+      <Filter>Data Management</Filter>
+    </None>
+    <None Include="archive.dat">
+      <Filter>Data Management</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{55e62797-4d46-4b9c-b36c-262069d5fc45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{3cc52f60-00d7-4fc0-acfd-801efb275bcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{4ad81e80-3e87-4fb5-9651-3a6aacc19ce7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu&amp;Commands">
+      <UniqueIdentifier>{adfa8f82-8b0f-419b-9a46-d2b525039989}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fatories">
+      <UniqueIdentifier>{0d06521e-0d6a-44da-8450-63caeffde53e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Management">
+      <UniqueIdentifier>{adadc504-b993-4595-811a-d011b1eb4c78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
