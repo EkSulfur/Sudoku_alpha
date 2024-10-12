@@ -15,7 +15,7 @@ private:
     std::unique_ptr<GameComponentsFactory> factory;
     std::unique_ptr<IOInterface> io;
     std::unique_ptr<PuzzleLoader> puzzleLoader;
-    std::unique_ptr<Sudoku> game;
+    std::unique_ptr<Sudoku> sudoku;
     std::unique_ptr<SudokuController> controller;
 };
 
