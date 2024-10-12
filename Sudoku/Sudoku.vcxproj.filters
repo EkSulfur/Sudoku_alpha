@@ -13,6 +13,7 @@
     <ClCompile Include="PuzzleLoaderDAT.cpp" />
     <ClCompile Include="Sudoku.cpp" />
     <ClCompile Include="SudokuController.cpp" />
+    <ClCompile Include="GameApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicCommands.h" />
@@ -30,6 +31,10 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sudoku.h" />
     <ClInclude Include="SudokuController.h" />
+    <ClInclude Include="GameComponentsFactory.h" />
+    <ClInclude Include="ConsoleGameComponentsFactory.h" />
+    <ClInclude Include="GUIGameComponentsFactory.h" />
+    <ClInclude Include="GameApplication.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="archive.dat" />

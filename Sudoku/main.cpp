@@ -1,50 +1,27 @@
-﻿// main.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
-//
+﻿#include "GameComponentsFactory.h"
+#include "ConsoleGameComponentsFactory.h"
 
-#include "Sudoku.h"
-#include "ConsoleIO.h"
-#include "PuzzleLoaderDAT.h"
-#include "SudokuController.h"
+/*
+当前的 main 函数中包含了组件的创建和初始化逻辑，确实有些繁琐，这可能违反了面向对象编程中的封装原则。
+按照封装的理念，我们希望隐藏对象的创建和初始化细节，只提供必要的接口供使用者调用。
+为了解决这个问题，我们可以设计一个单一的、高层次的接口类，例如 GameApplication，它负责初始化所有的组件，并提供一个简单的接口来启动游戏。
+这样，main 函数只需要实例化一个对象并调用 startGame 方法，具体的实现细节都被封装在 GameApplication 内部。
+*/
+
+#include "GameApplication.h"
+#include "ConsoleGameComponentsFactory.h"
 
 int main() {
-    // 创建控制台输入输出接口
-    ConsoleIO io;
+    // 创建具体工厂
+    GameComponentsFactory* factory = new ConsoleGameComponentsFactory();
 
-    // 创建DAT格式的PuzzleLoader
-    PuzzleLoaderDAT puzzleLoader;
+    // 创建游戏应用程序
+    GameApplication game(factory);
 
-    // 创建Sudoku游戏实例
-    Sudoku game(&puzzleLoader);
+    // 启动游戏
+    game.startGame();
 
-    //game.play();
-
-    // 创建控制器实例
-    SudokuController controller(&game, &io);
-
-    controller.startGame();
+    // game 析构函数会自动清理资源
 
     return 0;
 }
-
-
-//#include <iostream>
-//#include <vector>
-//#include <string>
-//#include "testLoader.h"
-//
-//
-//int main() {
-//    testPuzzleLoader();
-//    return 0;
-//}
-
-// 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
-// 调试程序: F5 或调试 >“开始调试”菜单
-
-// 入门使用技巧: 
-//   1. 使用解决方案资源管理器窗口添加/管理文件
-//   2. 使用团队资源管理器窗口连接到源代码管理
-//   3. 使用输出窗口查看生成输出和其他消息
-//   4. 使用错误列表窗口查看错误
-//   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
-//   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件
