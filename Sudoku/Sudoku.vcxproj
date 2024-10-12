@@ -140,6 +140,7 @@
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="CellContainer.cpp" />
     <ClCompile Include="ConsoleIO.cpp" />
+    <ClCompile Include="Counter.cpp" />
     <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="IOInterface.cpp" />
     <ClCompile Include="main.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="PuzzleLoaderDAT.cpp" />
     <ClCompile Include="Sudoku.cpp" />
     <ClCompile Include="SudokuController.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicCommands.h" />
@@ -157,6 +159,7 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="ConsoleGameComponentsFactory.h" />
     <ClInclude Include="ConsoleIO.h" />
+    <ClInclude Include="Counter.h" />
     <ClInclude Include="DerivedCellContainer.h" />
     <ClInclude Include="GameApplication.h" />
     <ClInclude Include="GameComponentsFactory.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sudoku.h" />
     <ClInclude Include="SudokuController.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="archive.dat" />
