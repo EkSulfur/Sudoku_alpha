@@ -28,9 +28,6 @@ SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface
 void SudokuController::startGame(){
     int id;
 
-    // 开始计时器
-    timer.start();
-
     // 加载循环
     while (true) {
         // 选择游戏存档ID
@@ -55,6 +52,9 @@ void SudokuController::startGame(){
         }
         else break;
     }
+
+    // 开始计时器
+    timer.start();
 
     // 游戏主循环
     while (isSudokuRunning) {
