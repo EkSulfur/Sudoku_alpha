@@ -1,4 +1,4 @@
-#ifndef SUDOKU_CONTROLLER_H
+﻿#ifndef SUDOKU_CONTROLLER_H
 #define SUDOKU_CONTROLLER_H
 
 #include "Sudoku.h"
