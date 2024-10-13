@@ -141,6 +141,7 @@
     <ClCompile Include="CellContainer.cpp" />
     <ClCompile Include="ConsoleIO.cpp" />
     <ClCompile Include="Counter.cpp" />
+    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuManager.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="ConsoleGameComponentsFactory.h" />
     <ClInclude Include="ConsoleIO.h" />
     <ClInclude Include="Counter.h" />
+    <ClInclude Include="Cursor.h" />
     <ClInclude Include="DerivedCellContainer.h" />
     <ClInclude Include="GameApplication.h" />
     <ClInclude Include="GameComponentsFactory.h" />

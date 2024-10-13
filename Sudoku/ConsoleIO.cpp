@@ -27,10 +27,6 @@ void ConsoleIO::startGame() {
     displayMessage(COLOR_GREEN "游戏开始！祝你好运！" COLOR_RESET);
 }
 
-// 增加步数统计
-void ConsoleIO::incrementMoveCount() {
-    move_count++;
-}
 
 // 显示当前时间和步数
 void ConsoleIO::displayTimeAndMoves() {
@@ -42,6 +38,15 @@ void ConsoleIO::displayTimeAndMoves() {
 
     cout << COLOR_BLUE << "\n时间已用: " << minutes << " 分 " << seconds << " 秒";
     cout << "\n步数: " << move_count << COLOR_RESET << endl;
+}
+
+// 新的显示时间、步数的函数
+void ConsoleIO::displayTimeAndMoves(Timer* timer, Counter* counter)
+{
+    cout << COLOR_BLUE;
+    timer->displayTime();
+    counter->displayCount();
+    cout << COLOR_RESET;
 }
 
 // 显示消息
@@ -58,8 +63,6 @@ string ConsoleIO::getUserInput() {
 
 // 显示棋盘并显示时间和步数
 void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) {
-    displayTimeAndMoves();  // 显示时间和步数
-
     cout << "\n" << COLOR_YELLOW << "========================== 当前数独棋盘 ==========================" << COLOR_RESET << "\n";
     int size = static_cast<int>(board.size());
 
@@ -123,14 +126,25 @@ void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) {
 void ConsoleIO::displayMenu(const vector<string>& options) {
     displayTimeAndMoves();  // 显示时间和步数
 
-    cout << COLOR_YELLOW << "\n=============================" << endl;
-    cout << "|    请选择一个操作：        |" << endl;
+    cursor.saveCursorPosition();
+    int x_offset = 90;
+    int current_y = 8;  // 从第8行开始显示菜单，可以根据实际情况调整
+
+    // 移动光标到合适的位置，然后开始输出菜单
+    cursor.setCursorPosition(x_offset, current_y++);
+    cout << COLOR_YELLOW << "==============================";
+    cursor.setCursorPosition(x_offset, current_y++);
+    cout << "     请选择一个操作：         ";
 
     for (size_t i = 0; i < options.size(); ++i) {
-        cout << "|    " << i + 1 << ". " << options[i]<< endl;
+        cursor.setCursorPosition(x_offset, current_y++);
+        cout << "     " << i + 1 << ". " << options[i];
     }
+    cursor.setCursorPosition(x_offset, current_y++);
+    cout << "==============================" << COLOR_RESET;
 
-    cout << "=============================" << COLOR_RESET << endl;
+    // 恢复到原来的光标位置
+    cursor.resumeCursorPosition();
     return;
 }
 
@@ -166,7 +180,6 @@ vector<int> ConsoleIO::getOperation() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    incrementMoveCount();
 
     operation.push_back(row);
     operation.push_back(col);
@@ -194,7 +207,6 @@ vector<int> ConsoleIO::getPosition() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    incrementMoveCount();
 
     operation.push_back(row);
     operation.push_back(col);
@@ -212,7 +224,6 @@ int ConsoleIO::getNumber() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    incrementMoveCount();
 
     return num;
 }

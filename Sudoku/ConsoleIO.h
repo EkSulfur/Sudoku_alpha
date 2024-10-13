@@ -2,6 +2,9 @@
 #define CONSOLE_IO_H
 
 #include "IOInterface.h"
+#include "Cursor.h"
+#include "Timer.h"
+#include "Counter.h"
 #include <iostream>
 #include <vector>
 #include <chrono>
@@ -36,15 +39,16 @@ public:
     // 开始游戏，初始化计时器和步数统计
     void startGame();
 
-    // 增加步数统计
-    void incrementMoveCount();
-
     // 显示当前时间和步数
     void displayTimeAndMoves();
+
+    // 显示当前时间和步数
+    void displayTimeAndMoves(Timer* timer, Counter* counter);
 
 private:
     std::chrono::time_point<std::chrono::steady_clock> start_time; // 游戏开始时间
     int move_count; // 操作次数
+    Cursor cursor; // 光标操作类
 };
 
 #endif // CONSOLE_IO_H

@@ -59,8 +59,8 @@ void SudokuController::startGame(){
     // 游戏主循环
     while (isSudokuRunning) {
         io->displayInfo(sudoku->getID(), sudoku->getDifficulty());
+        
         io->displayBoard(sudoku->getBoard());
-        displayTimeAndMoves();  // 显示时间和步数
         if (sudoku->checkIfSolved()) {
             io->displayMessage("恭喜！你已经完成了数独！");
             break;
@@ -78,12 +78,6 @@ void SudokuController::handleMenuSelection() {
 
     // 增加操作次数
     counter.increment();
-
-    // 显示当前时间和步数
-    displayTimeAndMoves();
 }
 
-void SudokuController::displayTimeAndMoves() {
-    timer.displayTime();
-    counter.displayCount();
-}
+// 去除原来的控制类中的显示步长和时间的函数（委托给ConsoleIO）
