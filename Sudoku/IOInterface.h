@@ -56,6 +56,9 @@ public:
 
     // 显示菜单
     virtual void displayMenu(const std::vector<std::string>& options) = 0;
+
+    // 显示开始提示
+    virtual void startGame() = 0;
     
     //禁止拷贝构造函数
     IOInterface(const IOInterface&) = delete;

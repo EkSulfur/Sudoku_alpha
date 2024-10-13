@@ -21,13 +21,6 @@ using namespace std::chrono;
 // 构造函数的定义，初始化成员变量
 ConsoleIO::ConsoleIO() : start_time(std::chrono::steady_clock::now()), move_count(0) {}
 
-// 初始化计时器和步数统计
-void ConsoleIO::startGame() {
-    start_time = std::chrono::steady_clock::now();  // 记录游戏开始时间
-    move_count = 0;                    // 重置操作次数
-    displayMessage(COLOR_GREEN "游戏开始！祝你好运！" COLOR_RESET);
-}
-
 
 // 显示当前时间和步数
 void ConsoleIO::displayTimeAndMoves() {
@@ -138,6 +131,11 @@ void ConsoleIO::displayMenu(const vector<string>& options) {
     // 恢复到原来的光标位置
     cursor.resumeCursorPosition();
     return;
+}
+
+void ConsoleIO::startGame(){
+    this->displayMessage(COLOR_GREEN "游戏开始！祝你好运！" COLOR_RESET);
+
 }
 
 // 显示游戏信息

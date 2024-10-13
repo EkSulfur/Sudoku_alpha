@@ -155,7 +155,7 @@ void SudokuController::startGame() {
 
     // 开始计时器
     StateManager::getInstance().timer.start();
-
+    io->startGame();
     // 游戏主循环
     while (isSudokuRunning) {
 
