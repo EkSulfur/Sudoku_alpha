@@ -39,6 +39,9 @@
     <ClCompile Include="Cursor.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="IOWithTimeAndMovesDecorator.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApplication.h" />
@@ -102,6 +105,9 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Cursor.h">
       <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="IOWithTimeAndMovesDecorator.h">
+      <Filter>IO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

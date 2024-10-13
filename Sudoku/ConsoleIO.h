@@ -18,6 +18,9 @@ public:
     // 显示信息
     void displayInfo(const int id, const std::string difficulty) override;
 
+    // 新的显示信息函数（利用PuzzleData类实现更好的可拓展性）
+    void displayInfo(PuzzleData puzzleData) override;
+
     // 显示消息
     void displayMessage(const std::string& message) override;
 
@@ -42,12 +45,9 @@ public:
     // 显示当前时间和步数
     void displayTimeAndMoves();
 
-    // 显示当前时间和步数
-    void displayTimeAndMoves(Timer* timer, Counter* counter);
-
 private:
     std::chrono::time_point<std::chrono::steady_clock> start_time; // 游戏开始时间
-    int move_count; // 操作次数
+    int move_count; // 操作次数（后续应该删去）
     Cursor cursor; // 光标操作类
 };
 

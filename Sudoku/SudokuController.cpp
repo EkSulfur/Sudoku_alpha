@@ -55,18 +55,19 @@ void SudokuController::startGame(){
 
     // 开始计时器
     timer.start();
+    puzzleData.timer = &timer;
+    puzzleData.counter = &counter;
 
     // 游戏主循环
     while (isSudokuRunning) {
-        io->displayInfo(sudoku->getID(), sudoku->getDifficulty());
-        
+
         io->displayBoard(sudoku->getBoard());
         if (sudoku->checkIfSolved()) {
             io->displayMessage("恭喜！你已经完成了数独！");
             break;
         }
 
-  
+        io->displayInfo(puzzleData);
         // 显示菜单并处理用户选择
         handleMenuSelection();
     }

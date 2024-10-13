@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "Cell.h"
+#include "PuzzleData.h"
 
 /*
 9月6日
@@ -32,8 +33,11 @@ public:
     // 显示棋盘
     virtual void displayBoard(const std::vector<std::vector<Cell>>& board) = 0;
 
-    //显示信息
+    // 显示信息
     virtual void displayInfo(const int id, const std::string difficulty) = 0;
+
+    // 新的显示信息函数（利用PuzzleData类实现更好的可拓展性）
+    virtual void displayInfo(PuzzleData puzzleData) = 0;
 
     // 显示消息
     virtual void displayMessage(const std::string& message) = 0;

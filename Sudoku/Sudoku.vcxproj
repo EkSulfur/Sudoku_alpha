@@ -143,6 +143,7 @@
     <ClCompile Include="Counter.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="GameApplication.cpp" />
+    <ClCompile Include="IOWithTimeAndMovesDecorator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="OperationRecorder.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="GameComponentsFactory.h" />
     <ClInclude Include="GUIGameComponentsFactory.h" />
     <ClInclude Include="IOInterface.h" />
+    <ClInclude Include="IOWithTimeAndMovesDecorator.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="PuzzleData.h" />
     <ClInclude Include="OperationRecorder.h" />
