@@ -60,6 +60,8 @@ public:
     // 显示开始提示
     virtual void startGame() = 0;
     
+    //询问是否结束
+    virtual void displayEndGame() = 0;
     //禁止拷贝构造函数
     IOInterface(const IOInterface&) = delete;
 

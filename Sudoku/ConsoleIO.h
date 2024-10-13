@@ -42,6 +42,9 @@ public:
     // 开始游戏，初始化计时器和步数统计
     void startGame();
 
+    //询问是否结束
+    void displayEndGame();
+
 private:
     std::chrono::time_point<std::chrono::steady_clock> start_time; // 游戏开始时间
     Cursor cursor; // 光标操作类

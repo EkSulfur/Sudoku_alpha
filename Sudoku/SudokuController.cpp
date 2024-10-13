@@ -161,7 +161,7 @@ void SudokuController::startGame() {
 
         io->displayBoard(sudoku->getBoard());
         if (sudoku->checkIfSolved()) {
-            io->displayMessage("恭喜！你已经完成了数独！");
+            io->displayEndGame();
             break;
         }
 
