@@ -1,6 +1,8 @@
 ﻿#ifndef PUZZLE_DATA_H
 #define PUZZLE_DATA_H
 
+#include "Timer.h"
+#include "Counter.h"
 #include <vector>
 #include <string>
 
@@ -12,6 +14,9 @@ public:
     int gameID;
     std::vector<std::vector<int>> board;
     std::string difficulty;
+    // 组合Timer和Counter类
+    Timer* timer;
+    Counter* counter;
 
     // 无参构造函数
     PuzzleData() { gameID = 1;} // 设置默认id，这里应该无关紧要（后续会修改）
@@ -24,7 +29,12 @@ public:
     PuzzleData(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board)
         : filename("Puzzles.dat"), gameID(gameID), board(board), difficulty("easy") {}
 
+    // 带参构造函数
     PuzzleData(int gameID)
         : filename("Puzzles.dat"), gameID(gameID), difficulty("easy") {}
+
+    // 带参构造函数
+    PuzzleData(int gameID, Timer* t, Counter* c)
+        : filename("Puzzles.dat"), gameID(gameID), difficulty("easy"),timer(t), counter(c) {}
 };
 #endif // PUZZLE_DATA_H

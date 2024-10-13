@@ -18,17 +18,11 @@
     <ClCompile Include="Counter.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="IOInterface.cpp">
-      <Filter>IO</Filter>
-    </ClCompile>
     <ClCompile Include="MenuManager.cpp">
       <Filter>Menu&amp;Commands</Filter>
     </ClCompile>
     <ClCompile Include="OperationRecorder.cpp">
       <Filter>Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="PuzzleLoader.cpp">
-      <Filter>Data Management</Filter>
     </ClCompile>
     <ClCompile Include="PuzzleLoaderDAT.cpp">
       <Filter>Data Management</Filter>
@@ -41,6 +35,12 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="IOWithTimeAndMovesDecorator.cpp">
+      <Filter>IO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +103,12 @@
       <Filter>Utilities</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Cursor.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="IOWithTimeAndMovesDecorator.h">
+      <Filter>IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

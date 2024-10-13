@@ -1,6 +1,5 @@
-﻿// SudokuController.h
-#ifndef SUDOKUCONTROLLER_H
-#define SUDOKUCONTROLLER_H
+#ifndef SUDOKU_CONTROLLER_H
+#define SUDOKU_CONTROLLER_H
 
 #include "Sudoku.h"
 #include "IOInterface.h"
@@ -46,4 +45,4 @@ private:
     void handleMenuSelection();
 };
 
-#endif // SUDOKUCONTROLLER_H
+#endif // SUDOKU_CONTROLLER_H

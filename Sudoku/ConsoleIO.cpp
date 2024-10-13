@@ -27,10 +27,6 @@ void ConsoleIO::startGame() {
     displayMessage(COLOR_GREEN "游戏开始！祝你好运！" COLOR_RESET);
 }
 
-// 增加步数统计
-void ConsoleIO::incrementMoveCount() {
-    move_count++;
-}
 
 // 显示当前时间和步数
 void ConsoleIO::displayTimeAndMoves() {
@@ -43,6 +39,7 @@ void ConsoleIO::displayTimeAndMoves() {
     cout << COLOR_BLUE << "\n时间已用: " << minutes << " 分 " << seconds << " 秒";
     cout << "\n步数: " << move_count << COLOR_RESET << endl;
 }
+
 
 // 显示消息
 void ConsoleIO::displayMessage(const string& message) {
@@ -58,8 +55,6 @@ string ConsoleIO::getUserInput() {
 
 // 显示棋盘并显示时间和步数
 void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) {
-    displayTimeAndMoves();  // 显示时间和步数
-
     cout << "\n" << COLOR_YELLOW << "========================== 当前数独棋盘 ==========================" << COLOR_RESET << "\n";
     int size = static_cast<int>(board.size());
 
@@ -121,16 +116,26 @@ void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) {
 
 // 显示菜单
 void ConsoleIO::displayMenu(const vector<string>& options) {
-    displayTimeAndMoves();  // 显示时间和步数
 
-    cout << COLOR_YELLOW << "\n=============================" << endl;
-    cout << "|    请选择一个操作：        |" << endl;
+    cursor.saveCursorPosition();
+    int x_offset = 90;
+    int current_y = 16;
+
+    // 移动光标到合适的位置，然后开始输出菜单
+    cursor.setCursorPosition(x_offset, current_y++);
+    cout << COLOR_YELLOW << "==============================";
+    cursor.setCursorPosition(x_offset, current_y++);
+    cout << "     请选择一个操作：         ";
 
     for (size_t i = 0; i < options.size(); ++i) {
-        cout << "|    " << i + 1 << ". " << options[i]<< endl;
+        cursor.setCursorPosition(x_offset, current_y++);
+        cout << "     " << i + 1 << ". " << options[i];
     }
+    cursor.setCursorPosition(x_offset, current_y++);
+    cout << "==============================" << COLOR_RESET;
 
-    cout << "=============================" << COLOR_RESET << endl;
+    // 恢复到原来的光标位置
+    cursor.resumeCursorPosition();
     return;
 }
 
@@ -138,6 +143,29 @@ void ConsoleIO::displayMenu(const vector<string>& options) {
 void ConsoleIO::displayInfo(const int id, const string difficulty) {
     cout << COLOR_YELLOW << "当前游戏难度: " << difficulty << endl;
     cout << "用户ID: " << id << COLOR_RESET << endl;
+}
+
+
+// 新的显示游戏信息函数
+void ConsoleIO::displayInfo(PuzzleData puzzleData){
+
+    const int id = puzzleData.gameID;
+    const string difficulty = puzzleData.difficulty;
+
+    cursor.saveCursorPosition();
+    int x_offset = 90;
+    int current_y = 10; 
+    cursor.setCursorPosition(x_offset, current_y++);
+    cout << COLOR_YELLOW << "当前游戏难度: " << difficulty;
+    cursor.setCursorPosition(x_offset, current_y++);
+    cout << "用户ID: " << id << COLOR_RESET;
+    cout << COLOR_BLUE;
+    cursor.setCursorPosition(x_offset, current_y++);
+    puzzleData.timer->displayTime();
+    cursor.setCursorPosition(x_offset, current_y++);
+    puzzleData.counter->displayCount();
+    cout << COLOR_RESET;
+    cursor.resumeCursorPosition();
 }
 
 // 获取用户操作
@@ -166,7 +194,6 @@ vector<int> ConsoleIO::getOperation() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    incrementMoveCount();
 
     operation.push_back(row);
     operation.push_back(col);
@@ -194,7 +221,6 @@ vector<int> ConsoleIO::getPosition() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    incrementMoveCount();
 
     operation.push_back(row);
     operation.push_back(col);
@@ -212,7 +238,6 @@ int ConsoleIO::getNumber() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    incrementMoveCount();
 
     return num;
 }

@@ -1,5 +1,5 @@
-﻿#ifndef CONSOLEGAMECOMPONENTSFACTORY
-#define CONSOLEGAMECOMPONENTSFACTORY
+﻿#ifndef CONSOLE_GAMECOMPONENTS_FACTORY_H
+#define CONSOLE_GAMECOMPONENTS_FACTORY_H
 
 #include "GameComponentsFactory.h"
 #include "ConsoleIO.h"
@@ -7,6 +7,7 @@
 #include "Sudoku.h"
 #include "SudokuController.h"
 
+// 具体工厂类
 class ConsoleGameComponentsFactory : public GameComponentsFactory {
 public:
     IOInterface* createIOInterface() override {
@@ -28,4 +29,4 @@ public:
     }
 };
 
-#endif // !CONSOLEGAMECOMPONENTSFACTORY
+#endif // !CONSOLE_GAMECOMPONENTS_FACTORY_H

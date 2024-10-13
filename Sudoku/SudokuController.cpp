@@ -42,8 +42,8 @@ SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface
     gameMenuManager.addOption("返回上一步对值的修改", new BackCommand(sudoku, io, &operationRecorder));
     gameMenuManager.addOption("撤销返回上一步", new RevokeBackCommand(sudoku, io, &operationRecorder));
     gameMenuManager.addOption("退出游戏", new ExitCommand(io, &isSudokuRunning));
-
-    // 初始化主菜单选项
+    
+    // 初始化主菜单选项（未实现，可以后拓展）
     mainMenuManager.addOption("选择游戏存档", new GetNumber(io, &archieve));
     mainMenuManager.addOption("退出程序", new ExitCommand(io, &isRunning));
 }
@@ -165,19 +165,20 @@ void SudokuController::startGame() {
     }
 
     // 开始计时器
-    this->timer.start();
+    timer.start();
+    puzzleData.timer = &timer;
+    puzzleData.counter = &counter;
 
     // 游戏主循环
-    while (this->isSudokuRunning) {
-        this->io->displayInfo(this->sudoku->getID(), this->sudoku->getDifficulty());
-        this->io->displayBoard(this->sudoku->getBoard());
-        this->displayTimeAndMoves();  // 显示时间和步数
+    while (isSudokuRunning) {
 
-        if (this->sudoku->checkIfSolved()) {
-            this->io->displayMessage("恭喜！你已经完成了数独！");
+        io->displayBoard(sudoku->getBoard());
+        if (sudoku->checkIfSolved()) {
+            io->displayMessage("恭喜！你已经完成了数独！");
             break;
         }
 
+        io->displayInfo(puzzleData);
         // 显示菜单并处理用户选择
         this->handleMenuSelection();
     }
@@ -189,13 +190,6 @@ void SudokuController::handleMenuSelection() {
 
     // 增加操作次数
     this->counter.increment();
-
-    // 显示当前时间和步数
-    this->displayTimeAndMoves();
 }
 
-// 显示时间和步数的实现
-void SudokuController::displayTimeAndMoves() {
-    this->timer.displayTime();
-    this->counter.displayCount();
-}
+// 去除原来的控制类中的显示步长和时间的函数（委托给ConsoleIO）
