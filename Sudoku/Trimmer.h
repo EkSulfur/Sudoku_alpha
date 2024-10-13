@@ -1,4 +1,4 @@
-#ifndef TRIMMER_H
+﻿#ifndef TRIMMER_H
 #define TRIMMER_H
 
 #include <string>
