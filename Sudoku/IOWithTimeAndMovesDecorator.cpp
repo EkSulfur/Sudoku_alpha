@@ -18,7 +18,7 @@ void IOWithTimeAndMovesDecorator::startGame() {
 }
 
 // 重写 displayBoard 方法，添加时间和步数显示
-void IOWithTimeAndMovesDecorator::displayBoard(const std::vector<std::vector<Cell>>& board) {
+void IOWithTimeAndMovesDecorator::displayBoard(const std::vector<std::vector<Cell>>& board) const {
     // 计算经过的时间
     auto now = std::chrono::steady_clock::now();
     auto elapsed_seconds = std::chrono::duration_cast<std::chrono::seconds>(now - start_time).count();
@@ -35,7 +35,7 @@ void IOWithTimeAndMovesDecorator::displayInfo(const int id, const std::string di
     io->displayInfo(id, difficulty);
 }
 
-void IOWithTimeAndMovesDecorator::displayMessage(const std::string& message) {
+void IOWithTimeAndMovesDecorator::displayMessage(const std::string& message) const {
     io->displayMessage(message);
 }
 

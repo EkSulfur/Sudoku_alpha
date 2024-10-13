@@ -13,16 +13,16 @@ class ConsoleIO : public IOInterface {
 public:
     ConsoleIO();
     // 显示棋盘
-    void displayBoard(const std::vector<std::vector<Cell>>& board) override;
+    void displayBoard(const std::vector<std::vector<Cell>>& board) const override;
 
     // 显示信息
-    void displayInfo(const int id, const std::string difficulty) override;
+    void displayInfo(const int id, const std::string difficulty)  override;
 
     // 新的显示信息函数（利用PuzzleData类实现更好的可拓展性）
     void displayInfo(PuzzleData puzzleData) override;
 
     // 显示消息
-    void displayMessage(const std::string& message) override;
+    void displayMessage(const std::string& message) const override;
 
     // 获取用户输入
     std::string getUserInput() override;
