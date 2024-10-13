@@ -26,6 +26,14 @@ void ConsoleIO::displayMessage(const string& message) const{
     cout << message << endl;
 }
 
+// 显示错误
+void ConsoleIO::displayError(const std::string& error) const
+{
+    cout << COLOR_RED;
+    displayMessage(error);
+    cout << COLOR_RESET;
+}
+
 // 获取用户输入
 string ConsoleIO::getUserInput() {
     string input;
@@ -134,7 +142,7 @@ void ConsoleIO::displayInfo(const int id, const string difficulty) {
 void ConsoleIO::displayInfo(PuzzleData puzzleData){
 
     const int id = puzzleData.gameID;
-    const string difficulty = puzzleData.difficulty;
+    string difficulty = puzzleData.difficulty;
 
     cursor.saveCursorPosition();
     int x_offset = 90;
@@ -214,6 +222,12 @@ vector<int> ConsoleIO::getPosition() {
 void ConsoleIO::displayEndGame() {
     cout << COLOR_YELLOW << "恭喜你完成了数独！请按回车键退出" << COLOR_RESET << endl;
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // 清除之前输入的缓冲
+}
+
+// （未使用）
+void ConsoleIO::refresh()
+{
+    system("cls");
 }
 
 // 获取用户输入的数字

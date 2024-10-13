@@ -42,6 +42,9 @@ public:
     // 显示消息
     virtual void displayMessage(const std::string& message) const= 0;
 
+    // 显示错误
+    virtual void displayError(const std::string& error) const = 0;
+
     // 获取用户输入
     virtual std::string getUserInput() = 0;
 
@@ -60,8 +63,12 @@ public:
     // 显示开始提示
     virtual void startGame() = 0;
     
-    //询问是否结束
+    // 询问是否结束
     virtual void displayEndGame() = 0;
+
+    // 刷新交互界面
+    virtual void refresh() = 0;
+
     //禁止拷贝构造函数
     IOInterface(const IOInterface&) = delete;
 

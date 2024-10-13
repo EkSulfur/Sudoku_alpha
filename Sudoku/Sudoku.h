@@ -86,6 +86,7 @@ private:
     std::vector<Block> blocks;              // 9个Block
     int id;
     std::string difficulty;
+public:
     PuzzleLoader* puzzleLoader;   // 题目库加载器的指针
 };
 

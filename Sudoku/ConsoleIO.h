@@ -24,6 +24,9 @@ public:
     // 显示消息
     void displayMessage(const std::string& message) const override;
 
+    // 显示错误
+    void displayError(const std::string& error) const override;
+
     // 获取用户输入
     std::string getUserInput() override;
 
@@ -40,10 +43,13 @@ public:
     void displayMenu(const std::vector<std::string>& options) override;
 
     // 开始游戏，初始化计时器和步数统计
-    void startGame();
+    void startGame() override;
 
-    //询问是否结束
-    void displayEndGame();
+    // 询问是否结束
+    void displayEndGame() override;
+
+    // 刷新页面（未使用）
+    void refresh() override;
 
 private:
     std::chrono::time_point<std::chrono::steady_clock> start_time; // 游戏开始时间

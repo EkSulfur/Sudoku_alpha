@@ -30,7 +30,7 @@ int MenuManager::displayMenu(IOInterface* io) const
         options[choice - 1].second->execute();  // 执行对应的命令
     }
     else {
-        io->displayMessage("无效选项，请重试。");
+        io->displayError("无效选项，请重试。");
     }
     return choice;
 }

@@ -6,8 +6,6 @@
 #include "MenuManager.h"
 #include "PuzzleLoader.h"
 #include "OperationRecorder.h"
-#include "Timer.h"
-#include "Counter.h"
 #include "PuzzleData.h"
 #include <string>
 #include <vector> // 添加以支持 std::vector
@@ -23,9 +21,6 @@ private:
     bool isSudokuRunning;                   // 数独是否运行
     bool isRunning;                         // 程序是否运行（对应主菜单界面）
     OperationRecorder operationRecorder;    // 记录游戏中的操作
-
-    // 存档文件路径
-    const std::string SAVE_FILE_PATH = "Puzzles.dat";
 
     // 私有成员函数
     bool getIDRange(int& minID, int& maxID);

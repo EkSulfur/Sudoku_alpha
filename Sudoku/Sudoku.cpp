@@ -49,10 +49,6 @@ bool Sudoku::loadFromFile(PuzzleData puzzleData)
     // 创建一个9x9的棋盘矩阵
     std::vector<std::vector<int>> boardData(9, std::vector<int>(9));
 
-    // 调用puzzleLoader的loadPuzzle函数
-    if (!(puzzleLoader->loadPuzzle(puzzleData))) {
-        return false;  // 如果加载失败，返回false
-    }
 
     // 加载成功后，用 puzzleData 中的数据初始化游戏棋盘
     initializeBoard(puzzleData.board);  // 使用加载的棋盘数据
