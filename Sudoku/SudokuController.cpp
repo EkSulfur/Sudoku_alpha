@@ -115,6 +115,7 @@ void SudokuController::startGame() {
 
         io->displayBoard(sudoku->getBoard());
         if (sudoku->checkIfSolved()) {
+            io->displayInfo(*puzzleData);
             io->displayEndGame();
             break;
         }
