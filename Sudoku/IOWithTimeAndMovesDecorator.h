@@ -11,9 +11,9 @@ public:
     ~IOWithTimeAndMovesDecorator();
 
     // 重写 IOInterface 的所有方法
-    void displayBoard(const std::vector<std::vector<Cell>>& board) override;
+    void displayBoard(const std::vector<std::vector<Cell>>& board) const override;
     void displayInfo(const int id, const std::string difficulty) override;
-    void displayMessage(const std::string& message) override;
+    void displayMessage(const std::string& message) const override;
     std::string getUserInput() override;
     std::vector<int> getOperation() override;
     std::vector<int> getPosition() override;

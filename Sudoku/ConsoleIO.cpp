@@ -43,7 +43,7 @@ void ConsoleIO::displayTimeAndMoves() {
 
 
 // 显示消息
-void ConsoleIO::displayMessage(const string& message) {
+void ConsoleIO::displayMessage(const string& message) const{
     cout << message << endl;
 }
 
@@ -55,7 +55,7 @@ string ConsoleIO::getUserInput() {
 }
 
 // 显示棋盘并显示时间和步数
-void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) {
+void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) const {
     cout << "\n" << COLOR_YELLOW << "========================== 当前数独棋盘 ==========================" << COLOR_RESET << "\n";
     int size = static_cast<int>(board.size());
 
