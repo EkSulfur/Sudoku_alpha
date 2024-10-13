@@ -8,7 +8,7 @@
 class GameApplication {
 public:
     GameApplication(std::unique_ptr<GameComponentsFactory> factory);
-
+    GameApplication();  // 提供缺省值的构造函数
     void startGame();
 
 private:
