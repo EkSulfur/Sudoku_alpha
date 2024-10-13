@@ -19,21 +19,7 @@ using namespace std::chrono;
 #define COLOR_YELLOW  "\033[33m"
 
 // 构造函数的定义，初始化成员变量
-ConsoleIO::ConsoleIO() : start_time(std::chrono::steady_clock::now()), move_count(0) {}
-
-
-// 显示当前时间和步数
-void ConsoleIO::displayTimeAndMoves() {
-    auto current_time = std::chrono::steady_clock::now();
-    auto elapsed_seconds = std::chrono::duration_cast<std::chrono::seconds>(current_time - start_time).count();
-
-    int minutes = static_cast<int>(elapsed_seconds / 60);
-    int seconds = static_cast<int>(elapsed_seconds % 60);
-
-    cout << COLOR_BLUE << "\n时间已用: " << minutes << " 分 " << seconds << " 秒";
-    cout << "\n步数: " << move_count << COLOR_RESET << endl;
-}
-
+ConsoleIO::ConsoleIO() : start_time(std::chrono::steady_clock::now()) {}
 
 // 显示消息
 void ConsoleIO::displayMessage(const string& message) const{
