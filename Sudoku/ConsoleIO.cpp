@@ -33,7 +33,7 @@ string ConsoleIO::getUserInput() {
     return input;
 }
 
-// 显示棋盘并显示时间和步数
+// 显示棋盘
 void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) const {
     cout << "\n" << COLOR_YELLOW << "========================== 当前数独棋盘 ==========================" << COLOR_RESET << "\n";
     int size = static_cast<int>(board.size());
@@ -44,7 +44,7 @@ void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) const {
         cout << "  C " << i + 1 << "  ";  // 增加空格，保证对齐
     }
     cout << "\n    -----------------------------------------------------------------\n";
-
+    //显示标题和列号：首先打印棋盘的标题和列号
     for (int i = 0; i < size; ++i) {
         for (int sub_row = 0; sub_row < 3; ++sub_row) {
             if (sub_row == 1) {
@@ -53,7 +53,7 @@ void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) const {
             else {
                 cout << "    ";
             }
-
+    //行号显示：在适当的位置打印行号
             for (int j = 0; j < size; ++j) {
                 if (1) cout << "|";
 
@@ -84,15 +84,14 @@ void ConsoleIO::displayBoard(const vector<vector<Cell>>& board) const {
                     }
                 }
             }
-
             cout << " |" << endl;
         }
-
+        //棋盘显示逻辑：根据棋盘上的每个Cell对象的状态进行展示。
         if (1) {
             cout << "    -----------------------------------------------------------------\n";
         }
     }
-}
+}//隔线：在每行之后输出分隔线，使棋盘显示更加整齐。
 
 // 显示菜单
 void ConsoleIO::displayMenu(const vector<string>& options) {
@@ -161,8 +160,8 @@ vector<int> ConsoleIO::getOperation() {
     cout << COLOR_YELLOW "请输入你要填入的行 (1-9): " COLOR_RESET;
     while (!(cin >> row) || row < 1 || row > 9) {
         cout << COLOR_RED "无效输入，请输入正确的行号 (1-9): " COLOR_RESET;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.clear();//用于清除cin的错误标志
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');//跳过并丢弃当前行中剩下的非法输入，防止程序再次读取错误数据。
     }
 
     cout << COLOR_YELLOW "请输入你要填入的列 (1-9): " COLOR_RESET;
