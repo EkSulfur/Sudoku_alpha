@@ -2,6 +2,8 @@
 #include "SudokuController.h"
 #include "BasicCommands.h"
 #include "OperationRecorder.h"
+#include "StateManager.h"
+#include "Trimmer.h"
 #include <fstream>
 #include <string>
 #include <vector>
@@ -10,26 +12,11 @@
 #include <iostream>
 #include <set>
 
-// 辅助函数：修剪字符串
-static inline void ltrim(std::string& s) {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(),
-        [](unsigned char ch) { return !std::isspace(ch); }));
-}
-
-static inline void rtrim(std::string& s) {
-    s.erase(std::find_if(s.rbegin(), s.rend(),
-        [](unsigned char ch) { return !std::isspace(ch); }).base(), s.end());
-}
-
-static inline void trim(std::string& s) {
-    ltrim(s);
-    rtrim(s);
-}
 
 // 构造函数
 SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface)
     : sudoku(sudokuModel), io(ioInterface), archieve(1),
-    isSudokuRunning(true), isRunning(true), timer(), counter(), operationRecorder(sudokuModel) {
+    isSudokuRunning(true), isRunning(true), operationRecorder(sudokuModel) {
     // 初始化游戏菜单选项
     gameMenuManager.addOption("输入一个数", new InputNumberCommand(sudoku, io, &operationRecorder));
     gameMenuManager.addOption("擦去一个数", new EraseNumberCommand(sudoku, io, &operationRecorder));
@@ -60,7 +47,8 @@ bool SudokuController::getAvailableIDs(std::vector<int>& availableIDs) {
     std::set<int> idSet;
 
     while (std::getline(infile, line)) {
-        trim(line); // 修剪行的前导和尾随空格
+        Trimmer trimmer;
+        trimmer.trim(line); // 修剪行的前导和尾随空格
         // 查找以 "ID:" 开头的行
         if (line.find("ID:") == 0) {
             // 提取 ID 数值，修正 substr 起始位置
@@ -127,6 +115,7 @@ void SudokuController::startGame() {
     this->io->displayMessage(idsList);
 
     // 加载循环
+    PuzzleData* puzzleData = &StateManager::getInstance().puzzleData;
     while (true) {
         // 显示ID范围提示
         std::string prompt = "请选择存档编号 (编号 " + std::to_string(minID) + " --- " + std::to_string(maxID) + ")：";
@@ -154,10 +143,10 @@ void SudokuController::startGame() {
             continue;
         }
 
-        PuzzleData puzzleData(id);
+        puzzleData->gameID = id;
 
         // 加载游戏
-        if (!this->sudoku->loadFromFile(puzzleData)) {
+        if (!this->sudoku->loadFromFile(*puzzleData)) {
             this->io->displayMessage("无法加载数独游戏。请确保存档编号正确且文件格式无误。");
             continue;
         }
@@ -165,9 +154,7 @@ void SudokuController::startGame() {
     }
 
     // 开始计时器
-    timer.start();
-    puzzleData.timer = &timer;
-    puzzleData.counter = &counter;
+    StateManager::getInstance().timer.start();
 
     // 游戏主循环
     while (isSudokuRunning) {
@@ -178,7 +165,7 @@ void SudokuController::startGame() {
             break;
         }
 
-        io->displayInfo(puzzleData);
+        io->displayInfo(*puzzleData);
         // 显示菜单并处理用户选择
         this->handleMenuSelection();
     }
@@ -189,7 +176,7 @@ void SudokuController::handleMenuSelection() {
     int choice = this->gameMenuManager.displayMenu(this->io);
 
     // 增加操作次数
-    this->counter.increment();
+    StateManager::getInstance().counter.increment();
 }
 
 // 去除原来的控制类中的显示步长和时间的函数（委托给ConsoleIO）

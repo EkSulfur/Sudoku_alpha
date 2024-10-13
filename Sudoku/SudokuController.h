@@ -14,7 +14,7 @@
 
 class SudokuController {
 private:
-    PuzzleData puzzleData;                  // 当前数独的所有信息（难度、题号等）
+    // 计时器、记步器和PuzzleData和StateManager类组合，使用单例模式
     Sudoku* sudoku;                         // 内部数独的实现
     int archieve;                           // 存档编号
     IOInterface* io;                        // io接口
@@ -22,8 +22,6 @@ private:
     MenuManager mainMenuManager;            // 主菜单 
     bool isSudokuRunning;                   // 数独是否运行
     bool isRunning;                         // 程序是否运行（对应主菜单界面）
-    Timer timer;                            // 计时器
-    Counter counter;                        // 操作计数器
     OperationRecorder operationRecorder;    // 记录游戏中的操作
 
     // 存档文件路径
@@ -37,7 +35,6 @@ public:
     // 构造函数
     SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface);
 
-    void displayTimeAndMoves();
     void startGame();
 
 private:

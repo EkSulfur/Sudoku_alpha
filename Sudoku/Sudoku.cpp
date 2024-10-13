@@ -1,5 +1,6 @@
 ﻿#include "Sudoku.h"
 #include "BasicCommands.h"
+#include "StateManager.h"
 #include <sstream>
 #include <fstream>
 #include <iostream>
@@ -73,10 +74,11 @@ bool Sudoku::saveToFile(int gameID)
     }
 
     // 创建一个 PuzzleData 对象，封装要保存的棋盘信息
-    PuzzleData puzzleData("Puzzles.dat", gameID, boardData, difficulty); // 包含棋盘、gameID和难度信息
+    PuzzleData* puzzleData= &StateManager::getInstance().puzzleData;
+    puzzleData->board = boardData;
 
     // 调用 puzzleLoader 的 savePuzzle 函数保存数独数据
-    return puzzleLoader->savePuzzle(puzzleData);
+    return puzzleLoader->savePuzzle(*puzzleData);
 }
 
 
@@ -180,18 +182,17 @@ bool Sudoku::reset()
     // 创建一个9x9的棋盘矩阵来存储题目数据
     std::vector<std::vector<int>> boardData(9, std::vector<int>(9));
 
-    // 创建一个 PuzzleData 对象，用于加载原始棋盘数据
-    PuzzleData puzzleData("Puzzles.dat", id, boardData, difficulty);
+    PuzzleData* puzzleData = &StateManager::getInstance().puzzleData;
 
     // 调用 puzzleLoader 来加载数独题目
-    if (!puzzleLoader->loadPuzzle(puzzleData)) {
+    if (!puzzleLoader->loadPuzzle(*puzzleData)) {
         return false;  // 如果加载失败，返回false
     }
 
     // 遍历棋盘，重置每个Cell的值和候选值
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
-            int val = puzzleData.board[i][j];       // 从加载的数据获取新的值
+            int val = (*puzzleData).board[i][j];       // 从加载的数据获取新的值
             board[i][j].setValue(val);             // 设置Cell的值
             board[i][j].resetCandidates();         // 重置Cell的候选值
         }
