@@ -1,5 +1,6 @@
 ﻿#include "ConsoleIO.h"
 #include "Cell.h"
+#include "StateManager.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -161,9 +162,9 @@ void ConsoleIO::displayInfo(PuzzleData puzzleData){
     cout << "用户ID: " << id << COLOR_RESET;
     cout << COLOR_BLUE;
     cursor.setCursorPosition(x_offset, current_y++);
-    puzzleData.timer->displayTime();
+    StateManager::getInstance().timer.displayTime();
     cursor.setCursorPosition(x_offset, current_y++);
-    puzzleData.counter->displayCount();
+    StateManager::getInstance().counter.displayCount();
     cout << COLOR_RESET;
     cursor.resumeCursorPosition();
 }

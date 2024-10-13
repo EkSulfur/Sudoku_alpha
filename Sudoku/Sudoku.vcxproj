@@ -151,6 +151,7 @@
     <ClCompile Include="Sudoku.cpp" />
     <ClCompile Include="SudokuController.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Trimmer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicCommands.h" />
@@ -173,9 +174,11 @@
     <ClInclude Include="PuzzleLoader.h" />
     <ClInclude Include="PuzzleLoaderDAT.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="StateManager.h" />
     <ClInclude Include="Sudoku.h" />
     <ClInclude Include="SudokuController.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Trimmer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="archive.dat" />

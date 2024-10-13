@@ -8,33 +8,13 @@
 
 
 // 封装所有与数独棋盘相关的信息到 PuzzleData 类
-class PuzzleData {
+struct PuzzleData {
 public:
-    std::string filename;
+    std::string filename = "Puzzles.dat";  // 设置缺省的文件名
     int gameID;
     std::vector<std::vector<int>> board;
     std::string difficulty;
-    // 组合Timer和Counter类
-    Timer* timer;
-    Counter* counter;
-
-    // 无参构造函数
-    PuzzleData() { gameID = 1;} // 设置默认id，这里应该无关紧要（后续会修改）
-
-    // 构造函数，不需要日期和玩家ID
-    PuzzleData(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board, const std::string& difficulty)
-        : filename(filename), gameID(gameID), board(board), difficulty(difficulty) {}
-
-    // 默认构造函数（可以选择性启用扩展字段）
-    PuzzleData(const std::string& filename, int gameID, const std::vector<std::vector<int>>& board)
-        : filename("Puzzles.dat"), gameID(gameID), board(board), difficulty("easy") {}
-
-    // 带参构造函数
-    PuzzleData(int gameID)
-        : filename("Puzzles.dat"), gameID(gameID), difficulty("easy") {}
-
-    // 带参构造函数
-    PuzzleData(int gameID, Timer* t, Counter* c)
-        : filename("Puzzles.dat"), gameID(gameID), difficulty("easy"),timer(t), counter(c) {}
+    // 由于实现了单例模式的StateManager中有Timer和Counter，将二者从此处移除
+    // 把PuzzleData从class改为结构体，移除所有没用的构造函数
 };
 #endif // PUZZLE_DATA_H

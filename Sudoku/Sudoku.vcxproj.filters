@@ -42,6 +42,7 @@
     <ClCompile Include="IOWithTimeAndMovesDecorator.cpp">
       <Filter>IO</Filter>
     </ClCompile>
+    <ClCompile Include="Trimmer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApplication.h" />
@@ -109,6 +110,10 @@
     <ClInclude Include="IOWithTimeAndMovesDecorator.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="StateManager.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Trimmer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
