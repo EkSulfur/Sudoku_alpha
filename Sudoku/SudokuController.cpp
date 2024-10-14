@@ -98,6 +98,7 @@ void SudokuController::startGame() {
         // 调用puzzleLoader的loadPuzzle函数
         if (!(sudoku->loadFromFileToData(*puzzleData))) {
             this->io->displayError("加载失败");
+            continue;
         }
 
         if (!this->sudoku->loadFromData(*puzzleData)) {

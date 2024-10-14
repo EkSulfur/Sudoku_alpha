@@ -21,7 +21,7 @@
       <FileName>BasicCommands.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="RemoveCandidateCommand">
+  <Class Name="RemoveCandidateCommand" Collapsed="true">
     <Position X="15.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEQAAAAAEAAAAAAQAAAAAAAAA=</HashCode>
@@ -108,7 +108,7 @@
   <Class Name="ConsoleIO" Collapsed="true">
     <Position X="3.5" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAIAAAAACAAAAABDQCAAAAECAAAAAEAAAAAAEAAUA=</HashCode>
+      <HashCode>ABAAIEAAAACAAAEAFDASAAAAECAAAAAAAAAAAAEAAEA=</HashCode>
       <FileName>ConsoleIO.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -136,7 +136,7 @@
   <Class Name="IOInterface" Collapsed="true">
     <Position X="3.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAAABCAAAAABBAAAAAAMCAAAAAAAAAgAAEAAEA=</HashCode>
+      <HashCode>AAAAIEAAABCAAAAAFDAQAAAAMCAAAAAAAAAgAAEAAEA=</HashCode>
       <FileName>IOInterface.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -145,13 +145,6 @@
     <TypeIdentifier>
       <HashCode>AEAAgAAAAAAAAAAAAAEAAAAAAAAIAAAAAAAAAAAAAEA=</HashCode>
       <FileName>MenuManager.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PuzzleData" Collapsed="true">
-    <Position X="29" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAABBAAAAAAAAAAAAAAABAAAAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>PuzzleData.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OperationRecorder" Collapsed="true">
@@ -178,16 +171,86 @@
   <Class Name="Sudoku" Collapsed="true">
     <Position X="30.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACQAEANAEAAARCAAAZEAAAgAAAhAAgAKAAQBAAABgA=</HashCode>
+      <HashCode>AACAAEANAEAAARCAAAZEAAAgAAAhABgAKAAABAAABgA=</HashCode>
       <FileName>Sudoku.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SudokuController" Collapsed="true">
     <Position X="32.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAgAAAAAAAAAJAAiAAQAIAAAAAAAAAAQAAACQAAAA=</HashCode>
+      <HashCode>AgAAgAAAAAACAAJIAiAAQAIAAAAAAAAAAQAAAAQAAAA=</HashCode>
       <FileName>SudokuController.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="IOWithTimeAndMovesDecorator" Collapsed="true">
+    <Position X="11.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAACAAAAABDQCQAABECAAAAAAAACAAAEAAEA=</HashCode>
+      <FileName>IOWithTimeAndMovesDecorator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Counter" Collapsed="true">
+    <Position X="14.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAACAAAQAAAAAAAAAAAAAEAEA=</HashCode>
+      <FileName>Counter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cursor" Collapsed="true">
+    <Position X="13" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAEAAAIAAAAAAAAAAAAAACAAACAA=</HashCode>
+      <FileName>Cursor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StateManager" Collapsed="true">
+    <Position X="11.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAgAAAAAAAAAAAAUAAAAgACAAAAA=</HashCode>
+      <FileName>StateManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Timer" Collapsed="true">
+    <Position X="13" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAgAAACEAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Timer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trimmer" Collapsed="true">
+    <Position X="14.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAQAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Trimmer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleGameComponentsFactory" Collapsed="true">
+    <Position X="8.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAASAAAAAAAAAAAAE=</HashCode>
+      <FileName>ConsoleGameComponentsFactory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameComponentsFactory" Collapsed="true">
+    <Position X="8.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAAAAE=</HashCode>
+      <FileName>GameComponentsFactory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameApplication" Collapsed="true">
+    <Position X="11.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAgAAEAACAAQAAAAAAAAAAAAQAAAAEAAAA=</HashCode>
+      <FileName>GameApplication.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="PuzzleData" Collapsed="true">
+    <Position X="5.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABBAAAAAAAAAAAAAAABAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>PuzzleData.h</FileName>
+    </TypeIdentifier>
+  </Struct>
   <Font Name="Microsoft YaHei UI" Size="9" />
 </ClassDiagram>
