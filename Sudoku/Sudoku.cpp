@@ -18,7 +18,7 @@
 by lch
 */
 
-
+// 初始化棋盘
 void Sudoku::initializeBoard(const std::vector<std::vector<int>>& boardData)
 {
     // 初始化board, rows, columns, blocks
@@ -44,11 +44,18 @@ void Sudoku::initializeBoard(const std::vector<std::vector<int>>& boardData)
 
 Sudoku::Sudoku(PuzzleLoader* loader):puzzleLoader(loader), id(1) {} // 默认初始化的id为1
 
-bool Sudoku::loadFromFile(PuzzleData puzzleData)
+// 从文件中读取数据到puzzleData
+bool Sudoku::loadFromFileToData(PuzzleData& puzzleData)
+{
+    if (!puzzleLoader->loadPuzzle(puzzleData)) return false;
+    return true;
+}
+
+// 从Data中读取数据到Sudoku的数据成员中
+bool Sudoku::loadFromData(PuzzleData puzzleData)
 {
     // 创建一个9x9的棋盘矩阵
     std::vector<std::vector<int>> boardData(9, std::vector<int>(9));
-
 
     // 加载成功后，用 puzzleData 中的数据初始化游戏棋盘
     initializeBoard(puzzleData.board);  // 使用加载的棋盘数据
@@ -56,7 +63,7 @@ bool Sudoku::loadFromFile(PuzzleData puzzleData)
     return true;
 }
 
-
+// 保存游戏
 bool Sudoku::saveToFile(int gameID)
 {
     // 创建9x9的棋盘数据矩阵
@@ -77,7 +84,7 @@ bool Sudoku::saveToFile(int gameID)
     return puzzleLoader->savePuzzle(*puzzleData);
 }
 
-
+// 设置某一单元的值（设为0为擦去）
 bool Sudoku::setCellValue(int row, int col, int value)
 {
     //把用户的输入转换成索引
@@ -122,6 +129,7 @@ bool Sudoku::setCellValue(int row, int col, int value)
     return true;
 }
 
+// 添加候选数
 bool Sudoku::addCellCandidate(int row, int col, int candidate)
 {
     //把用户的输入转换成索引
@@ -141,6 +149,7 @@ bool Sudoku::addCellCandidate(int row, int col, int candidate)
     return true;
 }
 
+// 删除候选数
 bool Sudoku::removeCellCandidates(int row, int col, int candidate)
 {
     //把用户的输入转换成索引  注意此处！！！
@@ -160,6 +169,7 @@ bool Sudoku::removeCellCandidates(int row, int col, int candidate)
     return true;
 }
 
+// 检查是否已经完成
 bool Sudoku::checkIfSolved() const
 {
     // 检查每一个row是否已经完成
@@ -173,6 +183,7 @@ bool Sudoku::checkIfSolved() const
     return true;
 }
 
+// 重置游戏（从Data中读取原来的棋盘）
 bool Sudoku::reset()
 {
     // 创建一个9x9的棋盘矩阵来存储题目数据

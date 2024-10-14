@@ -37,8 +37,11 @@ public:
     // 构造函数
     Sudoku(PuzzleLoader* loader);
 
-    // 从文件加载游戏数据
-    bool loadFromFile(PuzzleData puzzleData);
+    // 从文件加载游戏数据至传入的引用
+    bool loadFromFileToData(PuzzleData& puzzleData);
+
+    // 从传入的Data加载游戏到数独中
+    bool loadFromData(PuzzleData puzzleData);
 
     // 保存当前游戏到文件
     bool saveToFile(int gameID);
@@ -86,7 +89,6 @@ private:
     std::vector<Block> blocks;              // 9个Block
     int id;
     std::string difficulty;
-public:
     PuzzleLoader* puzzleLoader;   // 题目库加载器的指针
 };
 
