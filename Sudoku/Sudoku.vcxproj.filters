@@ -125,9 +125,6 @@
     <None Include="Puzzles.dat">
       <Filter>Data Management</Filter>
     </None>
-    <None Include="archive.dat">
-      <Filter>Data Management</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
