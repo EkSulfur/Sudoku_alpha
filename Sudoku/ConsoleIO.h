@@ -21,6 +21,9 @@ public:
     // 新的显示信息函数（利用PuzzleData类实现更好的可拓展性）
     void displayInfo(PuzzleData puzzleData) override;
 
+    //新的显示信息函数（无参）
+    void displayInfo() override;
+
     // 显示消息
     void displayMessage(const std::string& message) const override;
 

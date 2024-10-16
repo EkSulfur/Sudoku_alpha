@@ -39,6 +39,9 @@ public:
     // 新的显示信息函数（利用PuzzleData类实现更好的可拓展性）
     virtual void displayInfo(PuzzleData puzzleData) =0;
 
+    //无参版本的显示信息函数
+    virtual void displayInfo() = 0;
+
     // 显示消息
     virtual void displayMessage(const std::string& message) const= 0;
 

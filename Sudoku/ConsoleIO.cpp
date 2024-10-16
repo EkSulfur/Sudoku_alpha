@@ -194,6 +194,28 @@ vector<int> ConsoleIO::getOperation() {
     return operation;
 }
 
+//无参版本的显示信息函数
+void ConsoleIO::displayInfo() {
+  
+    const int id = StateManager::getInstance().puzzleData.gameID;
+    string difficulty = StateManager::getInstance().puzzleData.difficulty;
+
+    cursor.saveCursorPosition();
+    int x_offset = 90;
+    int current_y = 10;
+    cursor.setCursorPosition(x_offset, current_y++);
+    cout << COLOR_YELLOW << "当前游戏难度: " << difficulty;
+    cursor.setCursorPosition(x_offset, current_y++);
+    cout << "用户ID: " << id << COLOR_RESET;
+    cout << COLOR_BLUE;
+    cursor.setCursorPosition(x_offset, current_y++);
+    StateManager::getInstance().timer.displayTime();
+    cursor.setCursorPosition(x_offset, current_y++);
+    StateManager::getInstance().counter.displayCount();
+    cout << COLOR_RESET;
+    cursor.resumeCursorPosition();
+}
+
 // 获取用户输入的位置
 vector<int> ConsoleIO::getPosition() {
     vector<int> operation;
