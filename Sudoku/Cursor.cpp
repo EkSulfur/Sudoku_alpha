@@ -29,7 +29,7 @@ void Cursor::saveCursorPosition()
     return;
 }
 
-// 获取光标位置
+// 恢复光标位置
 void Cursor::resumeCursorPosition()
 {
     setCursorPosition(pos.X, pos.Y);
