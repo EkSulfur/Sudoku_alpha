@@ -220,7 +220,7 @@ vector<int> ConsoleIO::getPosition() {
 }
 // 询问是否结束
 void ConsoleIO::displayEndGame() {
-    cout << COLOR_YELLOW << "恭喜你完成了数独！请按回车键退出" << COLOR_RESET << endl;
+    cout << COLOR_YELLOW << "恭喜你完成了数独！请按回车键返回主菜单" << COLOR_RESET << endl;
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // 清除之前输入的缓冲
 }
 

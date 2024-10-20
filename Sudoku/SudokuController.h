@@ -1,39 +1,40 @@
-﻿#ifndef SUDOKU_CONTROLLER_H
+﻿// SudokuController.h
+#ifndef SUDOKU_CONTROLLER_H
 #define SUDOKU_CONTROLLER_H
 
 #include "Sudoku.h"
 #include "IOInterface.h"
-#include "MenuManager.h"
-#include "PuzzleLoader.h"
 #include "OperationRecorder.h"
-#include "PuzzleData.h"
-#include <string>
-#include <vector> // 添加以支持 std::vector
+#include <vector>
+
+// 前向声明，避免循环依赖
+class MainMenuManager;
+class GameMenuManager;
 
 class SudokuController {
 private:
-    // 计时器、记步器和PuzzleData和StateManager类组合，使用单例模式
-    Sudoku* sudoku;                         // 内部数独的实现
-    int archieve;                           // 存档编号
-    IOInterface* io;                        // io接口
-    MenuManager gameMenuManager;            // 游戏菜单
-    MenuManager mainMenuManager;            // 主菜单 
-    bool isSudokuRunning;                   // 数独是否运行
-    bool isRunning;                         // 程序是否运行（对应主菜单界面）
-    OperationRecorder operationRecorder;    // 记录游戏中的操作
+    Sudoku* sudoku;
+    IOInterface* io;
+    MainMenuManager* mainMenuManager;
+    GameMenuManager* gameMenuManager;
+    bool isSudokuRunning;
+    bool isRunning;
+    OperationRecorder operationRecorder;
 
-    // 私有成员函数
     bool getIDRange(int& minID, int& maxID);
-    bool getAvailableIDs(std::vector<int>& availableIDs); // 新增声明
+    bool getAvailableIDs(std::vector<int>& availableIDs);
 
 public:
-    // 构造函数
     SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface);
+    ~SudokuController();
 
-    void startGame();
+    void start();           // 主循环，包括主菜单
+
+    void startGame();           // 主循环，包括主菜单
 
 private:
-    // 处理用户选择的菜单选项
+    void loadGame();        // 载入游戏
+    void gameLoop();   // 游戏主循环
     void handleMenuSelection();
 };
 

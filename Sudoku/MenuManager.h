@@ -1,31 +1,30 @@
-﻿#ifndef MENU_MANAGER_H
+﻿// MenuManager.h
+#ifndef MENU_MANAGER_H
 #define MENU_MANAGER_H
 
 #include "Command.h"
 #include "IOInterface.h"
 #include <vector>
-#include <cstring>
-
-/*
-9月10日
-添加MenuManager类，组合Command类，实现命令模式，更好地适应未来可能会添加菜单选项的变化
-by lch
-*/
 
 class MenuManager {
-private:
+protected:
     std::vector<std::pair<std::string, Command*>> options;  // 菜单选项和对应的命令
+
 public:
+    // 析构函数声明为虚函数，确保子类析构函数被正确调用
+    virtual ~MenuManager();
+
     // 添加菜单选项及对应的命令
     void addOption(const std::string& optionText, Command* command);
 
     // 显示菜单并获取用户选择
-    int displayMenu(IOInterface* io) const;
+    int displayMenu(IOInterface* io);
 
     // 清空菜单选项
     void clearOptions();
 
-    ~MenuManager();
+    // 纯虚函数，用于构建菜单
+    virtual void buildMenu() = 0;
 };
 
 #endif // MENU_MANAGER_H
