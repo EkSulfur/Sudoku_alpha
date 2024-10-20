@@ -52,7 +52,7 @@ bool Sudoku::loadFromFileToData(PuzzleData& puzzleData)
 }
 
 // 从Data中读取数据到Sudoku的数据成员中
-bool Sudoku::loadFromData(PuzzleData puzzleData)
+bool Sudoku::loadFromData(PuzzleData& puzzleData)
 {
     // 创建一个9x9的棋盘矩阵
     std::vector<std::vector<int>> boardData(9, std::vector<int>(9));

@@ -41,7 +41,7 @@ public:
     bool loadFromFileToData(PuzzleData& puzzleData);
 
     // 从传入的Data加载游戏到数独中
-    bool loadFromData(PuzzleData puzzleData);
+    bool loadFromData(PuzzleData& puzzleData);
 
     // 保存当前游戏到文件
     bool saveToFile(int gameID);
