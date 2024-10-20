@@ -22,5 +22,5 @@ GameApplication::GameApplication()
 }
 
 void GameApplication::startGame() {
-    controller->startGame();
+    controller->start();
 }

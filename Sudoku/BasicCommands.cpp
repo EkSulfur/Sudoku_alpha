@@ -257,3 +257,8 @@ void GetNumber::execute()
     *value = io->getNumber();
     return;
 }
+
+void StartNewGameCommand::execute()
+{
+    controller->startGame();
+}

@@ -1,49 +1,61 @@
 ﻿// SudokuController.cpp
 #include "SudokuController.h"
-#include "BasicCommands.h"
-#include "OperationRecorder.h"
 #include "StateManager.h"
 #include "Trimmer.h"
+#include "MainMenuManager.h"
+#include "GameMenuManager.h"
 #include <fstream>
 #include <string>
 #include <vector>
 #include <algorithm>
 #include <sstream>
-#include <iostream>
 #include <set>
+#include <ctime>
 
 
 // 构造函数
 SudokuController::SudokuController(Sudoku* sudokuModel, IOInterface* ioInterface)
-    : sudoku(sudokuModel), io(ioInterface), archieve(1),
+    : sudoku(sudokuModel), io(ioInterface),
     isSudokuRunning(true), isRunning(true), operationRecorder(sudokuModel) {
-    // 初始化游戏菜单选项
-    gameMenuManager.addOption("输入一个数", new InputNumberCommand(sudoku, io, &operationRecorder));
-    gameMenuManager.addOption("擦去一个数", new EraseNumberCommand(sudoku, io, &operationRecorder));
-    gameMenuManager.addOption("输入候选数", new AddCandidateCommand(sudoku, io));
-    gameMenuManager.addOption("删除候选数", new RemoveCandidateCommand(sudoku, io));
-    gameMenuManager.addOption("自动更新候选数", new AutoUpdateCandidatesCommand(sudoku, io));
-    gameMenuManager.addOption("保存游戏", new SaveGameCommand(sudoku, io, sudoku->getID()));
-    gameMenuManager.addOption("重置游戏", new ResetGameCommand(sudoku, io));
-    gameMenuManager.addOption("自动填入唯一候选数", new AutoSetNumberCommand(sudoku));
-    gameMenuManager.addOption("撤销上一步对值的修改", new BackCommand(sudoku, io, &operationRecorder));
-    gameMenuManager.addOption("重做上一步对值的修改", new RevokeBackCommand(sudoku, io, &operationRecorder));
-    gameMenuManager.addOption("退出游戏", new ExitCommand(io, &isSudokuRunning));
-    
-    // 初始化主菜单选项（未实现，可以后拓展）
-    mainMenuManager.addOption("选择游戏存档", new GetNumber(io, &archieve));
-    mainMenuManager.addOption("退出程序", new ExitCommand(io, &isRunning));
+
+    // 初始化主菜单和游戏菜单 具体的菜单项的构建放入菜单类中，与控制类分离
+    mainMenuManager = new MainMenuManager(this, io, &isRunning);
+    gameMenuManager = new GameMenuManager(sudoku, io, &operationRecorder, &isSudokuRunning);
 }
 
-// 开始游戏的实现
+// 析构函数
+SudokuController::~SudokuController() {
+    delete mainMenuManager;
+    delete gameMenuManager;
+}
+
+// 主程序循环，包括主菜单
+void SudokuController::start() {
+    while (isRunning) {
+        io->displayMessage("***Sudoku-Alpha-ver-2.0***");
+        mainMenuManager->displayMenu(io);
+        // 菜单选项的动作已经在对应的命令中执行，无需额外处理
+    }
+}
+
+// 开始新游戏的实现
 void SudokuController::startGame() {
+    // 加载游戏
+	loadGame();
+
+    // 开始游戏循环
+    gameLoop();
+}
+
+// 载入游戏的实现
+void SudokuController::loadGame() {
     int id;
     int minID, maxID;
 
     // 获取ID范围
     if (!getIDRange(minID, maxID)) {
-        this->io->displayError("无法获取存档的ID范围，请检查存档文件。"); // 使用 this->io
-        return; // 根据需求选择其他处理方式
+        this->io->displayError("无法获取存档的ID范围，请检查存档文件。");
+        return;
     }
 
     // 获取所有可用的 ID
@@ -95,7 +107,6 @@ void SudokuController::startGame() {
         puzzleData->gameID = id;
 
         // 加载游戏
-        // 调用puzzleLoader的loadPuzzle函数
         if (!(sudoku->loadFromFileToData(*puzzleData))) {
             this->io->displayError("加载失败");
             continue;
@@ -107,29 +118,35 @@ void SudokuController::startGame() {
         }
         else break;
     }
+}
 
+// 游戏主循环的实现
+void SudokuController::gameLoop() {
     // 开始计时器
     StateManager::getInstance().timer.start();
     io->startGame();
+    isSudokuRunning = true;
+
     // 游戏主循环
     while (isSudokuRunning) {
-
         io->displayBoard(sudoku->getBoard());
         if (sudoku->checkIfSolved()) {
+            PuzzleData* puzzleData = &StateManager::getInstance().puzzleData;
             io->displayInfo(*puzzleData);
             io->displayEndGame();
             break;
         }
 
+        PuzzleData* puzzleData = &StateManager::getInstance().puzzleData;
         io->displayInfo(*puzzleData);
         // 显示菜单并处理用户选择
-        this->handleMenuSelection();
+        handleMenuSelection();
     }
 }
 
 // 处理菜单选择的实现
 void SudokuController::handleMenuSelection() {
-    int choice = this->gameMenuManager.displayMenu(this->io);
+    gameMenuManager->displayMenu(io);
 
     // 增加操作次数
     StateManager::getInstance().counter.increment();
@@ -138,7 +155,7 @@ void SudokuController::handleMenuSelection() {
 // 获取所有可用的 ID，确保去重
 bool SudokuController::getAvailableIDs(std::vector<int>& availableIDs) {
     const std::string path = StateManager::getInstance().puzzleData.filename;
-    std::ifstream infile(path); // 使用 this-> 确保访问成员变量
+    std::ifstream infile(path);
     if (!infile.is_open()) {
         this->io->displayError("无法打开存档文件：" + path);
         return false;
@@ -149,11 +166,9 @@ bool SudokuController::getAvailableIDs(std::vector<int>& availableIDs) {
 
     while (std::getline(infile, line)) {
         Trimmer trimmer;
-        trimmer.trim(line); // 修剪行的前导和尾随空格
-        // 查找以 "ID:" 开头的行
+        trimmer.trim(line);
         if (line.find("ID:") == 0) {
-            // 提取 ID 数值，修正 substr 起始位置
-            std::istringstream iss(line.substr(4)); // 跳过 "ID: "
+            std::istringstream iss(line.substr(3)); // 跳过 "ID:"
             int id;
             if (iss >> id) {
                 idSet.insert(id);
@@ -168,7 +183,6 @@ bool SudokuController::getAvailableIDs(std::vector<int>& availableIDs) {
         return false;
     }
 
-    // 将 set 转换为 vector
     availableIDs.assign(idSet.begin(), idSet.end());
 
     return true;

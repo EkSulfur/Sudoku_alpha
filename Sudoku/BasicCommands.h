@@ -12,6 +12,7 @@ by lch
 #include "Sudoku.h"
 #include "IOInterface.h"
 #include "OperationRecorder.h"
+#include "SudokuController.h"
 
 // 输入一个数的命令
 class InputNumberCommand : public Command {
@@ -154,4 +155,14 @@ public:
 
     void execute() override;
 };
+
+// 开始新游戏
+class StartNewGameCommand : public Command {
+private:
+    SudokuController* controller;
+public:
+    StartNewGameCommand(SudokuController* controller):controller(controller){}
+    void execute() override;
+};
+
 #endif 

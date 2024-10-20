@@ -45,6 +45,12 @@
     <ClCompile Include="Trimmer.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenuManager.cpp">
+      <Filter>Menu&amp;Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMenuManager.cpp">
+      <Filter>Menu&amp;Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApplication.h" />
@@ -117,6 +123,12 @@
     </ClInclude>
     <ClInclude Include="Trimmer.h">
       <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuManager.h">
+      <Filter>Menu&amp;Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMenuManager.h">
+      <Filter>Menu&amp;Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
