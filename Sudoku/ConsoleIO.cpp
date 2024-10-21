@@ -255,14 +255,11 @@ void ConsoleIO::refresh()
 // 获取用户输入的数字
 int ConsoleIO::getNumber() {
     int num;
-
-    cout << COLOR_YELLOW "请输入你要填入的数字 (1-9): " COLOR_RESET;
-    while (!(cin >> num) || num < 1 || num > 9) {
-        cout << COLOR_RED "无效输入，请输入正确的数字 (1-9): " COLOR_RESET;
+    while (!(cin >> num) ) {
+        cout << COLOR_RED "无效输入，请输入数字: " COLOR_RESET;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
-
 
     return num;
 }

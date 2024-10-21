@@ -81,16 +81,7 @@ void SudokuController::loadGame() {
         // 显示ID范围提示
         std::string prompt = "请选择存档编号 (编号 " + std::to_string(minID) + " --- " + std::to_string(maxID) + ")：";
         this->io->displayMessage(prompt);
-        std::string input = this->io->getUserInput();
-
-        // 尝试将用户输入转换为整数ID
-        try {
-            id = std::stoi(input);  // 将输入的字符串转换为整数ID
-        }
-        catch (const std::invalid_argument&) {
-            this->io->displayError("无效的输入，请输入正确的存档编号。");
-            continue;
-        }
+        id = io->getNumber();
 
         // 检查ID是否在有效范围内
         if (id < minID || id > maxID) {

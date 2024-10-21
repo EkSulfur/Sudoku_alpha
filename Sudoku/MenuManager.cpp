@@ -20,15 +20,7 @@ int MenuManager::displayMenu(IOInterface* io) {
 
     // 获取用户选择
     int choice;
-    std::string input = io->getUserInput();
-
-    try {
-        choice = std::stoi(input);
-    }
-    catch (...) {
-        io->displayError("无效输入，请输入数字。");
-        return -1;
-    }
+    choice = io->getNumber();
 
     if (choice >= 1 && choice <= static_cast<int>(options.size())) {
         options[choice - 1].second->execute();  // 执行对应的命令

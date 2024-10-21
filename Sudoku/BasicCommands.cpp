@@ -17,7 +17,7 @@ by lch
 void InputNumberCommand::execute()
 {
     io->displayMessage("请输入操作：行 列 数字");
-    std::vector<int> operation = io->getOperation();
+     std::vector<int> operation = io->getOperation();
     if (operation.size() == 3) {
         int row = operation[0];
         int col = operation[1];

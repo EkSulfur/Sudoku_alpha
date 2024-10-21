@@ -17,6 +17,8 @@ private:
 public:
     GameMenuManager(Sudoku* sudoku, IOInterface* io, OperationRecorder* operationRecorder, bool* isSudokuRunning);
 
+    int displayMenu(IOInterface* io);
+
     void buildMenu() override;
 };
 
