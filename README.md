@@ -8,7 +8,7 @@
 
 ### 注意事项
 
-整个项目采用带签名的utf-8编码，采用C++17标准，如果想添加新的文件请保持一致的编码格式。
+整个项目采用**带签名的utf-8**编码，采用C++17标准，如果想添加新的文件请保持一致的编码格式。
 
 ### 游戏说明
 
@@ -30,7 +30,7 @@ This project is a Sudoku game designed in C++ as a course project by three under
 
 ### Notes
 
-The entire project uses signed UTF-8 encoding and follows the C++17 standard. Please maintain consistent encoding if adding new files.
+The entire project uses **UTF-8 with BOM** encoding and follows the C++17 standard. Please maintain consistent encoding if adding new files.
 
 ### Game Description
 
