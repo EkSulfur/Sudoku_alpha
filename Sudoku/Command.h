@@ -4,7 +4,7 @@
 /*
 9月10日
 命令模式，接口类
-by lch
+ 
 */
 
 class Command {

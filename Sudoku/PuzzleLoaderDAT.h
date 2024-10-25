@@ -1,8 +1,6 @@
 ﻿#ifndef PUZZLELOADERDAT_H
 #define PUZZLELOADERDAT_H
 
-#include <vector>
-#include <string>
 #include "PuzzleLoader.h"
 
 

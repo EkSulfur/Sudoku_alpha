@@ -3,9 +3,6 @@
 
 #include "IOInterface.h"
 #include "Cursor.h"
-#include "Timer.h"
-#include "Counter.h"
-#include <iostream>
 #include <vector>
 #include <chrono>
 

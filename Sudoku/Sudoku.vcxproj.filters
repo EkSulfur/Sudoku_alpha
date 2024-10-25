@@ -133,7 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="课设报告_10_12.docx" />
     <None Include="Puzzles.dat">
       <Filter>Data Management</Filter>
     </None>

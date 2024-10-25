@@ -1,14 +1,12 @@
 ﻿#ifndef PUZZLE_LOADER_H
 #define PUZZLE_LOADER_H
 
-#include <vector>
-#include <string>
 #include "PuzzleData.h"
 /*
 9月6日
 小豪负责先理解内部逻辑，再检查不合理处
 最好能写单元测试查看这些函数能否正常工作
-by lch
+ 
 添加id参数
 */
 

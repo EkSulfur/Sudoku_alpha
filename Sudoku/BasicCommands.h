@@ -6,7 +6,7 @@
 把一些基础的指令的命令类的定义放到一起，避免文件过于冗杂
 后续若有其它菜单指令可加到这个文件里，也可新建NewCommands的.h, .cpp文件，抑或单独为每个新增的类
 新建文件
-by lch
+ 
 */
 #include "Command.h"
 #include "Sudoku.h"

@@ -1,9 +1,6 @@
 ﻿#ifndef CURSOR_H
 #define CURSOR_H
 
-#include <iostream>
-#include <vector>
-#include <iomanip>
 #include <windows.h>
 #undef min
 #undef max

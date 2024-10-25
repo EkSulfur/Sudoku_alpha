@@ -1,8 +1,6 @@
 ﻿#ifndef PUZZLE_DATA_H
 #define PUZZLE_DATA_H
 
-#include "Timer.h"
-#include "Counter.h"
 #include <vector>
 #include <string>
 
